@@ -1,0 +1,30 @@
+
+
+
+
+If you want, you can add throws clauses to your methods. Then you don't have to catch checked methods right away. That way, you can catch the exceptions later (perhaps at the same time as other exceptions).
+
+The code looks like:
+public void someMethode() throws SomeCheckedException {
+
+    //  code
+
+}
+
+Then later you can deal with the exceptions if you don't wanna deal with them in that method.
+
+To catch all exceptions some block of code may throw you can do: (This will also catch Exceptions you wrote yourself)
+try {
+
+    // exceptional block of code ...
+
+    // ...
+
+} catch (Exception e){
+
+    // Deal with e as you please.
+    //e may be any type of exception at all.
+
+}
+
+The reason that works is because Exception is the base class for all exceptions. Thus any exception that may get thrown is an Exception (Uppercase 'E'). 

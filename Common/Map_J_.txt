@@ -1,0 +1,24 @@
+L’interfaccia 
+
+java.util.Map<K,V> 
+
+permette di definire la struttura dati Mappa. 
+Map non estende Collection e non può essere considerata un tipo collezione sebbene mantenga insiemi di 
+coppie di elementi contraddistinti da una chiave e dal valore ad essa associato. 
+La chiave è ciò che identifica univocamente un elemento in una mappa: 
+non è possibile avere due elementi in una mappa con lo stesso valore di chiave. 
+I metodi più importanti esposti dall’interfaccia Map sono: 
+---------------------------------------------
+V put(K key, V value);
+V get(Object key);
+boolean containsKey(Object key);
+void clear();
+Set<K> keySet();
+Collection<V> values();
+--------------------------------------------- 
+
+Il metodo put() consente l’inserimento di un valore mentre get() ne permette il recupero, specificando una chiave. 
+containsKey() e clear() permettono rispettivamente di verificare la presenza di un elemento con una determinata chiave 
+e di cancellare tutti gli elementi della mappa. 
+Con keySet() possiamo ottenere l’insieme delle sole chiavi, 
+mentre con values() i soli valori presenti nella mappa.
