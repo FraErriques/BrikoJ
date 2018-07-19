@@ -6,8 +6,6 @@ Debug/
 Release/
 build/
 dist/
-lib/
-CopyLibs/
 
 #let's continue with file cathegories
 *.layout
