@@ -79,121 +79,121 @@ public class TestConsole
 
 
 
-
-/*  ------------------------------- cantina ------------------------------------------
-//        //
-//        Common.ConfigurationService.scalarConfig configReader = new Common.ConfigurationService.scalarConfig("./configSample.txt");
-//        configReader.getTokensFromConfigStream();
-        
-//        String curTok = "init to something not empty and not null.";
-//        for( int tokOrd=1 ; null!=curTok && !curTok.equals(""); tokOrd++)
-//        {
-//            curTok = configRader.getToken();
-//            if( null==curTok || curTok.equals("") )// curTok.equals("") means EOF.
-//            {
-//                break;
-//            }// else continue.
-//            System.out.println("token ordinal "+Integer.toString(tokOrd)+" = "+curTok);
-//            System.out.println("tokens read until now "+ configRader.get_tokensReadUntilNow());
-//            System.out.println("characters Read In Last Token (comprehensive of separators) "+ configRader.get_charactersInTokenWithSeparators() );
-//            System.out.println("characters Read In Last Token (NO separators) "+ configRader.get_charactersInTokenNoSeparators() );
-//            System.out.println("separators before "+ configRader.get_separatorsBefore() );
-//            System.out.println("separators after "+ configRader.get_separatorsAfter() );
-//            System.out.println();
-//        }// for
-//        configRader.close();// remember to close() the Stream.
-		        
-        
-        
-        
-//        //Properties prop = System.getProperties();
-//        System.getProperties();
-//        //
-//        String Jhome = System.getProperty( "java.home");
-//        System.out.println(Jhome);        
-//        //        
-//        String Jversion = System.getProperty( "java.version");
-//        System.out.println(Jversion);
-//        //
-//        String Jvendor = System.getProperty( "java.vendor");
-//        System.out.println(Jvendor);
-//        //        
-//        String JvendorURL = System.getProperty( "java.vendor.url");
-//        System.out.println(JvendorURL);
-//        //        
-//        String JvmSpecVersion = System.getProperty( "java.vm.specification.version");
-//        System.out.println(JvmSpecVersion);
-//        //        
-//        String JvmSpecVendor = System.getProperty( "java.vm.specification.vendor");
-//        System.out.println(JvmSpecVendor);
-//        //        
-//        String JvmSpecName = System.getProperty( "java.vm.specification.name");
-//        System.out.println(JvmSpecName);        
-//        //
-//        String JvmVersion = System.getProperty( "java.vm.version");
-//        System.out.println(JvmVersion);
-//        //        
-//        String JvmVendor = System.getProperty( "java.vm.vendor");
-//        System.out.println(JvmVendor);
-//        //        
-//        String JvmName = System.getProperty( "java.vm.name");
-//        System.out.println(JvmName);        
-//        //        
-//        String JSpecVendor = System.getProperty( "java.specification.vendor");
-//        System.out.println(JSpecVendor);
-//        //        
-//        String JSpecName = System.getProperty( "java.specification.name");
-//        System.out.println(JSpecName);        
-//        //
-//        String JVersion = System.getProperty( "java.version");
-//        System.out.println(JVersion);
-//        //                
-//        String osName = System.getProperty( "os.name");
-//        System.out.println(osName);
-//        //
-//        java.util.Hashtable<String, String> x = new java.util.Hashtable<String, String>();
-//        x.put("key_1", "val_1");
-//        x.put("key_2", "val_2");
-//        x.put("key_3", "val_3");
-//        //--
-//        int sz = x.size();
-//        Enumeration k = x.keys();
-//        //
-                
-        
-       
-		
-		
-        // int primoOperando = 56;
-        // int secondoOperando = 3;
-        // int result = primoOperando^secondoOperando;// bitwise XOR operator.
-        // int back = result^secondoOperando;// ont the second step, we're back where we started.
-        // //
-        // Common.EncryptStore.XorSimple xorSimpleInstance = new Common.EncryptStore.XorSimple();
-        // int res = xorSimpleInstance.getEncryptedIntByXorSimple( 4);
-        // //
-        // Common.DBservice.JDbService dbManager = new Common.DBservice.JDbService();
-        // dbManager.dbConnectorTemplate();
-        //
-//        Common.ConfigurationService CommonCall = new Common.ConfigurationService();
-//        int i = 93 + CommonCall.fromLibrary();
-//        String fromCommon = "fromCommon:" + Integer.toString( i );
-//        fromCommon += returnLayerSeparator();
-//        //
-//        Entity.SomeEntity EntityCall = new Entity.SomeEntity();
-//        fromCommon += EntityCall.getEntityName();
-//        fromCommon += returnLayerSeparator();
-//        //
-//        ProcessOperatingInterface.SomeProcessOperatingInterfaceClass process = new ProcessOperatingInterface.SomeProcessOperatingInterfaceClass();
-//        fromCommon += process.someProcessMethod();
-//        fromCommon += returnLayerSeparator();
-//        fromCommon += "The fardest caller is me: testconsole::main() ";
-//        //
-//        Common.Calendar.CalendarService cs = new Common.Calendar.CalendarService();
-//        String tm = cs.getCurrentTimeStamp();
-//        System.out.println( tm );
+//
+///*  ------------------------------- cantina ------------------------------------------
+////        //
+////        Common.ConfigurationService.scalarConfig configReader = new Common.ConfigurationService.scalarConfig("./configSample.txt");
+////        configReader.getTokensFromConfigStream();
 //        
-//        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
-//        fm.txtFileWriter("./esempio.txt");
-//        fm.txtFileReader("./esempio.txt");
-*/
+////        String curTok = "init to something not empty and not null.";
+////        for( int tokOrd=1 ; null!=curTok && !curTok.equals(""); tokOrd++)
+////        {
+////            curTok = configRader.getToken();
+////            if( null==curTok || curTok.equals("") )// curTok.equals("") means EOF.
+////            {
+////                break;
+////            }// else continue.
+////            System.out.println("token ordinal "+Integer.toString(tokOrd)+" = "+curTok);
+////            System.out.println("tokens read until now "+ configRader.get_tokensReadUntilNow());
+////            System.out.println("characters Read In Last Token (comprehensive of separators) "+ configRader.get_charactersInTokenWithSeparators() );
+////            System.out.println("characters Read In Last Token (NO separators) "+ configRader.get_charactersInTokenNoSeparators() );
+////            System.out.println("separators before "+ configRader.get_separatorsBefore() );
+////            System.out.println("separators after "+ configRader.get_separatorsAfter() );
+////            System.out.println();
+////        }// for
+////        configRader.close();// remember to close() the Stream.
+//		        
+//        
+//        
+//        
+////        //Properties prop = System.getProperties();
+////        System.getProperties();
+////        //
+////        String Jhome = System.getProperty( "java.home");
+////        System.out.println(Jhome);        
+////        //        
+////        String Jversion = System.getProperty( "java.version");
+////        System.out.println(Jversion);
+////        //
+////        String Jvendor = System.getProperty( "java.vendor");
+////        System.out.println(Jvendor);
+////        //        
+////        String JvendorURL = System.getProperty( "java.vendor.url");
+////        System.out.println(JvendorURL);
+////        //        
+////        String JvmSpecVersion = System.getProperty( "java.vm.specification.version");
+////        System.out.println(JvmSpecVersion);
+////        //        
+////        String JvmSpecVendor = System.getProperty( "java.vm.specification.vendor");
+////        System.out.println(JvmSpecVendor);
+////        //        
+////        String JvmSpecName = System.getProperty( "java.vm.specification.name");
+////        System.out.println(JvmSpecName);        
+////        //
+////        String JvmVersion = System.getProperty( "java.vm.version");
+////        System.out.println(JvmVersion);
+////        //        
+////        String JvmVendor = System.getProperty( "java.vm.vendor");
+////        System.out.println(JvmVendor);
+////        //        
+////        String JvmName = System.getProperty( "java.vm.name");
+////        System.out.println(JvmName);        
+////        //        
+////        String JSpecVendor = System.getProperty( "java.specification.vendor");
+////        System.out.println(JSpecVendor);
+////        //        
+////        String JSpecName = System.getProperty( "java.specification.name");
+////        System.out.println(JSpecName);        
+////        //
+////        String JVersion = System.getProperty( "java.version");
+////        System.out.println(JVersion);
+////        //                
+////        String osName = System.getProperty( "os.name");
+////        System.out.println(osName);
+////        //
+////        java.util.Hashtable<String, String> x = new java.util.Hashtable<String, String>();
+////        x.put("key_1", "val_1");
+////        x.put("key_2", "val_2");
+////        x.put("key_3", "val_3");
+////        //--
+////        int sz = x.size();
+////        Enumeration k = x.keys();
+////        //
+//                
+//        
+//       
+//		
+//		
+//        // int primoOperando = 56;
+//        // int secondoOperando = 3;
+//        // int result = primoOperando^secondoOperando;// bitwise XOR operator.
+//        // int back = result^secondoOperando;// ont the second step, we're back where we started.
+//        // //
+//        // Common.EncryptStore.XorSimple xorSimpleInstance = new Common.EncryptStore.XorSimple();
+//        // int res = xorSimpleInstance.getEncryptedIntByXorSimple( 4);
+//        // //
+//        // Common.DBservice.JDbService dbManager = new Common.DBservice.JDbService();
+//        // dbManager.dbConnectorTemplate();
+//        //
+////        Common.ConfigurationService CommonCall = new Common.ConfigurationService();
+////        int i = 93 + CommonCall.fromLibrary();
+////        String fromCommon = "fromCommon:" + Integer.toString( i );
+////        fromCommon += returnLayerSeparator();
+////        //
+////        Entity.SomeEntity EntityCall = new Entity.SomeEntity();
+////        fromCommon += EntityCall.getEntityName();
+////        fromCommon += returnLayerSeparator();
+////        //
+////        ProcessOperatingInterface.SomeProcessOperatingInterfaceClass process = new ProcessOperatingInterface.SomeProcessOperatingInterfaceClass();
+////        fromCommon += process.someProcessMethod();
+////        fromCommon += returnLayerSeparator();
+////        fromCommon += "The fardest caller is me: testconsole::main() ";
+////        //
+////        Common.Calendar.CalendarService cs = new Common.Calendar.CalendarService();
+////        String tm = cs.getCurrentTimeStamp();
+////        System.out.println( tm );
+////        
+////        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
+////        fm.txtFileWriter("./esempio.txt");
+////        fm.txtFileReader("./esempio.txt");
+//*/

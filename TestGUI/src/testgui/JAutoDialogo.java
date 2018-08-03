@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testconsole;
+package testgui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,10 +14,10 @@ public class JAutoDialogo extends JFrame
     private JTextField t1;
     private JTextField t2;
     
-    public static void main (String argv[])
-    {
-        JAutoDialogo ist = new JAutoDialogo();
-    }// main
+//    public static void main (String argv[])
+//    {
+//        JAutoDialogo ist = new JAutoDialogo();
+//    }// main
 
     public JAutoDialogo() throws HeadlessException 
     {
