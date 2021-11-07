@@ -21,6 +21,8 @@ public class TestConsole
 {
     
     
+    // first connection to Jdbc::postgreSQL
+    // the binary is in TestConsole::Libraries::
     public static void postgreSQLconn()
     {        
         Connection c = null;
