@@ -12,65 +12,103 @@ import java.lang.System;
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;
 import java.util.Set;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 
 
 public class TestConsole
 {
+    
+    
+    public static void postgreSQLconn()
+    {        
+        Connection c = null;
+        try
+        {
+            Class.forName("org.postgresql.Driver");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "sa", "sa");
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        System.out.println(" Connection to database opened successfully"); 
+        try
+        {
+            // c.commit();  Cannot commit when autoCommit is enabled.
+            c.close();
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }        
+        System.out.println(" Connection to database closed successfully");
+    }// public static void postgreSQLconn()
 
 
     
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        for(int c=0; c<50; c++)
-        {            
-            System.out.println( Common.MonteCarlo.MonteCarloGenerator.nextInteger(5, 16) );
-        }
+        postgreSQLconn();
         
         
-        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
-            new java.util.Hashtable< String, java.util.Stack<String> >();
         
-        for(int c=0; c<50; c++)
-        {
-            ThreadForker theForker = new ThreadForker();
-            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
-            Thread t = new Thread( theForker, threadName );            
-            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            //
-            t.start();// run asynchronously.
-            //
-            if( threadLoggingStack.containsKey( threadName) )
-            {
-                System.out.println("key representing thread named : "+threadName+" found.");
-                long cardThreadStack = 0;
-                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
-                for(int d=0; d<cardThreadStack; d++)
-                {
-                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
-                }
-            }
-            else
-            {
-                System.out.println("key representing thread named : "+threadName+" NOT found.");
-                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            }
-            
-        }// for 50 forks
+//        for(int c=0; c<50; c++)
+//        {            
+//            System.out.println( Common.MonteCarlo.MonteCarloGenerator.nextInteger(5, 16) );
+//        }
+//        
+//        
+//        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
+//            new java.util.Hashtable< String, java.util.Stack<String> >();
+//        
+//        for(int c=0; c<50; c++)
+//        {
+//            ThreadForker theForker = new ThreadForker();
+//            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
+//            Thread t = new Thread( theForker, threadName );            
+//            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            //
+//            t.start();// run asynchronously.
+//            //
+//            if( threadLoggingStack.containsKey( threadName) )
+//            {
+//                System.out.println("key representing thread named : "+threadName+" found.");
+//                long cardThreadStack = 0;
+//                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
+//                for(int d=0; d<cardThreadStack; d++)
+//                {
+//                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
+//                }
+//            }
+//            else
+//            {
+//                System.out.println("key representing thread named : "+threadName+" NOT found.");
+//                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            }
+//            
+//        }// for 50 forks
+//        
+//        Set<String> theKeys = threadLoggingStack.keySet();
+//        Object[] theKeysArray = theKeys.toArray();
+//        for( int c=0; c<theKeysArray.length; c++)
+//        {
+//            System.out.println( (String)(theKeysArray[c]) );
+//            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
+//            for( int d=0; d<cardCurThreadStack; d++)
+//            {
+//                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
+//            }// for cardCurThreadStack
+//            System.out.println( );
+//        }// for each thread.
         
-        Set<String> theKeys = threadLoggingStack.keySet();
-        Object[] theKeysArray = theKeys.toArray();
-        for( int c=0; c<theKeysArray.length; c++)
-        {
-            System.out.println( (String)(theKeysArray[c]) );
-            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
-            for( int d=0; d<cardCurThreadStack; d++)
-            {
-                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
-            }// for cardCurThreadStack
-            System.out.println( );
-        }// for each thread.
+        //
         // done
     }// main
     
