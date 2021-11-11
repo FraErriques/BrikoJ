@@ -20,7 +20,7 @@ public class TestConsole
 
 
     
-    /******************* EntryPoint ****************************/
+    /******************* EntryPoint ****** Starting BrikoJ::WinPlatf from 11/november/2021 *****************/	
     public static void main(String[] args)
     {
         for(int c=0; c<50; c++)
