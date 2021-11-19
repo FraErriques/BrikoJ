@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.lang.System;
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;
+import com.mysql.jdbc.DatabaseMetaData;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,7 +30,8 @@ public class TestConsole
         try
         {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "sa", "sa");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "applicationuser", "applicationuser");
+            //DatabaseMetaData dbInfo = (DatabaseMetaData) c.getMetaData();
         }
         catch( Exception e)
         {
