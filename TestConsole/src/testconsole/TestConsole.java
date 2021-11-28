@@ -20,7 +20,7 @@ import java.sql.DriverManager;
 public class TestConsole
 {
     
-    
+    // 2021#11#29 first commit from Eulero::ApacheNetBeans.
     // first connection to Jdbc::postgreSQL
     // the binary is in TestConsole::Libraries::
     public static void postgreSQLconn()
