@@ -15,11 +15,38 @@ import com.mysql.jdbc.DatabaseMetaData;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+
 
 
 
 public class TestConsole
 {
+    
+    public static void msSqlconn()
+    {
+        //Update the username and password below
+        String connectionUrl = "jdbc:sqlserver://ITBZOW1422//SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+
+        try
+        {
+            // Load SQL Server JDBC driver and establish connection.
+            System.out.print("Connecting to SQL Server ... ");
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+                System.out.println("Done.");
+                connection.close();
+                System.out.println("All done.");
+            }
+        }
+        catch( Exception e)
+        {
+            System.out.println();
+            e.printStackTrace();
+        }
+    }// 
     
     
     // first connection to Jdbc::postgreSQL
@@ -59,7 +86,8 @@ public class TestConsole
     /******************* EntryPoint ****** Starting BrikoJ::WinPlatf from 11/november/2021 *****************/	
     public static void main(String[] args)
     {
-        postgreSQLconn();
+        //postgreSQLconn();
+        msSqlconn();
         
         
         
