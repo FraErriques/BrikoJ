@@ -15,5 +15,4 @@ dist/
 *.exe
 *.dll
 *.cbp
-
-/TestGUI/nbproject/private/
+*.xml
