@@ -16,4 +16,3 @@ dist/
 *.dll
 *.cbp
 
-/TestGUI/nbproject/private/
