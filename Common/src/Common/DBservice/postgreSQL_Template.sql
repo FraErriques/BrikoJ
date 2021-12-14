@@ -59,3 +59,42 @@ postgres=#
 postgres=# insert into accounts(name,balance)
 postgres-# values('Alice',10000);
 INSERT 0 1
+
+-- Table: public.customers
+
+-- DROP TABLE public.customers;
+
+CREATE TABLE IF NOT EXISTS public.customers
+(
+    customer_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    customer_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT customers_pkey PRIMARY KEY (customer_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.customers
+    OWNER to postgres;
+
+-- Table: public.contacts
+
+-- DROP TABLE public.contacts;
+
+CREATE TABLE IF NOT EXISTS public.contacts
+(
+    contact_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    customer_id integer,
+    contact_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    phone character varying(15) COLLATE pg_catalog."default",
+    email character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT contacts_pkey PRIMARY KEY (contact_id),
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id)
+        REFERENCES public.customers (customer_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.contacts
+    OWNER to postgres;
