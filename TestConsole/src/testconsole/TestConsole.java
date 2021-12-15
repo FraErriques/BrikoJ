@@ -14,12 +14,60 @@ import Common.MonteCarlo.*;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
+//import com.microsoft.sqlserver.jdbc.SQLServerDriver;
+//import com.microsoft.jdbc.sqlserver.SQLServerDriver;
 
 
 
 public class TestConsole
 {
-    
+    public static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=PrimeData";
+    public static final String USERNAME = "sa";
+    public static final String PASSWORD = "sa";
+
+
+    public static void mssqlserver_conn()
+    {        
+        Connection c = null;
+        try
+        {
+        Connection connection;
+        //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());   
+        Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
+        //DriverManager.registerDriver(new com.microsoft.jdbc.sqlserver.SQLServerDriver());
+        connection = DriverManager.getConnection(
+                TestConsole.URL,
+                TestConsole.USERNAME,
+                TestConsole.PASSWORD   );
+
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            //c = DriverManager.getConnection("jdbc:microsoft:sqlserver://Cantor:1433;DatabaseName=PrimeData", "sa", "sa");
+            c = DriverManager.getConnection("jdbc:microsoft:sqlserver://192.168.122.148:1433;DatabaseName=PrimeData", "sa", "sa");
+            
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        System.out.println(" Connection to database opened successfully"); 
+        try
+        {
+            // c.commit();  Cannot commit when autoCommit is enabled.
+            c.close();
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }        
+        System.out.println(" Connection to database closed successfully");
+    }// public static void postgreSQLconn()
+
+
+
     
     // first connection to Jdbc::postgreSQL
     // the binary is in TestConsole::Libraries::
@@ -57,7 +105,8 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        postgreSQLconn();
+        //postgreSQLconn();
+        mssqlserver_conn();
         
         
         
