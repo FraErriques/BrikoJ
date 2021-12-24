@@ -101,6 +101,8 @@ public class TestConsole
 	        Connection connection;
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		c = DriverManager.getConnection(connectionUrl);
+                c.prepareStatement("select * from PrimeData.Primes;");
+                c.commit();
         }
         catch( Exception e)
         {
