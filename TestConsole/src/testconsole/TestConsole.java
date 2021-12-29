@@ -94,16 +94,32 @@ public class TestConsole
         //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1433;databaseName=PrimeData;user=applicationuser;password=curricula";
         //String connectionUrl = "jdbc:sqlserver://ITBZOW1422.BBT.INT;instanceName=ExpressLie;databaseName=PrimeData;user=applicationuser;password=curricula";
         // String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
-        String connectionUrl = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";
+        String connectionUrl_Eulero = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";
         //"jdbc:microsoft:sqlserver://Cantor:1433;DatabaseName=PrimeData", "sa", "sa");
         
+        Connection connection=null;
         try
         {
-	        Connection connection;
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		c = DriverManager.getConnection(connectionUrl);
-                c.prepareStatement("select * from PrimeData.Primes;");
-                c.commit();
+		connection = DriverManager.getConnection(connectionUrl_Eulero);
+                //---
+                // create a Statement from the connection
+                Statement statement = connection.createStatement();                
+                //-----
+                String sqlStatement;
+                
+                double x = 0.0;
+                double Dx = 0.01;
+                for( ; x<+3.0; x+=Dx)
+                {
+                    sqlStatement="exec usp_NumDump2021_INSERT  ";
+                    sqlStatement += String.valueOf(x);
+                    sqlStatement += " , ";// separation between parameters.
+                    sqlStatement += String.valueOf( Math.sin(x) );
+                    // insert the data
+                    statement.executeUpdate( sqlStatement);
+                }
+                connection.commit();// NB.  Cannot commit when autoCommit is enabled.
         }
         catch( Exception e)
         {
@@ -114,8 +130,13 @@ public class TestConsole
         System.out.println(" Connection to database opened successfully"); 
         try
         {
-            // c.commit();  Cannot commit when autoCommit is enabled.
-            c.close();
+            if(null!=connection)
+            {
+                if( connection.isValid(0))
+                {
+                    connection.close();
+                }
+            }
         }
         catch( Exception e)
         {
@@ -124,7 +145,7 @@ public class TestConsole
             System.exit(0);
         }        
         System.out.println(" Connection to database closed successfully");
-    }// public static void postgreSQLconn()
+    }// end mssqlserver_conn
 
     
     
