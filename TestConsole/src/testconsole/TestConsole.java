@@ -75,11 +75,10 @@ public class TestConsole
 
 
     public static void mssqlserver_conn()
-    {        
-        Connection c = null;
-		// for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
-		// where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
-		// between the token instanceName and the actual instance-name.
+    {
+        // for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
+        // where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
+        // between the token instanceName and the actual instance-name.
         //Update the username and password below
         // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
         // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
@@ -188,8 +187,22 @@ public class TestConsole
     public static void main(String[] args)
     {
         //postgreSQLconn();
-        mssqlserver_conn();
-        
+        // mssqlserver_conn();
+        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
+        msSql.insertionLoop_template();
+        msSql.closeConnection();
+        //
+    }// main
+    
+    
+}// end class TestConsole
+
+
+
+//
+///*  ------------------------------- cantina ------------------------------------------
+////        //
+
         
         
 //        for(int c=0; c<50; c++)
@@ -243,16 +256,6 @@ public class TestConsole
         
         //
         // done
-    }// main
-    
-    
-}// end class TestConsole
-
-
-
-//
-///*  ------------------------------- cantina ------------------------------------------
-////        //
 ////        Common.ConfigurationService.scalarConfig configReader = new Common.ConfigurationService.scalarConfig("./configSample.txt");
 ////        configReader.getTokensFromConfigStream();
 //        
