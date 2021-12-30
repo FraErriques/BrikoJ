@@ -158,7 +158,8 @@ public class TestConsole
         {
             Class.forName("org.postgresql.Driver");
             //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "sa", "sa");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fra", "fra", "fra");
+            //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/numerics", "postgres", "Riemann0");
+            c = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
@@ -188,9 +189,14 @@ public class TestConsole
     {
         //postgreSQLconn();
         // mssqlserver_conn();
-        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
-        msSql.insertionLoop_template();
-        msSql.closeConnection();
+        //
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();
+        //
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        postgSql.insertionLoop_template();
+        postgSql.closeConnection();
         //
     }// main
     
