@@ -5,11 +5,7 @@
         <group name="JavaLayers"/>
         <group/>
         <group name="BrikoJ">
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/mssql_Template.sql</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/JDbService.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MySql.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/postgreSQL_Template.sql</file>
         </group>
     </open-files>
 </project-private>

@@ -17,7 +17,95 @@ import java.sql.ResultSet;
  */
 public class MySql 
 {
+    // Data
+    Connection connection=null;    
+    //"jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
+    //String connectionUrl_Eulero_MySql = "jdbc:mysql://localhost:3306/cantiere?  user=root&password=Riemann0";
+    
+    
+    // Ctor
+    public MySql()
+    {
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            //connection = DriverManager.getConnection("jdbc:mysql://Eulero:3306/cantiere", "user=root", "password=Riemann0");
+            //connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere?", "user=root&", "password=Riemann0");
+            //connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere", "user=root", "password=Riemann0");
+               DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere?" +
+                               "user=root&password=Riemann0");
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        System.out.println(" Connection to database opened successfully");         
+    }// Ctor    
+    
+    
+    public void insertionLoop_template()
+    {
+        try
+        {
+            // create a Statement from the connection
+            Statement statement = connection.createStatement();                
+            //-----
+            String sqlStatement;
 
+            double x = +3.0;
+            double Dx = 0.01;
+            for( ; x<+6.0; x+=Dx)
+            {
+                // call  `usp_cantiere_Dump2021Dez31_INSERT` ( 0.7 , sin(0.7) );
+                sqlStatement=" call  `usp_cantiere_Dump2021Dez31_INSERT` ( ";
+                sqlStatement += String.valueOf(x);
+                sqlStatement += " , ";// separation between parameters.
+                sqlStatement += String.valueOf( Math.sin(x) );
+                sqlStatement += " );";
+                // insert the data
+                statement.executeUpdate( sqlStatement);
+            }
+            connection.commit();// NB.  Cannot commit when autoCommit is enabled. 
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }        
+    }// insertionLoop_template
+    
+    
+    
+    // like Dtor
+    public void closeConnection()
+    {
+        try
+        {
+            if(null!=connection)
+            {
+                if( connection.isValid(0))
+                {
+                    connection.close();
+                }
+            }
+        }
+        catch( Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }        
+        System.out.println(" Connection to database closed successfully");        
+    }// like Dtor    
+
+
+    
+    
+    
+    
 public void MySql_dbConnectorTemplate( ) 
 {
 Connection conn = null;
