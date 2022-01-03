@@ -3,15 +3,29 @@ package testconsole;
 
 import Common.EncryptStore.*;
 import Common.DBservice.*;
+import Common.FileSys.TokenReader;     
+import Common.ConfigurationService.*;
+import Common.MonteCarlo.*;        
 import Entity.*;
 import ProcessOperatingInterface.*;
-import Common.FileSys.TokenReader;
+//
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.lang.System;
-import Common.ConfigurationService.*;
-import Common.MonteCarlo.*;
+import com.mysql.jdbc.DatabaseMetaData;
 import java.util.Set;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+
+
+
+
+
+
 
 
 
@@ -19,69 +33,275 @@ public class TestConsole
 {
 
 
+
     
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        for(int c=0; c<50; c++)
-        {            
-            System.out.println( Common.MonteCarlo.MonteCarloGenerator.nextInteger(5, 16) );
-        }
-        
-        
-        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
-            new java.util.Hashtable< String, java.util.Stack<String> >();
-        
-        for(int c=0; c<50; c++)
-        {
-            ThreadForker theForker = new ThreadForker();
-            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
-            Thread t = new Thread( theForker, threadName );            
-            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            //
-            t.start();// run asynchronously.
-            //
-            if( threadLoggingStack.containsKey( threadName) )
-            {
-                System.out.println("key representing thread named : "+threadName+" found.");
-                long cardThreadStack = 0;
-                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
-                for(int d=0; d<cardThreadStack; d++)
-                {
-                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
-                }
-            }
-            else
-            {
-                System.out.println("key representing thread named : "+threadName+" NOT found.");
-                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            }
-            
-        }// for 50 forks
-        
-        Set<String> theKeys = threadLoggingStack.keySet();
-        Object[] theKeysArray = theKeys.toArray();
-        for( int c=0; c<theKeysArray.length; c++)
-        {
-            System.out.println( (String)(theKeysArray[c]) );
-            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
-            for( int d=0; d<cardCurThreadStack; d++)
-            {
-                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
-            }// for cardCurThreadStack
-            System.out.println( );
-        }// for each thread.
-        // done
+        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
+        msSql.insertionLoop_template();
+        msSql.closeConnection();
+        //
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        postgSql.insertionLoop_template();
+        postgSql.closeConnection();        
+        //
     }// main
     
     
 }// end class TestConsole
 
+        
 
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
 ////        //
+
+
+
+
+  /*  
+    public static void mssqlserver_conn()
+    {
+		// for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
+		// where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
+		// between the token instanceName and the actual instance-name.
+        //Update the username and password below
+        // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        // String connectionUrl   = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0"; TODO Cantor
+        //String connectionUrl   = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
+        // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";        
+        //String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=SqlExpress:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=PrimeData;user=applicationuser;password=curricula";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1433;databaseName=PrimeData;user=applicationuser;password=curricula";
+        //String connectionUrl = "jdbc:sqlserver://ITBZOW1422.BBT.INT;instanceName=ExpressLie;databaseName=PrimeData;user=applicationuser;password=curricula";
+        String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
+        
+
+        try
+        {
+            // Load SQL Server JDBC driver and establish connection.
+            System.out.print("Connecting to SQL Server ... ");
+            try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+                System.out.println("Done.");
+                connection.close();
+                System.out.println("All done.");
+            }
+        }
+        catch( Exception e)
+        {
+            System.out.println();
+            e.printStackTrace();
+        }
+    }// 
+*/    
+        
+        
+//        try
+//        {
+//        Connection connection = null;
+//        connection = // test failed
+////            DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere?" +
+////                                        "user=root&password=Riemann0");
+//            DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere;user=root;password=Riemann0");
+//        //---
+//            // create a Statement from the connection
+//            Statement statement = connection.createStatement();                
+//            //-----
+//            String sqlStatement;
+//
+//            double x = +3.0;
+//            double Dx = 0.01;
+//            for( ; x<+6.0; x+=Dx)
+//            {
+//                // call  `usp_cantiere_Dump2021Dez31_INSERT` ( 0.7 , sin(0.7) );
+//                sqlStatement=" call  `usp_cantiere_Dump2021Dez31_INSERT` ( ";
+//                sqlStatement += String.valueOf(x);
+//                sqlStatement += " , ";// separation between parameters.
+//                sqlStatement += String.valueOf( Math.sin(x) );
+//                sqlStatement += " );";
+//                // insert the data
+//                statement.executeUpdate( sqlStatement);
+//            }
+//            connection.commit();// NB.  Cannot commit when autoCommit is enabled.         
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        
+//        //Common.DBservice.MySql mySql = new Common.DBservice.MySql();
+//        //mySql.insertionLoop_template();
+//        //mySql.closeConnection();                
+        
+
+//    public static void mssqlserver_conn()
+//    {
+        // for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
+        // where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
+        // between the token instanceName and the actual instance-name.
+        //Update the username and password below
+        // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        // String connectionUrl   = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0"; TODO Cantor
+        //String connectionUrl   = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
+        // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";        
+        //String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=SqlExpress:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=PrimeData;user=applicationuser;password=curricula";
+        //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1433;databaseName=PrimeData;user=applicationuser;password=curricula";
+        //String connectionUrl = "jdbc:sqlserver://ITBZOW1422.BBT.INT;instanceName=ExpressLie;databaseName=PrimeData;user=applicationuser;password=curricula";
+        // String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
+        //String connectionUrl_Eulero = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";
+        //"jdbc:microsoft:sqlserver://Cantor:1433;DatabaseName=PrimeData", "sa", "sa");
+        
+//        Connection connection=null;
+//        try
+//        {
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		connection = DriverManager.getConnection(connectionUrl_Eulero);
+//                //---
+//                // create a Statement from the connection
+//                Statement statement = connection.createStatement();                
+//                //-----
+//                String sqlStatement;
+//                
+//                double x = 0.0;
+//                double Dx = 0.01;
+//                for( ; x<+3.0; x+=Dx)
+//                {
+//                    sqlStatement="exec usp_NumDump2021_INSERT  ";
+//                    sqlStatement += String.valueOf(x);
+//                    sqlStatement += " , ";// separation between parameters.
+//                    sqlStatement += String.valueOf( Math.sin(x) );
+//                    // insert the data
+//                    statement.executeUpdate( sqlStatement);
+//                }
+//                connection.commit();// NB.  Cannot commit when autoCommit is enabled.
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        System.out.println(" Connection to database opened successfully"); 
+//        try
+//        {
+//            if(null!=connection)
+//            {
+//                if( connection.isValid(0))
+//                {
+//                    connection.close();
+//                }
+//            }
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }        
+//        System.out.println(" Connection to database closed successfully");
+//    }// end mssqlserver_conn
+//
+    
+    
+// 
+//    // first connection to Jdbc::postgreSQL
+//    // the binary is in TestConsole::Libraries::
+//    public static void postgreSQLconn()
+//    {        
+//        Connection c = null;
+//        try
+//        {
+//            Class.forName("org.postgresql.Driver");
+//            //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "sa", "sa");
+//            //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/numerics", "postgres", "Riemann0");
+//            c = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        System.out.println(" Connection to database opened successfully"); 
+//        try
+//        {
+//            // c.commit();  Cannot commit when autoCommit is enabled.
+//            c.close();
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }        
+//        System.out.println(" Connection to database closed successfully");
+//    }// public static void postgreSQLconn()
+//        
+        
+//        for(int c=0; c<50; c++)
+//        {            
+//            System.out.println( Common.MonteCarlo.MonteCarloGenerator.nextInteger(5, 16) );
+//        }
+//        
+//        
+//        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
+//            new java.util.Hashtable< String, java.util.Stack<String> >();
+//        
+//        for(int c=0; c<50; c++)
+//        {
+//            ThreadForker theForker = new ThreadForker();
+//            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
+//            Thread t = new Thread( theForker, threadName );            
+//            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            //
+//            t.start();// run asynchronously.
+//            //
+//            if( threadLoggingStack.containsKey( threadName) )
+//            {
+//                System.out.println("key representing thread named : "+threadName+" found.");
+//                long cardThreadStack = 0;
+//                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
+//                for(int d=0; d<cardThreadStack; d++)
+//                {
+//                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
+//                }
+//            }
+//            else
+//            {
+//                System.out.println("key representing thread named : "+threadName+" NOT found.");
+//                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            }
+//            
+//        }// for 50 forks
+//        
+//        Set<String> theKeys = threadLoggingStack.keySet();
+//        Object[] theKeysArray = theKeys.toArray();
+//        for( int c=0; c<theKeysArray.length; c++)
+//        {
+//            System.out.println( (String)(theKeysArray[c]) );
+//            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
+//            for( int d=0; d<cardCurThreadStack; d++)
+//            {
+//                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
+//            }// for cardCurThreadStack
+//            System.out.println( );
+//        }// for each thread.
+        
+        //
+        // done
 ////        Common.ConfigurationService.scalarConfig configReader = new Common.ConfigurationService.scalarConfig("./configSample.txt");
 ////        configReader.getTokensFromConfigStream();
 //        

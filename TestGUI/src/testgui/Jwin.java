@@ -5,24 +5,26 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class JAutoDialogo extends JFrame
+
+public
+class Jwin  extends JFrame // NB. cruciale ereditare da JFrame
 {
     private JTextField t1;
     private JTextField t2;
-
-    public JAutoDialogo() throws HeadlessException 
+    
+    public Jwin() throws HeadlessException 
     {
-        JPanel pannelloTesto = new JPanel( new GridLayout(0,2,3,3));
+        JPanel pannelloTesto = new JPanel( new GridLayout( 1,5,3,3) );
         JPanel pannelloBottoni = new JPanel();
-        setTitle( getClass().getName() );
-        pannelloTesto.add( new JLabel("Testo 1", JLabel.LEFT) );
+        setTitle( getClass().getName() + " a GUI test." );
+        pannelloTesto.add( new JLabel("Label Uno", JLabel.LEFT) );
         pannelloTesto.add( t1 = new JTextField("") );
-        pannelloTesto.add( new JLabel("Testo 2", JLabel.LEFT) );
+        pannelloTesto.add( new JLabel("Label Due", JLabel.LEFT) );
         pannelloTesto.add( t2 = new JTextField(""));
-
+  
         pannelloBottoni.setLayout( new FlowLayout() );
 
-        ((JButton)pannelloBottoni.add( new JButton("Scambia")) ).addActionListener(
+        ((JButton)pannelloBottoni.add( new JButton("DoTheAction")) ).addActionListener(
           new ActionListener()     
           {
               public void actionPerformed( ActionEvent e)  
@@ -47,7 +49,7 @@ public class JAutoDialogo extends JFrame
         getContentPane().add( pannelloTesto, "Center");
         getContentPane().add( pannelloBottoni, "South");
         pack();
-        setVisible( true);
-}// end Ctor JAutoDialogo
-
-} // end class JAutoDialogo
+        setVisible( true);        
+    }// Ctor
+    
+}// class Jwin
