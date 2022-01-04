@@ -42,9 +42,9 @@ public class TestConsole
         postgSql.insertionLoop_template();
         postgSql.closeConnection();        
         //        
-        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
-        msSql.insertionLoop_template();
-        msSql.closeConnection();
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();
         //
     }// main
     

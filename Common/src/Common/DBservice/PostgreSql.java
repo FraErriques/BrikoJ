@@ -26,7 +26,8 @@ public class PostgreSql
         try
         {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Numerics", "postgres", "Riemann0");
+            connection = DriverManager.getConnection("jdbc:postgresql://ITBZOW1422:5432/Numerics", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
