@@ -36,16 +36,17 @@ public class MsSql
     // String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
     //String connectionUrl_Eulero = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";    
     //"jdbc:microsoft:sqlserver://Cantor:1433;DatabaseName=PrimeData", "sa", "sa");    
-    String connectionUrl_ITBZ = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
+    String connectionUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+    String connectionUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";
     
     
     // Ctor
-    public MsSql()
+    public MsSql( String connUrl)
     {
         try
         {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(connectionUrl_ITBZ);
+            connection = DriverManager.getConnection(connUrl);
         }
         catch( Exception e)
         {
@@ -53,6 +54,7 @@ public class MsSql
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+        System.out.println(" Connection to database opened successfully");        
     }// Ctor
     
     
@@ -107,7 +109,7 @@ public class MsSql
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }        
-        System.out.println(" Connection to database closed successfully");        
+        System.out.println(" Connection to database closed successfully");
     }// like Dtor    
 
     

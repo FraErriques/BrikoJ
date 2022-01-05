@@ -38,13 +38,20 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-        postgSql.insertionLoop_template();
-        postgSql.closeConnection();        
+//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+//        postgSql.insertionLoop_template();
+//        postgSql.closeConnection();        
         //        
-//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
-//        msSql.insertionLoop_template();
-//        msSql.closeConnection();
+        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
+        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITBZ_Delta);
+        msSql.insertionLoop_template();
+        msSql.closeConnection();
+        //
+        msSql = null;
+        msSql = new Common.DBservice.MsSql( connUrl_ITBZ_ExpressLie);
+        msSql.insertionLoop_template();
+        msSql.closeConnection();        
         //
     }// main
     
