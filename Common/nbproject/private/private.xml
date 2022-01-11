@@ -5,6 +5,7 @@
         <group name="BrikoJ">
             <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/postgreSQL_Template.sql</file>
             <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
+            <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/mssql_Template.sql</file>
             <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql.java</file>
         </group>
     </open-files>
