@@ -7,6 +7,7 @@ import Common.FileSys.TokenReader;
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;        
 import Entity.*;
+import Entity.ComplexField.Complex;
 import ProcessOperatingInterface.*;
 //
 import java.util.Enumeration;
@@ -38,13 +39,16 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
-        msSql.insertionLoop_template();
-        msSql.closeConnection();
-        //
-        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-        postgSql.insertionLoop_template();
-        postgSql.closeConnection();        
+        Entity.ComplexField.Complex z = new Complex( +3.6 , +9.1);
+        String zToString = z.ToString();
+        
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();
+//        //
+//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+//        postgSql.insertionLoop_template();
+//        postgSql.closeConnection();        
         //
     }// main
     
