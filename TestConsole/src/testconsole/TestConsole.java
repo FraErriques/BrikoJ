@@ -40,6 +40,13 @@ public class TestConsole
     public static void main(String[] args)
     {
         Entity.ComplexField.Complex z = new Complex( +3.0 , +2.0);
+        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
+        {
+            Complex other = new Complex( +3.0, immPart);
+            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
+                    Complex.operator_div(z, other).ToString() );
+        }// for
+        
         Complex.Argument arg = z.argument();
         
         

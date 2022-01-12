@@ -39,117 +39,88 @@ package Entity.ComplexField;
 
 		// operators
 		// operator +
-		public static Complex operator_plus ( Complex left, Complex right)
+		public static Complex operator_add ( Complex left, Complex right)
 		{// (a,b)+(c,d)= (a+c) + i (b+d)
 			return new Complex( left.real + right.real,
 				left.immaginary + right.immaginary    );
 		}// binary +
-		public static Complex operator_plus ( double left, Complex right)
+		public static Complex operator_add ( double left, Complex right)
 		{// (a )+(c,d)= (a+c) + i ( d)
 			return new Complex( left  + right.real,
 				+ right.immaginary    );
 		}// binary +
-		public static Complex operator_plus ( Complex left, double right)
+		public static Complex operator_add ( Complex left, double right)
 		{// (a,b)+(c )= (a+c) + i (b )
 			return new Complex( left.real + right,
 				left.immaginary     );
 		}// binary +
-		public static Complex operator_plus ( Complex z)
+		public static Complex operator_add ( Complex z)
 		{// +(a,b) = (+a,+b)
 			return z;// == new Complex( z.real, z.immaginary );
 		}// unary +
 		// end operator +
 
 		// operator -
-		public static Complex operator_minus ( Complex left, Complex right)
+		public static Complex operator_sub ( Complex left, Complex right)
 		{// (a,b)-(c,d)= (a-c) + i (b-d)
 			return new Complex( left.real - right.real,
 				left.immaginary - right.immaginary    );
 		}// end binary -
-		public static Complex operator_minus ( double left, Complex right)
+		public static Complex operator_sub ( double left, Complex right)
 		{// (a )-(c,d)= (a-c) + i ( -d)
 			return new Complex( left  - right.real,
 				- right.immaginary    );
 		}// end binary -
-		public static Complex operator_minus ( Complex left, double right)
+		public static Complex operator_sub ( Complex left, double right)
 		{// (a,b)-(c )= (a-c) + i (b )
 			return new Complex( left.real - right ,
 				left.immaginary          );
 		}// end binary -
-		public static Complex operator_minus ( Complex z)
+		public static Complex operator_sub ( Complex z)
 		{// -(a,b) = (-a,-b)
 			return new Complex( -z.real, -z.immaginary );
 		}// end unary -
 		// operator -
 
 		// operator *
-		public static Complex operator_times (Complex left, Complex right)
+		public static Complex operator_mul (Complex left, Complex right)
 		{// (a,b)(c,d)= (ac-bd) + i (ad+bc)
 			return new Complex( left.real*right.real - left.immaginary*right.immaginary,
 				left.real*right.immaginary + left.immaginary*right.real         );
 		}
-		public Complex operator_times ( Complex other)
-		{// (a,b)(c,d)= (ac-bd) + i (ad+bc)
-			return new Complex( this.real*other.real - this.immaginary*other.immaginary,
-				this.real*other.immaginary + this.immaginary*other.real         );
-		}
-		public static Complex operator_times ( double left, Complex other)
+                //
+		public static Complex operator_mul ( double left, Complex right)
 		{// (a,0)(c,d)= (ac ) + i (ad )
-			return new Complex( left *other.real,
-				left *other.immaginary  );
+                    return new Complex( left *right.real,
+                        left *right.immaginary  );
 		}
-		public Complex operator_times ( double right)
-		{// (a,b)(c )= (ac ) + i ( bc)
-                    Complex rightComp = new Complex( right,0);
-                    Complex res = new Complex( this);
-                    res = res.operator_times(rightComp);
-                    return res;
+		public static Complex operator_mul ( Complex left, double right)
+		{// (a,0)(c,d)= (ac ) + i (ad )
+                    return new Complex( left.real*right,
+                        left.immaginary*right);
 		}
 		// end operator *
 
 		// operator /
-//		public static Complex operator_div ( Complex left, Complex right)
-//		{// (a,b) / (c,d)= (a,b)/(c,-d) * (c,-d)/(c,d) = (a,b)(c,-d)/(c^2,d^2)
-//			//  es.   1/i = -i
-//			// implementazione:
-//			// - prodotto del dividendo per il coniugato del divisore
-//			// - dividere parte reale e parte immaginaria del dividendo per il moduloquadro del divisore
-//			Complex denominatorSquareModulus = right * right.coniugate();
-//			Complex numerator = left * right.coniugate();
-//			double den = denominatorSquareModulus.get_real;
-//			Complex result = numerator / den;
-//			return result;
-//		}
 		public static Complex operator_div ( Complex left, Complex right)
 		{// (a,b) / (c,d)= (a,b)/(c,-d) * (c,-d)/(c,d) = (a,b)(c,-d)/(c^2,d^2)
 			//  es.   1/i = -i
 			// implementazione:
 			// - prodotto del dividendo per il coniugato del divisore
 			// - dividere parte reale e parte immaginaria del dividendo per il moduloquadro del divisore
-			Complex denominatorSquareModulus = right.operator_times(right.coniugate());
-			Complex numerator = left.operator_times(right.coniugate() );
-			double den = denominatorSquareModulus.get_real();
+                        Complex numerator = Complex.operator_mul(left, right.coniugate() );
+			double den = Complex.modulusSquare(right);
 			Complex result = numerator.operator_div(numerator,den);
 			return result;
 		}
-//		public static Complex operator_div ( double left, Complex right)
-//		{// (a ) / (c,d)= (a )/(c,-d) * (c,-d)/(c,d) = (a,0)(c,-d)/(c^2+d^2,0)
-//			//  es.   1/i = -i
-//			// implementazione:
-//			// - prodotto del dividendo per il coniugato del divisore
-//			// - dividere parte reale e parte immaginaria del dividendo per il moduloquadro del divisore
-//			double denominatorSquareModulus = ((Complex)(right * right.coniugate())).get_real;
-//			Complex result = left * right.coniugate();
-//			return new Complex( result.real/denominatorSquareModulus, result.immaginary/denominatorSquareModulus);
-//		}
 		public static Complex operator_div ( double left, Complex right)
 		{// (a ) / (c,d)= (a )/(c,-d) * (c,-d)/(c,d) = (a,0)(c,-d)/(c^2+d^2,0)
 			//  es.   1/i = -i
 			// implementazione:
 			// - prodotto del dividendo per il coniugato del divisore
 			// - dividere parte reale e parte immaginaria del dividendo per il moduloquadro del divisore
-			double denominatorSquareModulus = ((Complex)(right.operator_times(right.coniugate()))).get_real();
-			Complex result = right.coniugate().operator_times(left);
+                        double denominatorSquareModulus = Complex.modulusSquare(right);// abs^2
+                        Complex result = Complex.operator_mul(right.coniugate(), new Complex(left,0.0));
 			return new Complex( result.real/denominatorSquareModulus, result.immaginary/denominatorSquareModulus);
 		}
 		public static Complex operator_div ( Complex left, double right)
@@ -176,10 +147,10 @@ package Entity.ComplexField;
                     //  es.   2^3 = 2^(3*Log2(2))
                     // implementazione:
                     return(
-                    new Complex( Functions.Exp(	theExp.operator_times( Functions.Log( theBase)
-                                ) //end mul
-                            )// end Exponential call
-                        )// end new
+                        new Complex( Functions.Exp( Complex.operator_mul(theExp,  Functions.Log( theBase)
+                                    ) //end mul
+                                )// end Exponential call
+                            )// end new
                     );// end return
 		}// end operator ^
 
@@ -189,9 +160,9 @@ package Entity.ComplexField;
 			//  es.   2^3 = 2^(3*Log2(2))
 			// implementazione:
 			return(
-				new Complex( Functions.Exp( theExp.operator_times(
-				 Functions.Log( new Complex( theBase, 0.0) )
-                                ) //end mul
+                            new Complex( Functions.Exp(  Complex.operator_mul(theExp,
+                                Functions.Log( new Complex( theBase, 0.0) )
+                              ) //end mul
                             )// end Exponential call
                         )// end new
                     );// end return
@@ -203,7 +174,7 @@ package Entity.ComplexField;
 			// implementazione:
 			return(
 				new Complex( Functions.Exp(
-                                    Functions.Log( theBase).operator_times(theExp)
+                                    Complex.operator_mul( theExp, Functions.Log( theBase))
 				)// end Exponential call
                             )// end new
 			);// end return
@@ -259,6 +230,13 @@ package Entity.ComplexField;
 				Math.pow( z.immaginary, 2.0)
 				);
 		}//
+		//
+		public static double modulusSquare( Complex z)
+		{// the Euclidean-R2-length
+                    return 
+                        Math.pow( z.real, 2.0)		+
+                        Math.pow( z.immaginary, 2.0);
+		}// modulo quadro.
 		// end helper method modulus
 
 		public Complex coniugate()
