@@ -39,16 +39,31 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        Entity.ComplexField.Complex z = new Complex( +3.6 , +9.1);
-        String zToString = z.ToString();
+        Entity.ComplexField.Complex z = new Complex( +3.0 , +2.0);
+        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
+        {
+            Complex other = new Complex( +3.0, immPart);
+            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
+                    Complex.operator_div(z, other).ToString() );
+        }// for
         
-//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql();
-//        msSql.insertionLoop_template();
-//        msSql.closeConnection();
-//        //
+        Complex.Argument arg = z.argument();
+        
+        
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 //        postgSql.insertionLoop_template();
 //        postgSql.closeConnection();        
+        //        
+//        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+//        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITBZ_Delta);
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();
+//        //
+//        msSql = null;
+//        msSql = new Common.DBservice.MsSql( connUrl_ITBZ_ExpressLie);
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();        
         //
     }// main
     

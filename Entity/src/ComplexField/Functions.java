@@ -39,15 +39,17 @@ package Entity.ComplexField;
 
 //		public static Complex Sin( Complex z)
 //		{
-//			Complex iZ = z.operator_times(z, z) * new Complex( 0.0, 1.0);
+//			Complex iZ = z.operator_mul(z, z) * new Complex( 0.0, 1.0);
 //			return( new Complex( Exp(iZ) - Exp(-iZ) ) / new Complex( 0.0, 2.0) );
 //		}// end Sin
 		public static Complex Sin( Complex z)
 		{
-                    Complex iZ = z.operator_times(z, z).operator_times(new Complex(0.0, 1.0));
-                    //Complex iZ = z.operator_times(z, z) * new Complex( 0.0, 1.0);
+                    Complex iZ = Complex.operator_mul(z, z);// operator_mul(new Complex(0.0, 1.0));
+                    iZ = Complex.operator_mul(iZ, new Complex(0.0, 1.0) );
+                    // non static operator avoided Complex iZ = z.operator_mul(z, z).operator_mul(new Complex(0.0, 1.0));
+                    //Complex iZ = z.operator_mul(z, z) * new Complex( 0.0, 1.0);
                     //Complex numerator =  new Complex( Exp(iZ) - Exp(-iZ) );
-                    Complex numerator =  new Complex( Complex.operator_minus( Exp(iZ), Exp(Complex.operator_minus(iZ)) ) );
+                    Complex numerator =  new Complex( Complex.operator_sub( Exp(iZ), Exp(Complex.operator_sub(iZ)) ) );
                     //Complex res = numerator.operator_div( new Complex( 0.0, 2.0) );
                     Complex res = Complex.operator_div( numerator , new Complex( 0.0, 2.0) );
                     //return() / new Complex( 0.0, 2.0) );
@@ -57,9 +59,9 @@ package Entity.ComplexField;
 		public static Complex Cos( Complex z)
 		{
 			//Complex iZ = z * new Complex( 0.0, 1.0);
-                    Complex iZ = Complex.operator_times(z, new Complex( 0.0, 1.0) );
+                    Complex iZ = Complex.operator_mul(z, new Complex( 0.0, 1.0) );
                     Complex numerator = 
-                                Complex.operator_plus( Exp(iZ), Exp(Complex.operator_minus(iZ)) );
+                                Complex.operator_add( Exp(iZ), Exp(Complex.operator_sub(iZ)) );
                     
                         // new Complex( 2.0, 0.0) );
                       Complex res = Complex.operator_div( numerator , new Complex( 2.0, 0.0) );
