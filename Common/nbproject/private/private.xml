@@ -6,6 +6,7 @@
         <group/>
         <group name="BrikoJ">
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql.java</file>
         </group>
     </open-files>
 </project-private>
