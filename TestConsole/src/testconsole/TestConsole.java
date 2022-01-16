@@ -7,13 +7,12 @@ import Common.FileSys.TokenReader;
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;        
 import Entity.*;
-import Entity.ComplexField.Complex;
+import ComplexField.Complex;
 import ProcessOperatingInterface.*;
 //
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.lang.System;
-import com.mysql.jdbc.DatabaseMetaData;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,20 +38,19 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        Entity.ComplexField.Complex z = new Complex( +3.0 , +2.0);
-        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
-        {
-            Complex other = new Complex( +3.0, immPart);
-            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
-                    Complex.operator_div(z, other).ToString() );
-        }// for
+//        ComplexField.Complex z = new Complex( +3.0 , +2.0);
+//        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
+//        {
+//            Complex other = new Complex( +3.0, immPart);
+//            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
+//                    Complex.operator_div(z, other).ToString() );
+//        }// for        
+//        Complex.Argument arg = z.argument();
         
-        Complex.Argument arg = z.argument();
         
-        
-//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-//        postgSql.insertionLoop_template();
-//        postgSql.closeConnection();        
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        postgSql.insertionLoop_template();
+        postgSql.closeConnection();        
         //        
 //        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
 //        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
