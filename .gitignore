@@ -6,8 +6,6 @@ Debug/
 Release/
 build/
 dist/
-nbproject/
-private/
 
 #let's continue with file cathegories
 *.layout
@@ -17,6 +15,4 @@ private/
 *.exe
 *.dll
 *.cbp
-*.properties
-*.xml
 
