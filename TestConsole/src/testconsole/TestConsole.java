@@ -48,10 +48,10 @@ public class TestConsole
         }// for
         Complex.Argument arg = z.argument();
         
-//        
-//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-//        postgSql.insertionLoop_template();
-//        postgSql.closeConnection();        
+        
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        postgSql.insertionLoop_template();
+        postgSql.closeConnection();        
                 
 //        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
 //        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
