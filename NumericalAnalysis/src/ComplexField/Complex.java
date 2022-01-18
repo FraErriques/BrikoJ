@@ -1,4 +1,4 @@
-package ComplexField;
+package NumericalAnalysis.ComplexField;
 
 
 	public class Complex
@@ -142,7 +142,7 @@ package ComplexField;
         /// <param name="theBase">base</param>
         /// <param name="theExp">exponent</param>
         /// <returns>power</returns>
-		public static Complex operator_raise ( Complex theBase, Complex theExp)
+		public static Complex operator_pow ( Complex theBase, Complex theExp)
 		{// (a,b) ^ (c,d)= Exp( (c,d)*Log((a,b)) )
                     //  es.   2^3 = 2^(3*Log2(2))
                     // implementazione:
@@ -155,7 +155,7 @@ package ComplexField;
 		}// end operator ^
 
 
-		public static Complex operator_raise ( double theBase, Complex theExp)
+		public static Complex operator_pow ( double theBase, Complex theExp)
 		{// (a,0) ^ (c,d)= Exp( (c,d)*Log((a )) )
 			//  es.   2^3 = 2^(3*Log2(2))
 			// implementazione:
@@ -168,7 +168,7 @@ package ComplexField;
                     );// end return
 		}// end operator ^
                 
-		public static Complex operator_raise ( Complex theBase, double theExp)
+		public static Complex operator_pow ( Complex theBase, double theExp)
 		{// (a,b) ^ (c )= Exp( (c,0)*Log((a,b)) )
 			//  es.   2^3 = 2^(3*Log2(2))
 			// implementazione:

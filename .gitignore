@@ -16,3 +16,4 @@ dist/
 *.dll
 *.cbp
 
+/NumericalAnalysis/nbproject/private/
