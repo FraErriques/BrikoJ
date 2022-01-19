@@ -3,15 +3,16 @@ package testconsole;
 
 import Common.EncryptStore.*;
 import Common.DBservice.*;
+import Common.FileSys.TokenReader;     
+import Common.ConfigurationService.*;
+import Common.MonteCarlo.*;        
 import Entity.*;
+import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
-import Common.FileSys.TokenReader;
+//
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.lang.System;
-import Common.ConfigurationService.*;
-import Common.MonteCarlo.*;
-import com.mysql.jdbc.DatabaseMetaData;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,59 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
+
+
+
+
+
+
+
+
+public class TestConsole
+{
+
+
+
+    
+    /******************* EntryPoint ****************************/
+    public static void main(String[] args)
+    {
+        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
+        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
+        {
+            Complex other = new Complex( +3.0, immPart);
+            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
+                    Complex.operator_div(z, other).ToString() );
+        }// for        
+        Complex.Argument arg = z.argument();
+        
+        
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        //postgSql.insertionLoop_template();
+        postgSql.closeConnection();        
+        //        
+//        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+//        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITBZ_Delta);
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();
+//        //
+//        msSql = null;
+//        msSql = new Common.DBservice.MsSql( connUrl_ITBZ_ExpressLie);
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();        
+        //
+    }// main
+    
+    
+}// end class TestConsole
+
+        
+
+
+//
+///*  ------------------------------- cantina ------------------------------------------
+////        //
 
 
 
@@ -63,23 +117,53 @@ import java.sql.ResultSet;
         }
     }// 
 */    
+        
+        
+//        try
+//        {
+//        Connection connection = null;
+//        connection = // test failed
+////            DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere?" +
+////                                        "user=root&password=Riemann0");
+//            DriverManager.getConnection("jdbc:mysql://localhost:3306/cantiere;user=root;password=Riemann0");
+//        //---
+//            // create a Statement from the connection
+//            Statement statement = connection.createStatement();                
+//            //-----
+//            String sqlStatement;
+//
+//            double x = +3.0;
+//            double Dx = 0.01;
+//            for( ; x<+6.0; x+=Dx)
+//            {
+//                // call  `usp_cantiere_Dump2021Dez31_INSERT` ( 0.7 , sin(0.7) );
+//                sqlStatement=" call  `usp_cantiere_Dump2021Dez31_INSERT` ( ";
+//                sqlStatement += String.valueOf(x);
+//                sqlStatement += " , ";// separation between parameters.
+//                sqlStatement += String.valueOf( Math.sin(x) );
+//                sqlStatement += " );";
+//                // insert the data
+//                statement.executeUpdate( sqlStatement);
+//            }
+//            connection.commit();// NB.  Cannot commit when autoCommit is enabled.         
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        
+//        //Common.DBservice.MySql mySql = new Common.DBservice.MySql();
+//        //mySql.insertionLoop_template();
+//        //mySql.closeConnection();                
+        
 
-
-
-
-
-
-
-public class TestConsole
-{
-
-
-    public static void mssqlserver_conn()
-    {        
-        Connection c = null;
-		// for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
-		// where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
-		// between the token instanceName and the actual instance-name.
+//    public static void mssqlserver_conn()
+//    {
+        // for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
+        // where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
+        // between the token instanceName and the actual instance-name.
         //Update the username and password below
         // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
         // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
@@ -93,82 +177,96 @@ public class TestConsole
         //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=PrimeData;user=applicationuser;password=curricula";
         //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1433;databaseName=PrimeData;user=applicationuser;password=curricula";
         //String connectionUrl = "jdbc:sqlserver://ITBZOW1422.BBT.INT;instanceName=ExpressLie;databaseName=PrimeData;user=applicationuser;password=curricula";
-        String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
+        // String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
+        //String connectionUrl_Eulero = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";
         //"jdbc:microsoft:sqlserver://Cantor:1433;DatabaseName=PrimeData", "sa", "sa");
         
-        try
-        {
-	        Connection connection;
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		c = DriverManager.getConnection(connectionUrl);
-                c.prepareStatement("select * from PrimeData.Primes;");
-                c.commit();
-        }
-        catch( Exception e)
-        {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        System.out.println(" Connection to database opened successfully"); 
-        try
-        {
-            // c.commit();  Cannot commit when autoCommit is enabled.
-            c.close();
-        }
-        catch( Exception e)
-        {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }        
-        System.out.println(" Connection to database closed successfully");
-    }// public static void postgreSQLconn()
-
+//        Connection connection=null;
+//        try
+//        {
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		connection = DriverManager.getConnection(connectionUrl_Eulero);
+//                //---
+//                // create a Statement from the connection
+//                Statement statement = connection.createStatement();                
+//                //-----
+//                String sqlStatement;
+//                
+//                double x = 0.0;
+//                double Dx = 0.01;
+//                for( ; x<+3.0; x+=Dx)
+//                {
+//                    sqlStatement="exec usp_NumDump2021_INSERT  ";
+//                    sqlStatement += String.valueOf(x);
+//                    sqlStatement += " , ";// separation between parameters.
+//                    sqlStatement += String.valueOf( Math.sin(x) );
+//                    // insert the data
+//                    statement.executeUpdate( sqlStatement);
+//                }
+//                connection.commit();// NB.  Cannot commit when autoCommit is enabled.
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        System.out.println(" Connection to database opened successfully"); 
+//        try
+//        {
+//            if(null!=connection)
+//            {
+//                if( connection.isValid(0))
+//                {
+//                    connection.close();
+//                }
+//            }
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }        
+//        System.out.println(" Connection to database closed successfully");
+//    }// end mssqlserver_conn
+//
     
     
- 
-    // first connection to Jdbc::postgreSQL
-    // the binary is in TestConsole::Libraries::
-    public static void postgreSQLconn()
-    {        
-        Connection c = null;
-        try
-        {
-            Class.forName("org.postgresql.Driver");
-            //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "sa", "sa");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fra", "fra", "fra");
-        }
-        catch( Exception e)
-        {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        System.out.println(" Connection to database opened successfully"); 
-        try
-        {
-            // c.commit();  Cannot commit when autoCommit is enabled.
-            c.close();
-        }
-        catch( Exception e)
-        {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }        
-        System.out.println(" Connection to database closed successfully");
-    }// public static void postgreSQLconn()
-
-
-    
-    /******************* EntryPoint ****************************/
-    public static void main(String[] args)
-    {
-        //postgreSQLconn();
-        mssqlserver_conn();
-        
-        
+// 
+//    // first connection to Jdbc::postgreSQL
+//    // the binary is in TestConsole::Libraries::
+//    public static void postgreSQLconn()
+//    {        
+//        Connection c = null;
+//        try
+//        {
+//            Class.forName("org.postgresql.Driver");
+//            //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mendola", "sa", "sa");
+//            //c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/numerics", "postgres", "Riemann0");
+//            c = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }
+//        System.out.println(" Connection to database opened successfully"); 
+//        try
+//        {
+//            // c.commit();  Cannot commit when autoCommit is enabled.
+//            c.close();
+//        }
+//        catch( Exception e)
+//        {
+//            e.printStackTrace();
+//            System.err.println(e.getClass().getName()+": "+e.getMessage());
+//            System.exit(0);
+//        }        
+//        System.out.println(" Connection to database closed successfully");
+//    }// public static void postgreSQLconn()
+//        
         
 //        for(int c=0; c<50; c++)
 //        {            
@@ -221,16 +319,6 @@ public class TestConsole
         
         //
         // done
-    }// main
-    
-    
-}// end class TestConsole
-
-
-
-//
-///*  ------------------------------- cantina ------------------------------------------
-////        //
 ////        Common.ConfigurationService.scalarConfig configReader = new Common.ConfigurationService.scalarConfig("./configSample.txt");
 ////        configReader.getTokensFromConfigStream();
 //        

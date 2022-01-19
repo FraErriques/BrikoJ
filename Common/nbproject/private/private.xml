@@ -2,8 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="JavaLayers"/>
-        <group/>
-        <group name="BrikoJ"/>
+        <group name="BrikoJ">
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/postgreSQL_Template.sql</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql.java</file>
+        </group>
     </open-files>
 </project-private>
+
