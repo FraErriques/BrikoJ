@@ -6,7 +6,7 @@ import Common.DBservice.*;
 import Common.FileSys.TokenReader;     
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;        
-import Entity.*;
+import Entity.Table.SomeEntity;
 import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
 //
@@ -38,17 +38,28 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
-        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
-        {
-            Complex other = new Complex( +3.0, immPart);
-            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
-                    Complex.operator_div(z, other).ToString() );
-        }// for        
-        Complex.Argument arg = z.argument();
+//        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
+//        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
+//        {
+//            Complex other = new Complex( +3.0, immPart);
+//            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
+//                    Complex.operator_div(z, other).ToString() );
+//        }// for        
+//        Complex.Argument arg = z.argument();
         
         
         Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        for( double c=+1.0; c<100; c+= +0.1)
+        {
+            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+                    c,
+                    c+1,
+                    c+2,
+                    c+3,
+                    c+4,
+                    c+5 
+            );
+        }
         //postgSql.insertionLoop_template();
         postgSql.closeConnection();        
         //        
