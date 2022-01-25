@@ -2,7 +2,7 @@
 package ProcessOperatingInterface;
 
 import Common.ConfigurationService.*;
-import Entity.*;
+import Entity.SomeEntity;
 
 
 public class SomeProcessOperatingInterfaceClass

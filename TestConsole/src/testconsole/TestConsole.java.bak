@@ -6,7 +6,7 @@ import Common.DBservice.*;
 import Common.FileSys.TokenReader;     
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;        
-import Entity.*;
+import Entity.Table.SomeEntity;
 import Entity.ComplexField.Complex;
 import ProcessOperatingInterface.*;
 //
@@ -48,22 +48,25 @@ public class TestConsole
 //        }// for
 //        Complex.Argument arg = z.argument();
         
-//        
-//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-//        postgSql.insertionLoop_template();
-//        postgSql.closeConnection();        
+        
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        Entity.Table.SomeEntity.usp_Numerics_ZetaDump(
+                postgSql.
+                0, 0, 0, 0, 0, 0);
+        postgSql.closeConnection();        
                 
-        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
-        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
-        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITBZ_Delta);
-        msSql.insertionLoop_template();
-        msSql.closeConnection();
-        //
-        msSql = null;
-        msSql = new Common.DBservice.MsSql( connUrl_ITBZ_ExpressLie);
-        msSql.insertionLoop_template();
-        msSql.closeConnection();        
-        //
+//        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+//        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
+//        String connUrl_ITFORS1011_SUZE = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;databaseName=dotazioni2021;user=applicationuser;password=curricula";
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITFORS1011_SUZE);
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();
+//        //
+//        msSql = null;
+//        msSql = new Common.DBservice.MsSql( connUrl_ITBZ_ExpressLie);
+//        msSql.insertionLoop_template();
+//        msSql.closeConnection();        
+//        //
     }// main
     
     

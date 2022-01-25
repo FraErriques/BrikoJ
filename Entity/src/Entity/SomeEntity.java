@@ -1,5 +1,5 @@
 
-package Entity.Table;
+package Entity;
 
 import Common.ConfigurationService.*;
 import java.sql.Connection;
