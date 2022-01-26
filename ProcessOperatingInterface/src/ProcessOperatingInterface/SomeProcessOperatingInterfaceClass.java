@@ -2,7 +2,7 @@
 package ProcessOperatingInterface;
 
 import Common.ConfigurationService.*;
-import Entity.SomeEntity;
+import Entity.Table.SomeEntity;
 
 
 public class SomeProcessOperatingInterfaceClass
@@ -13,7 +13,7 @@ public class SomeProcessOperatingInterfaceClass
         Common.ConfigurationService.scalarConfig cs = new Common.ConfigurationService.scalarConfig("./someStreamForConfig.txt");
         cs.getTokensFromConfigStream();
         //
-        Entity.SomeEntity se = new Entity.SomeEntity();
+        Entity.Table.SomeEntity se = new Entity.Table.SomeEntity();
         String EntityCall = se.getEntityName();
         
         return "someProcessMethod";

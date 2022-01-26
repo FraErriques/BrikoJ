@@ -16,7 +16,7 @@ import java.sql.Statement;
 public class MsSql 
 {
     // Data
-    Connection connection=null;
+    public Connection connection=null;
     // for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
     // where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there is an'=' sign
     // between the token instanceName and the actual instance-name.
