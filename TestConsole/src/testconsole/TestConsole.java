@@ -47,8 +47,8 @@ public class TestConsole
 //        }// for
 //        Complex.Argument arg = z.argument();
         
-        Complex sinZ =
-            NumericalAnalysis.ComplexField.Functions.Sin(new Complex(+3.1,+1.5));
+        Complex cosZ =
+            NumericalAnalysis.ComplexField.Functions.Cos( new Complex(+3.1,+1.5));
         
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 //        for( double c=+1.0; c<10; c+= +0.1)

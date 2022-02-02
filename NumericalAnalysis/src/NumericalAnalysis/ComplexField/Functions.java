@@ -37,11 +37,7 @@ package NumericalAnalysis.ComplexField;
 			}
 		}// end Log
 
-//		public static Complex Sin( Complex z)
-//		{
-//			Complex iZ = z.operator_mul(z, z) * new Complex( 0.0, 1.0);
-//			return( new Complex( Exp(iZ) - Exp(-iZ) ) / new Complex( 0.0, 2.0) );
-//		}// end Sin
+
 		public static Complex Sin( Complex z)
 		{//Sin[z]=:(Exp[i*z]-Exp[-i*z])/(2*i)
                     Complex iZ = Complex.operator_mul( new Complex(0.0, 1.0) , z);
@@ -54,15 +50,14 @@ package NumericalAnalysis.ComplexField;
 		}// end Sin                
 
 		public static Complex Cos( Complex z)
-		{
-			//Complex iZ = z * new Complex( 0.0, 1.0);
-                    Complex iZ = Complex.operator_mul(z, new Complex( 0.0, 1.0) );
-                    Complex numerator = 
-                                Complex.operator_add( Exp(iZ), Exp(Complex.operator_sub(iZ)) );
-                    
-                        // new Complex( 2.0, 0.0) );
-                      Complex res = Complex.operator_div( numerator , new Complex( 2.0, 0.0) );
-                      return res;
+		{//Cos[z]=:(Exp[i*z]+Exp[-i*z])/2
+                    Complex iZ = Complex.operator_mul( new Complex(0.0, 1.0) , z);
+                    Complex Exp_iZ = Exp(iZ);
+                    Complex minus_iZ = Complex.operator_sub(iZ);
+                    Complex Exp_minus_iZ = Exp(minus_iZ);
+                    Complex numerator = Complex.operator_add( Exp_iZ , Exp_minus_iZ);
+                    Complex res = Complex.operator_div( numerator , new Complex( 2.0, 0.0) );
+                    return res;
 		}// end Cos
 
 
