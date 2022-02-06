@@ -6,7 +6,7 @@ import Common.DBservice.*;
 import Common.FileSys.TokenReader;     
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;        
-import Entity.Table.SomeEntity;
+import Entity.Proxy.MsSqlServer_ZetaDump;
 import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
 //
@@ -44,28 +44,42 @@ public class TestConsole
 //            Complex other = new Complex( +3.0, immPart);
 //            System.out.println(" performing: "+z.ToString()+" / "+ other.ToString()+" = "+ 
 //                    Complex.operator_div(z, other).ToString() );
-//        }// for        
+//        }// for
 //        Complex.Argument arg = z.argument();
         
+        Complex cosZ =
+            NumericalAnalysis.ComplexField.Functions.Cos( new Complex(+3.1,+1.5));
         
-        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-        for( double c=+1.0; c<100; c+= +0.1)
-        {
-            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
-                    c,
-                    c+1,
-                    c+2,
-                    c+3,
-                    c+4,
-                    c+5 
-            );
-        }
-        //postgSql.insertionLoop_template();
-        postgSql.closeConnection();        
-        //        
+//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+//        for( double c=+1.0; c<10; c+= +0.1)
+//        {
+//            Entity.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+//                    c,
+//                    c+1,
+//                    c+2,
+//                    c+3,
+//                    c+4,
+//                    c+5 
+//            );
+//        }
+//        //postgSql.insertionLoop_template();
+//        postgSql.closeConnection();        
+                
 //        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
 //        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
+//        String connUrl_ITFORS1011_SUZE = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;databaseName=dotazioni2021;user=applicationuser;password=curricula";
 //        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITBZ_Delta);
+//        for( double c=+1.0; c<10; c+= +0.1)
+//        {
+//            Entity.Proxy.MsSqlServer_ZetaDump.usp_Numerics_ZetaDump( msSql.connection,
+//                    c,
+//                    c+1,
+//                    c+2,
+//                    c+3,
+//                    c+4,
+//                    c+5 
+//            );
+//        }
 //        msSql.insertionLoop_template();
 //        msSql.closeConnection();
 //        //
@@ -73,7 +87,7 @@ public class TestConsole
 //        msSql = new Common.DBservice.MsSql( connUrl_ITBZ_ExpressLie);
 //        msSql.insertionLoop_template();
 //        msSql.closeConnection();        
-        //
+//        //
     }// main
     
     
