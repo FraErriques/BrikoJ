@@ -36,8 +36,11 @@ public class TestConsole
 
     
     /******************* EntryPoint ****************************/
-    public static void main(String[] args)
+    public static void main(String[] args)            
     {
+        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
+        //fm.txtFileWriter("./esempio.txt");
+        fm.txtFileReader("./esempio.txt");        
 //        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
 //        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
 //        {
