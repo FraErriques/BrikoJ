@@ -105,5 +105,64 @@ String closeFirstTable = "\">";
         }
         return hasReadSuccessfully;
     }// end txtFileReader
-	
+
+    
+public void Prototype_txtFileReader(String fullPath )
+    {
+        
+        java.io.FileReader rr = null;
+        boolean hasReadSuccessfully = false;
+        StringBuilder sb;
+        String curLine;
+        try
+        {
+            rr = new java.io.FileReader( fullPath);
+            sb = new StringBuilder();
+            curLine = new String();
+            for (int ch=0; -1!= ch; )
+            {
+                ch = rr.read();
+                if( -1 == ch)// means reached EOF.
+                {
+                    break;// due EOF==EndOfFile
+                }// else still has to read
+                else if(10==ch || 13==ch)
+                {
+                    curLine = sb.toString();
+                    String[] lineTokens = curLine.split("\t");// split on blank XOR TAB
+                    for(int k=0; k<lineTokens.length; k++)
+                    {
+                        System.out.println( lineTokens[k] );
+                    }
+                    System.out.println( "\n\t EndOfLine\n" );
+                    sb = null;
+                    curLine = null;
+                    sb = new StringBuilder();
+                    curLine = new String();
+                    continue;// due EOL==EndOfLine
+                }// else still has to read
+                else
+                {
+                    sb.append((char)ch);
+                }
+            }// end for "each char in stream".
+
+            rr.close();
+            hasReadSuccessfully = true;
+        }// end try-read
+        catch( java.io.IOException e)//NB. the kind of exception
+        {
+                System.out.println("error while trying manipulate filestream : " + e.getMessage());
+                hasReadSuccessfully = false;
+        }
+        finally 
+        {
+                // ?
+        }
+        //return LineParsed;
+    }// end Prototype_txtFileReader
+
+    
+    
+    
 }// end class

@@ -40,7 +40,7 @@ public class TestConsole
     {
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         //fm.txtFileWriter("./esempio.txt");
-        fm.txtFileReader("./esempio.txt");        
+        fm.Prototype_txtFileReader("./esempio.txt");        
 //        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
 //        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
 //        {
@@ -50,8 +50,8 @@ public class TestConsole
 //        }// for
 //        Complex.Argument arg = z.argument();
         
-        Complex cosZ =
-            NumericalAnalysis.ComplexField.Functions.Cos( new Complex(+3.1,+1.5));
+//        Complex cosZ =
+//            NumericalAnalysis.ComplexField.Functions.Cos( new Complex(+3.1,+1.5));
         
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 //        for( double c=+1.0; c<10; c+= +0.1)
