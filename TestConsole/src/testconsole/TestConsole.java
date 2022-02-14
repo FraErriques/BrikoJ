@@ -19,6 +19,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 
@@ -38,9 +39,32 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
-        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
-        //fm.txtFileWriter("./esempio.txt");
-        fm.Prototype_txtFileReader("./esempio.txt");        
+        ArrayList<String[]> associated_array = null;// this is the original second member in the data structure.
+        associated_array = new ArrayList<String[]>();
+        String[] firstRow = new String[3];
+        firstRow[0] = "uno";
+        firstRow[1] = "due";
+        firstRow[2] = "tre";
+        associated_array.add(firstRow);
+        //
+        String[] secondRow = new String[4];
+        secondRow[0] = "s_uno";
+        secondRow[1] = "s_due";
+        secondRow[2] = "s_tre";        
+        secondRow[3] = "s_q";        
+        associated_array.add( secondRow );
+        
+        for(int row=0; row<associated_array.size(); row++)
+        {
+            for(int col=0; col<associated_array.get(row).length ; col++)
+            {
+                System.out.print(associated_array.get(row)[col]);
+            }
+            System.out.println("\n\tEOL\n");
+        }
+        
+//        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
+//        fm.Prototype_txtFileReader("./esempio.txt");        
 //        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
 //        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
 //        {
