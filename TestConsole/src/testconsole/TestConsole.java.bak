@@ -6,14 +6,13 @@ import Common.DBservice.*;
 import Common.FileSys.TokenReader;     
 import Common.ConfigurationService.*;
 import Common.MonteCarlo.*;        
-import Entity.Table.SomeEntity;
-import Entity.ComplexField.Complex;
+import Entity.Proxy.MsSqlServer_ZetaDump;
+import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
 //
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.lang.System;
-import com.mysql.jdbc.DatabaseMetaData;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,7 +38,9 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)
     {
-//        Entity.ComplexField.Complex z = new Complex( +3.0 , +2.0);
+        Common.FileSys.FileManipulation txtReader = new Common.FileSys.FileManipulation();
+        txtReader.Prototype_txtFileReader(".\\esempio.txt");
+//        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
 //        for( double immPart=0.0; immPart<+6.0; immPart+=0.1)
 //        {
 //            Complex other = new Complex( +3.0, immPart);
@@ -48,17 +49,39 @@ public class TestConsole
 //        }// for
 //        Complex.Argument arg = z.argument();
         
+//        Complex cosZ =
+//            NumericalAnalysis.ComplexField.Functions.Cos( new Complex(+3.1,+1.5));
         
-        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-        Entity.Table.SomeEntity.usp_Numerics_ZetaDump(
-                postgSql.
-                0, 0, 0, 0, 0, 0);
-        postgSql.closeConnection();        
+//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+//        for( double c=+1.0; c<10; c+= +0.1)
+//        {
+//            Entity.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+//                    c,
+//                    c+1,
+//                    c+2,
+//                    c+3,
+//                    c+4,
+//                    c+5 
+//            );
+//        }
+//        //postgSql.insertionLoop_template();
+//        postgSql.closeConnection();        
                 
 //        String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
 //        String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
 //        String connUrl_ITFORS1011_SUZE = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;databaseName=dotazioni2021;user=applicationuser;password=curricula";
-//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITFORS1011_SUZE);
+//        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITBZ_Delta);
+//        for( double c=+1.0; c<10; c+= +0.1)
+//        {
+//            Entity.Proxy.MsSqlServer_ZetaDump.usp_Numerics_ZetaDump( msSql.connection,
+//                    c,
+//                    c+1,
+//                    c+2,
+//                    c+3,
+//                    c+4,
+//                    c+5 
+//            );
+//        }
 //        msSql.insertionLoop_template();
 //        msSql.closeConnection();
 //        //
