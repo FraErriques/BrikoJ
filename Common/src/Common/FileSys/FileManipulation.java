@@ -1,6 +1,8 @@
 
 package Common.FileSys;
 
+import java.util.ArrayList;
+
 
 
 public class FileManipulation 
@@ -76,7 +78,7 @@ public class FileManipulation
         {
             rr = new java.io.FileReader( fullPath);
             sb = new StringBuilder();
-//curLine = new String();
+            //curLine NO new(): it will get StringBuilder's memory content.
             for (int ch=0; -1!= ch; )
             {
                 ch = rr.read();
@@ -94,7 +96,7 @@ public class FileManipulation
                     }
                     System.out.println( "\n\t EndOfLine\n" );
                     sb = null;
-                    curLine = null;
+                    curLine = null;//gc
                     sb = new StringBuilder();
                     lineTokens = null;//gc
                     continue;// due EOL==EndOfLine
@@ -119,6 +121,59 @@ public class FileManipulation
         //return LineParsed;
     }// end Prototype_txtFileReader
 
+    /// parses a txtFile to get into memory a String matrix, in form of an ArrayList<String[]>
+    public ArrayList<String[]> txtStringMatrix(String fullPath )
+    {
+        ArrayList<String[]> associated_array = null;
+        associated_array = new ArrayList<String[]>();
+        //--##
+        java.io.FileReader rr = null;
+        boolean hasReadSuccessfully = false;
+        StringBuilder sb;
+        String curLine;
+        try
+        {
+            rr = new java.io.FileReader( fullPath);
+            sb = new StringBuilder();
+            //curLine NO new(): it will get StringBuilder's memory content.
+            for (int ch=0; -1!= ch; )
+            {
+                ch = rr.read();
+                if( -1 == ch)// means reached EOF.
+                {
+                    break;// due EOF==EndOfFile
+                }// else still has to read
+                else if(10==ch || 13==ch)
+                {
+                    curLine = sb.toString();
+                    String[] lineTokens = curLine.split("\t");// split on blank XOR TAB
+                    associated_array.add(lineTokens);
+                    sb = null;//gc
+                    curLine = null;//gc
+                    lineTokens = null;//gc and then re-assigned by curLine.split("\t")
+                    sb = new StringBuilder();// a brand new sb for next line
+                    continue;// due EOL==EndOfLine
+                }// else still has to read
+                else
+                {// on regular chars, append to the StringBuolder sb.
+                    sb.append((char)ch);
+                }
+            }// end for "each char in stream".
+            hasReadSuccessfully = true;
+            rr.close();// txtFile close().
+        }// end try-read
+        catch( java.io.IOException e)//NB. the kind of exception
+        {
+            System.out.println("error while trying manipulate filestream : " + e.getMessage());
+            hasReadSuccessfully = false;
+        }
+        finally 
+        {
+            //?
+        }
+        return associated_array;
+    }// end Prototype_txtFileReader    
+    
     
     
 }// end class

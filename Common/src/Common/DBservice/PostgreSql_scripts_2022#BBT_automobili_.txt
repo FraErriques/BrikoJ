@@ -1,0 +1,601 @@
+-- Table: public.ge135zj
+
+-- DROP TABLE public.ge135zj;
+
+CREATE TABLE IF NOT EXISTS public.ge135zj
+(
+    ge135zj_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    data date,
+    km real,
+    rifornimento_luogo character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    litri real,
+    gasolio_euro_litro real,
+    gasolio_euro real,
+    accessori_descr character varying(255) COLLATE pg_catalog."default",
+    accessori_euro real,
+    lavaggio_descr character varying(255) COLLATE pg_catalog."default",
+    lavaggio_euro real,
+    manutenzione_descr character varying(255) COLLATE pg_catalog."default",
+    data_ingresso_officina date,
+    data_uscita_officina date,
+    manutenzione_euro real,
+    altro_descriz character varying(255) COLLATE pg_catalog."default",
+    altro_euro real,
+    sinistro_descriz character varying(255) COLLATE pg_catalog."default",
+    conducente character varying(255) COLLATE pg_catalog."default",
+    descrizione_riga character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    costo_totale_riga real NOT NULL,
+    franchigia_assicurazione real,
+    CONSTRAINT ge135zj_pkey PRIMARY KEY (ge135zj_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.ge135zj
+    OWNER to postgres;
+-----------------------------------------------------------------------##############
+-- PROCEDURE: public.usp_ge135zj_insert(date, real, character varying, real, real, real, character varying, real, character varying, real, character varying, date, date, real, character varying, real, character varying, character varying, character varying, real, real)
+
+-- DROP PROCEDURE public.usp_ge135zj_insert(date, real, character varying, real, real, real, character varying, real, character varying, real, character varying, date, date, real, character varying, real, character varying, character varying, character varying, real, real);
+
+CREATE OR REPLACE PROCEDURE public.usp_ge135zj_insert(
+	IN par_data date,
+	IN par_km real,
+	IN par_rifornimento_luogo character varying,
+	IN par_litri real,
+	IN par_gasolio_euro_litro real,
+	IN par_gasolio_euro real,
+	IN par_accessori_descr character varying,
+	IN par_accessori_euro real,
+	IN par_lavaggio_descr character varying,
+	IN par_lavaggio_euro real,
+	IN par_manutenzione_descr character varying,
+	IN par_data_ingresso_officina date,
+	IN par_data_uscita_officina date,
+	IN par_manutenzione_euro real,
+	IN par_altro_descriz character varying,
+	IN par_altro_euro real,
+	IN par_sinistro_descriz character varying,
+	IN par_conducente character varying,
+	IN par_descrizione_riga character varying,
+	IN par_costo_totale_riga real,
+	IN par_franchigia_assicurazione real)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into ge135zj(
+	-- ge135zj_id IDENTITY
+	data,
+	km,
+	rifornimento_luogo,
+	litri,
+	gasolio_euro_litro,
+	gasolio_euro,
+	accessori_descr,
+	accessori_euro,
+	lavaggio_descr,
+	lavaggio_euro,
+	manutenzione_descr,
+	data_ingresso_officina,
+	data_uscita_officina,
+	manutenzione_euro,	
+	altro_descriz,
+	altro_euro,
+	sinistro_descriz,
+	conducente,
+	descrizione_riga,
+	costo_totale_riga,
+	franchigia_assicurazione
+									) values(
+-- ge135zj_id IDENTITY									
+par_data,
+par_km,
+par_rifornimento_luogo,
+par_litri,
+par_gasolio_euro_litro,
+par_gasolio_euro,
+par_accessori_descr,
+par_accessori_euro,
+par_lavaggio_descr,
+par_lavaggio_euro,
+par_manutenzione_descr,
+par_data_ingresso_officina,
+par_data_uscita_officina,
+par_manutenzione_euro,
+par_altro_descriz,
+par_altro_euro,
+par_sinistro_descriz,
+par_conducente,
+par_descrizione_riga,
+par_costo_totale_riga,
+par_franchigia_assicurazione
+ );
+commit;
+end;
+$BODY$;
+----------------------------------------------------------------#####################################
+
+Numerics=# CALL public.usp_ge135zj_insert( -- ge135zj_id IDENTITY
+Numerics(#  '2001-01-02',
+Numerics(#  123.456,
+Numerics(#  'par_rifornimento_luogo',
+Numerics(#  123.456,
+Numerics(#  123.456,
+Numerics(#  123.456,
+Numerics(#  'par_accessori_descr',
+Numerics(#  123.456,
+Numerics(#  'par_lavaggio_descr',
+Numerics(#  123.456,
+Numerics(#  'par_manutenzione_descr',
+Numerics(#  '2001-01-02',
+Numerics(#  '2001-01-02',
+Numerics(#  123.456,
+Numerics(#  'par_altro_descriz',
+Numerics(#  123.456,
+Numerics(#  'par_sinistro_descriz',
+Numerics(#  'par_conducente',
+Numerics(#  'par_descrizione_riga',
+Numerics(#  123.456,
+Numerics(#  123.456
+Numerics(#   );
+CALL
+------------------------########
+
+Numerics=# CREATE TABLE IF NOT EXISTS public.justAdate
+Numerics-# (
+Numerics(#     data date
+Numerics(# )
+Numerics-# TABLESPACE pg_default;
+CREATE TABLE
+Numerics=# insert into  public.justAdate(data) values('2001-01-02');
+INSERT 0 1
+Numerics=# select * from justadate;
+    data
+------------
+ 2001-01-02
+(1 riga)
+
+
+Numerics=#
+---
+
+
+CREATE OR REPLACE PROCEDURE public.usp_zetadump_insert(
+	IN par_re_s double precision,
+	IN par_im_s double precision,
+	IN par_re_z double precision,
+	IN par_im_z double precision,
+	IN par_re_image double precision,
+	IN par_im_image double precision     )
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into zetadump(
+    re_s,
+    im_s,
+    re_z,
+    im_z,
+    re_image,
+    im_image
+  ) values(
+par_re_s,
+par_im_s,
+par_re_z,
+par_im_z,
+par_re_image,
+par_im_image   );
+commit;
+end;
+$BODY$;
+-----------------------------------------------------------------------##############
+
+CREATE OR REPLACE PROCEDURE public.usp_ge135zj_insert(
+	-- ge135zj_id IDENTITY
+	IN par_data 					date,
+	IN par_km 						real,
+	IN par_rifornimento_luogo 		character varying(255),
+	IN par_litri 					real,
+	IN par_gasolio_euro_litro 		real,
+	IN par_gasolio_euro 			real,
+	IN par_accessori_descr 			character varying(255),
+	IN par_accessori_euro 			real,
+	IN par_lavaggio_descr 			character varying(255),
+	IN par_lavaggio_euro 			real,
+	IN par_manutenzione_descr 		character varying(255),
+	IN par_data_ingresso_officina 	date,
+	IN par_data_uscita_officina   	date,
+	IN par_manutenzione_euro 		real,
+	IN par_altro_descriz 			character varying(255),
+	IN par_altro_euro 				real,
+	IN par_sinistro_descriz 		character varying(255),
+	IN par_conducente 				character varying(255),
+	IN par_descrizione_riga 		character varying(255),
+	IN par_costo_totale_riga 		real,
+	IN par_franchigia_assicurazione real
+)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into ge135zj(
+	-- ge135zj_id IDENTITY
+	data,
+	km,
+	rifornimento_luogo,
+	litri,
+	gasolio_euro_litro,
+	gasolio_euro,
+	accessori_descr,
+	accessori_euro,
+	lavaggio_descr,
+	lavaggio_euro,
+	manutenzione_descr,
+	data_ingresso_officina,
+	data_uscita_officina,
+	manutenzione_euro,	
+	altro_descriz,
+	altro_euro,
+	sinistro_descriz,
+	conducente,
+	descrizione_riga,
+	costo_totale_riga,
+	franchigia_assicurazione
+									) values(
+-- ge135zj_id IDENTITY									
+par_data,
+par_km,
+par_rifornimento_luogo,
+par_litri,
+par_gasolio_euro_litro,
+par_gasolio_euro,
+par_accessori_descr,
+par_accessori_euro,
+par_lavaggio_descr,
+par_lavaggio_euro,
+par_manutenzione_descr,
+par_data_ingresso_officina,
+par_data_uscita_officina,
+par_manutenzione_euro,
+par_altro_descriz,
+par_altro_euro,
+par_sinistro_descriz,
+par_conducente,
+par_descrizione_riga,
+par_costo_totale_riga,
+par_franchigia_assicurazione
+ );
+commit;
+end;
+$BODY$;
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+par_re_s,
+par_im_s,
+par_re_z,
+par_im_z,
+
+
+
+
+
+
+
+
+    re_s,
+    im_s,
+    re_z,
+    im_z,
+    re_image,
+    im_image
+  ) values(
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into zetadump(
+    re_s,
+    im_s,
+    re_z,
+    im_z,
+    re_image,
+    im_image
+					) values(
+par_
+par_
+par_
+par_
+par_
+par_
+);
+commit;
+end;
+$BODY$;
+----------------------------------------------------------####################
+
+
+CREATE TABLE IF NOT EXISTS public.targa#placeholder#_
+(
+targa#placeholder#_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+DATA date,
+KM real,
+RIFORNIMENTO_luogo character varying(255) COLLATE pg_catalog."default" NOT NULL,
+LITRI real,
+GASOLIO_euro/litro	real,
+GASOLIO_euro real,
+ACCESSORI_descr  character varying(255) COLLATE pg_catalog."default" NULL,
+ACCESSORI_euro	real,
+LAVAGGIO_descr  character varying(255) COLLATE pg_catalog."default" NULL,
+LAVAGGIO_euro real,
+MANUTENZIONE_descr  character varying(255) COLLATE pg_catalog."default" NULL,
+DATA_INGRESSO_officina date,
+DATA_USCITA_officina date,
+MANUTENZIONE_euro real,
+ALTRO_descriz character varying(255) COLLATE pg_catalog."default" NULL,
+ALTRO_euro real,
+SINISTRO_descriz character varying(255) COLLATE pg_catalog."default" NULL,
+CONDUCENTE character varying(255) COLLATE pg_catalog."default" NULL,
+DESCRIZIONE_riga character varying(255) COLLATE pg_catalog."default" NOT NULL,
+costo_TOTALE_riga real NOT NULL,
+franchigia_ASSICURAZIONE real NULL,
+CONSTRAINT targa#placeholder#__pkey PRIMARY KEY (targa#placeholder#_id)
+)
+TABLESPACE pg_default;
+ALTER TABLE public.contacts
+    OWNER to postgres;
+----------------------------------------------------######################################
+GE135ZJ
+
+CREATE TABLE IF NOT EXISTS public.GE135ZJ
+(
+	GE135ZJ_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+	DATA date,
+	KM real,
+	RIFORNIMENTO_luogo character varying(255) COLLATE pg_catalog."default" NOT NULL,
+	LITRI real,
+	GASOLIO_euro_litro	real,
+	GASOLIO_euro real,
+	ACCESSORI_descr  character varying(255) COLLATE pg_catalog."default" NULL,
+	ACCESSORI_euro	real,
+	LAVAGGIO_descr  character varying(255) COLLATE pg_catalog."default" NULL,
+	LAVAGGIO_euro real,
+	MANUTENZIONE_descr  character varying(255) COLLATE pg_catalog."default" NULL,
+	DATA_INGRESSO_officina date,
+	DATA_USCITA_officina date,
+	MANUTENZIONE_euro real,
+	ALTRO_descriz character varying(255) COLLATE pg_catalog."default" NULL,
+	ALTRO_euro real,
+	SINISTRO_descriz character varying(255) COLLATE pg_catalog."default" NULL,
+	CONDUCENTE character varying(255) COLLATE pg_catalog."default" NULL,
+	DESCRIZIONE_riga character varying(255) COLLATE pg_catalog."default" NOT NULL,
+	costo_TOTALE_riga real NOT NULL,
+	franchigia_ASSICURAZIONE real NULL,
+	CONSTRAINT GE135ZJ_pkey PRIMARY KEY (GE135ZJ_id)
+)
+TABLESPACE pg_default;
+ALTER TABLE public.GE135ZJ
+    OWNER to postgres;
+
+----------------------------------------------------######################################
+
+
+
+
+-- Table: public.contacts
+
+-- DROP TABLE public.contacts;
+
+CREATE TABLE IF NOT EXISTS public.contacts
+(
+    contact_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    customer_id integer,
+    contact_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    phone character varying(15) COLLATE pg_catalog."default",
+    email character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT contacts_pkey PRIMARY KEY (contact_id),
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id)
+        REFERENCES public.customers (customer_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.contacts
+    OWNER to postgres;
+	
+-- Table: public.accounts
+
+-- DROP TABLE public.accounts;
+
+CREATE TABLE IF NOT EXISTS public.accounts
+(
+    id integer NOT NULL GENERATED BY DEFAULT AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    balance numeric(15,2) NOT NULL,
+    CONSTRAINT accounts_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.accounts
+    OWNER to postgres;
+
+
+-- Table: public.customers
+
+-- DROP TABLE public.customers;
+
+CREATE TABLE IF NOT EXISTS public.customers
+(
+    customer_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    customer_name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT customers_pkey PRIMARY KEY (customer_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.customers
+    OWNER to postgres;
+
+	
+-- Table: public.zetadump
+
+-- DROP TABLE public.zetadump;
+
+CREATE TABLE IF NOT EXISTS public.zetadump
+(
+    id_zetadump integer NOT NULL GENERATED BY DEFAULT AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    re_s double precision NOT NULL,
+    im_s double precision NOT NULL,
+    re_z double precision NOT NULL,
+    im_z double precision NOT NULL,
+    re_image double precision NOT NULL,
+    im_image double precision NOT NULL,
+    CONSTRAINT zetadump_pkey PRIMARY KEY (id_zetadump)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.zetadump
+    OWNER to postgres;
+
+	
+-- Table: public.dump2021dez30
+
+-- DROP TABLE public.dump2021dez30;
+
+CREATE TABLE IF NOT EXISTS public.dump2021dez30
+(
+    id integer NOT NULL GENERATED BY DEFAULT AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    abscissa double precision,
+    ordinate double precision,
+    CONSTRAINT dump2021dez30_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.dump2021dez30
+    OWNER to postgres;
+	
+----
+-- PROCEDURE: public.transfer(integer, integer, numeric)
+
+-- DROP PROCEDURE public.transfer(integer, integer, numeric);
+
+CREATE OR REPLACE PROCEDURE public.transfer(
+	IN sender integer,
+	IN receiver integer,
+	IN amount numeric)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+    -- subtracting the amount from the sender's account 
+    update accounts 
+    set balance = balance - amount 
+    where id = sender;
+
+    -- adding the amount to the receiver's account
+    update accounts 
+    set balance = balance + amount 
+    where id = receiver;
+
+    commit;
+end;
+$BODY$;
+	
+-- PROCEDURE: public.usp_dump2021dez30_insert(double precision, double precision)
+
+-- DROP PROCEDURE public.usp_dump2021dez30_insert(double precision, double precision);
+
+CREATE OR REPLACE PROCEDURE public.usp_dump2021dez30_insert(
+	IN par_abscissa double precision,
+	IN par_ordinate double precision)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into dump2021Dez30(
+abscissa,
+ordinate   ) values(
+Par_abscissa,
+Par_ordinate );
+commit;
+end;
+$BODY$;
+-----------------------
+-- PROCEDURE: public.usp_zetadump_insert(double precision, double precision, double precision, double precision, double precision, double precision)
+
+-- DROP PROCEDURE public.usp_zetadump_insert(double precision, double precision, double precision, double precision, double precision, double precision);
+
+CREATE OR REPLACE PROCEDURE public.usp_zetadump_insert(
+	IN par_re_s double precision,
+	IN par_im_s double precision,
+	IN par_re_z double precision,
+	IN par_im_z double precision,
+	IN par_re_image double precision,
+	IN par_im_image double precision)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into zetadump(
+    re_s,
+    im_s,
+    re_z,
+    im_z,
+    re_image,
+    im_image
+  ) values(
+par_re_s,
+par_im_s,
+par_re_z,
+par_im_z,
+par_re_image,
+par_im_image   );
+commit;
+end;
+$BODY$;
+------------------------------
+	
+
+CREATE TABLE IF NOT EXISTS public.justAdate
+(
+    data date
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.justAdate
+    OWNER to postgres;

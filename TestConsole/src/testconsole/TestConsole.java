@@ -40,12 +40,22 @@ public class TestConsole
     public static void main(String[] args)            
     {
         ArrayList<String[]> associated_array = null;// this is the original second member in the data structure.
-        associated_array = new ArrayList<String[]>();
-        String[] firstRow = new String[3];
-        firstRow[0] = "uno";
-        firstRow[1] = "due";
-        firstRow[2] = "tre";
-        associated_array.add(firstRow);
+//        associated_array = new ArrayList<String[]>();
+//        String[] firstRow = new String[3];
+//        firstRow[0] = "uno";
+//        firstRow[1] = "due";
+//        firstRow[2] = "tre";
+//        associated_array.add(firstRow);
+//        //
+//        String[] secondRow = new String[4];
+//        secondRow[0] = "s_uno";
+//        secondRow[1] = "s_due";
+//        secondRow[2] = "s_tre";        
+//        secondRow[3] = "s_q";        
+//        associated_array.add( secondRow );
+        
+        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
+        associated_array = fm.txtStringMatrix( "./esempio_matA_.txt");
         //
         String[] secondRow = new String[4];
         secondRow[0] = "s_uno";
@@ -59,6 +69,7 @@ public class TestConsole
             for(int col=0; col<associated_array.get(row).length ; col++)
             {
                 System.out.print(associated_array.get(row)[col]);
+                System.out.print(" ");
             }
             System.out.println("\n\tEOL\n");
         }
