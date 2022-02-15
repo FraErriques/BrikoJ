@@ -126,27 +126,6 @@ public class FileManipulation
     {
         ArrayList<String[]> associated_array = null;
         associated_array = new ArrayList<String[]>();
-//        String[] firstRow = new String[3];
-//        firstRow[0] = "uno";
-//        firstRow[1] = "due";
-//        firstRow[2] = "tre";
-//        associated_array.add(firstRow);
-//        //
-//        String[] secondRow = new String[4];
-//        secondRow[0] = "s_uno";
-//        secondRow[1] = "s_due";
-//        secondRow[2] = "s_tre";        
-//        secondRow[3] = "s_q";        
-//        associated_array.add( secondRow );
-        
-        for(int row=0; row<associated_array.size(); row++)
-        {
-            for(int col=0; col<associated_array.get(row).length ; col++)
-            {
-                System.out.print(associated_array.get(row)[col]);
-            }
-            System.out.println("\n\tEOL\n");
-        }        
         //--##
         java.io.FileReader rr = null;
         boolean hasReadSuccessfully = false;
@@ -169,11 +148,6 @@ public class FileManipulation
                     curLine = sb.toString();
                     String[] lineTokens = curLine.split("\t");// split on blank XOR TAB
                     associated_array.add(lineTokens);
-//                    for(int k=0; k<lineTokens.length; k++)
-//                    {
-//                        System.out.println( lineTokens[k] );
-//                    }
-//                    System.out.println( "\n\t EndOfLine\n" );
                     sb = null;//gc
                     curLine = null;//gc
                     lineTokens = null;//gc and then re-assigned by curLine.split("\t")
@@ -190,8 +164,8 @@ public class FileManipulation
         }// end try-read
         catch( java.io.IOException e)//NB. the kind of exception
         {
-                System.out.println("error while trying manipulate filestream : " + e.getMessage());
-                hasReadSuccessfully = false;
+            System.out.println("error while trying manipulate filestream : " + e.getMessage());
+            hasReadSuccessfully = false;
         }
         finally 
         {

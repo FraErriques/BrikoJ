@@ -62,6 +62,7 @@ public class TestConsole
             for(int col=0; col<associated_array.get(row).length ; col++)
             {
                 System.out.print(associated_array.get(row)[col]);
+                System.out.print(" ");
             }
             System.out.println("\n\tEOL\n");
         }
