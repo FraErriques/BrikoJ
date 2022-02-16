@@ -34,6 +34,7 @@ public class TestConsole
         //Update the username and password below
         //String connectionUrl   = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
         String connectionUrl   = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
+        //String connectionUrl   = "jdbc:sqlserver://Kronecker;instanceName=SqlExpress:1433;databaseName=cv_db;user=sa;password=Riemann0";
         //
         try
         {
