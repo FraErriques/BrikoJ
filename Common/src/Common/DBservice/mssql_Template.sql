@@ -15,6 +15,50 @@ sqlcmd -U sa
 sa
 Riemann0
 
+USE [dotazioni2022]
+GO
+/****** Object:  Table [dbo].[Panda_FR937FT]    Script Date: 02/16/2022 17:37:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[ge135zj]
+(
+    [ge135zj_id]  [int] IDENTITY(1,1) NOT NULL,
+    [data] [date] NULL,
+    [km] [float] NULL,
+    rifornimento_luogo [varchar](255) NOT NULL,
+    [litri] [float] NULL,
+    [gasolio_euro_litro] [float] NULL,
+    [gasolio_euro] [float] NULL,
+    [accessori_descr] [varchar](255) NULL,
+    [accessori_euro] [float] NULL,
+    [lavaggio_descr] [varchar](255) NULL,
+    [lavaggio_euro] [float] NULL,
+    [manutenzione_descr] [varchar](255) NULL,
+    [data_ingresso_officina] [date] NULL,
+    [data_uscita_officina] [date] NULL,
+    [manutenzione_euro real] [float] NULL,
+    [altro_descriz] [varchar](255) NULL,
+    [altro_euro] [float] NULL,
+    [sinistro_descriz] [varchar](255) NULL,
+    [conducente] [varchar](255) NULL,
+    [descrizione_riga] [varchar](255) NOT NULL,
+    [costo_totale_riga] [float] NOT NULL,
+    [franchigia_assicurazione] [float] NULL,
+ CONSTRAINT [PK_dotazioni2022_ge135zjID_] PRIMARY KEY CLUSTERED
+(
+	[ge135zj_id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+
+
 
 CREATE TABLE dbo.NumDump2021 (
   id int IDENTITY(1,1) PRIMARY KEY NOT NULL,

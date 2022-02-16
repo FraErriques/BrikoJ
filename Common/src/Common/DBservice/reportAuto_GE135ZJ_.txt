@@ -1,0 +1,234 @@
+--##
+--USE [dotazioni2022]
+--GO
+--/****** Object:  Table [dbo].[Panda_FR937FT]    Script Date: 02/16/2022 17:37:25 ******/
+--SET ANSI_NULLS ON
+--GO
+--SET QUOTED_IDENTIFIER ON
+--GO
+--SET ANSI_PADDING ON
+--GO
+
+--CREATE TABLE [dbo].[ge135zj]
+--(
+--    [ge135zj_id]  [int] IDENTITY(1,1) NOT NULL,
+--    [data] [date] NULL,
+--    [km] [float] NULL,
+--    rifornimento_luogo [varchar](255) NOT NULL,
+--    [litri] [float] NULL,
+--    [gasolio_euro_litro] [float] NULL,
+--    [gasolio_euro] [float] NULL,
+--    [accessori_descr] [varchar](255) NULL,
+--    [accessori_euro] [float] NULL,
+--    [lavaggio_descr] [varchar](255) NULL,
+--    [lavaggio_euro] [float] NULL,
+--    [manutenzione_descr] [varchar](255) NULL,
+--    [data_ingresso_officina] [date] NULL,
+--    [data_uscita_officina] [date] NULL,
+--    [manutenzione_euro real] [float] NULL,
+--    [altro_descriz] [varchar](255) NULL,
+--    [altro_euro] [float] NULL,
+--    [sinistro_descriz] [varchar](255) NULL,
+--    [conducente] [varchar](255) NULL,
+--    [descrizione_riga] [varchar](255) NOT NULL,
+--    [costo_totale_riga] [float] NOT NULL,
+--    [franchigia_assicurazione] [float] NULL,
+-- CONSTRAINT [PK_dotazioni2022_ge135zjID_] PRIMARY KEY CLUSTERED
+--(
+--	[ge135zj_id] ASC
+--)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+--) ON [PRIMARY]
+--GO
+--SET ANSI_PADDING OFF
+--GO
+-----------@@@@@
+--USE [dotazioni2022]
+--GO
+--SET ANSI_NULLS ON
+--GO
+--SET QUOTED_IDENTIFIER ON
+--GO
+--create procedure [dbo].[usp_ge135zj_INSERT]
+--	--@ge135zj_id [int] IDENTITY(1,1) NOT NULL,
+--	@data [date],
+--	@km [float],
+--	@rifornimento_luogo [varchar](255),
+--	@litri [float],
+--	@gasolio_euro_litro [float],
+--	@gasolio_euro [float],
+--	@accessori_descr [varchar](255),
+--	@accessori_euro [float],
+--	@lavaggio_descr [varchar](255),
+--	@lavaggio_euro [float],
+--	@manutenzione_descr [varchar](255),
+--	@data_ingresso_officina [date],
+--	@data_uscita_officina [date],
+--	@manutenzione_euro [float],
+--	@altro_descriz [varchar](255),
+--	@altro_euro [float],
+--	@sinistro_descriz [varchar](255),
+--	@conducente [varchar](255),
+--	@descrizione_riga [varchar](255),
+--	@costo_totale_riga [float],
+--	@franchigia_assicurazione [float]
+--as
+----
+--insert into [dotazioni2022].[dbo].[ge135zj]
+--(
+----  [ge135zj_id]  [int] IDENTITY(1,1) NOT NULL,
+--[data],
+--[km],
+--[rifornimento_luogo],
+--[litri],
+--[gasolio_euro_litro],
+--[gasolio_euro],
+--[accessori_descr],
+--[accessori_euro],
+--[lavaggio_descr],
+--[lavaggio_euro],
+--[manutenzione_descr],
+--[data_ingresso_officina],
+--[data_uscita_officina],
+--[manutenzione_euro real],
+--[altro_descriz],
+--[altro_euro],
+--[sinistro_descriz],
+--[conducente],
+--[descrizione_riga],
+--[costo_totale_riga],
+--[franchigia_assicurazione]
+--		)values(
+--	--@ge135zj_id [int] IDENTITY(1,1) NOT NULL,
+--	@data,
+--	@km,
+--	@rifornimento_luogo,
+--	@litri,
+--	@gasolio_euro_litro,
+--	@gasolio_euro,
+--	@accessori_descr,
+--	@accessori_euro,
+--	@lavaggio_descr,
+--	@lavaggio_euro,
+--	@manutenzione_descr,
+--	@data_ingresso_officina,
+--	@data_uscita_officina,
+--	@manutenzione_euro,
+--	@altro_descriz,
+--	@altro_euro,
+--	@sinistro_descriz,
+--	@conducente,
+--	@descrizione_riga,
+--	@costo_totale_riga,
+--	@franchigia_assicurazione
+--)
+--GO		
+----#################
+		
+
+
+
+	-- [id] [int] IDENTITY(1,1) NOT NULL
+	[Vettura],
+	[data],
+	[km],
+	[intervento],
+	[litri],
+	[euro],
+	[gasolio_euro/litro] -- NB. sosituzione di '/' con '_' nel parametro
+	   )
+  values(
+	--[id] [int] IDENTITY(1,1) NOT NULL
+	@Vettura			,
+	@data				,
+	@km					,
+	@intervento			,
+	@litri				,
+	@euro				,
+	@gasolio_euro_litro	  -- NB. sosituzione di '/' con '_' nel parametro
+)
+
+
+GO
+
+
+
+
+
+
+--##
+USE [dotazioni2022]
+GO
+/****** Object:  Table [dbo].[Panda_FR937FT]    Script Date: 02/16/2022 17:37:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Panda_FR937FT](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[Vettura] [varchar](30) NULL,
+	[data] [date] NULL,
+	[km] [int] NULL,
+	[intervento] [varchar](330) NULL,
+	[litri] [float] NULL,
+	[euro] [float] NULL,
+	[gasolio_euro/litro] [float] NULL,
+ CONSTRAINT [PK_dotazioni2021_Panda_FR937FT] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+
+--@@
+USE [dotazioni2022]
+GO
+
+/****** Object:  Table [dbo].[ge135zj]    Script Date: 02/16/2022 18:05:24 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[ge135zj](
+	[ge135zj_id] [int] IDENTITY(1,1) NOT NULL,
+	[data] [date] NULL,
+	[km] [float] NULL,
+	[rifornimento_luogo] [varchar](255) NOT NULL,
+	[litri] [float] NULL,
+	[gasolio_euro_litro] [float] NULL,
+	[gasolio_euro] [float] NULL,
+	[accessori_descr] [varchar](255) NULL,
+	[accessori_euro] [float] NULL,
+	[lavaggio_descr] [varchar](255) NULL,
+	[lavaggio_euro] [float] NULL,
+	[manutenzione_descr] [varchar](255) NULL,
+	[data_ingresso_officina] [date] NULL,
+	[data_uscita_officina] [date] NULL,
+	[manutenzione_euro real] [float] NULL,
+	[altro_descriz] [varchar](255) NULL,
+	[altro_euro] [float] NULL,
+	[sinistro_descriz] [varchar](255) NULL,
+	[conducente] [varchar](255) NULL,
+	[descrizione_riga] [varchar](255) NOT NULL,
+	[costo_totale_riga] [float] NOT NULL,
+	[franchigia_assicurazione] [float] NULL,
+ CONSTRAINT [PK_dotazioni2022_ge135zjID_] PRIMARY KEY CLUSTERED 
+(
+	[ge135zj_id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
