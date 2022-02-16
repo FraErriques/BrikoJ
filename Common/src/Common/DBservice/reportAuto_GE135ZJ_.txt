@@ -231,4 +231,88 @@ GO
 
 SET ANSI_PADDING OFF
 GO
+------@
+USE [dotazioni2022]
+GO
 
+/****** Object:  StoredProcedure [dbo].[usp_ge135zj_INSERT]    Script Date: 02/16/2022 18:23:09 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+create procedure [dbo].[usp_ge135zj_INSERT]
+	--@ge135zj_id [int] IDENTITY(1,1) NOT NULL,
+	@data [date],
+	@km [float],
+	@rifornimento_luogo [varchar](255),
+	@litri [float],
+	@gasolio_euro_litro [float],
+	@gasolio_euro [float],
+	@accessori_descr [varchar](255),
+	@accessori_euro [float],
+	@lavaggio_descr [varchar](255),
+	@lavaggio_euro [float],
+	@manutenzione_descr [varchar](255),
+	@data_ingresso_officina [date],
+	@data_uscita_officina [date],
+	@manutenzione_euro [float],
+	@altro_descriz [varchar](255),
+	@altro_euro [float],
+	@sinistro_descriz [varchar](255),
+	@conducente [varchar](255),
+	@descrizione_riga [varchar](255),
+	@costo_totale_riga [float],
+	@franchigia_assicurazione [float]
+as
+--
+insert into [dotazioni2022].[dbo].[ge135zj]
+(
+--  [ge135zj_id]  [int] IDENTITY(1,1) NOT NULL,
+[data],
+[km],
+[rifornimento_luogo],
+[litri],
+[gasolio_euro_litro],
+[gasolio_euro],
+[accessori_descr],
+[accessori_euro],
+[lavaggio_descr],
+[lavaggio_euro],
+[manutenzione_descr],
+[data_ingresso_officina],
+[data_uscita_officina],
+[manutenzione_euro real],
+[altro_descriz],
+[altro_euro],
+[sinistro_descriz],
+[conducente],
+[descrizione_riga],
+[costo_totale_riga],
+[franchigia_assicurazione]
+		)values(
+	--@ge135zj_id [int] IDENTITY(1,1) NOT NULL,
+	@data,
+	@km,
+	@rifornimento_luogo,
+	@litri,
+	@gasolio_euro_litro,
+	@gasolio_euro,
+	@accessori_descr,
+	@accessori_euro,
+	@lavaggio_descr,
+	@lavaggio_euro,
+	@manutenzione_descr,
+	@data_ingresso_officina,
+	@data_uscita_officina,
+	@manutenzione_euro,
+	@altro_descriz,
+	@altro_euro,
+	@sinistro_descriz,
+	@conducente,
+	@descrizione_riga,
+	@costo_totale_riga,
+	@franchigia_assicurazione
+)
+GO
