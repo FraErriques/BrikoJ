@@ -19,6 +19,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -39,21 +40,35 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        Entity.Proxy.Pg_usp_ge135zj_insert.Pg_usp_ge135zj_insert_SERVICE(
+                postgSql.connection,// the db- connection
+                //
+                LocalDate.now(),
+                (float)3612,//km
+                "ENI Vipiteno",// par_rifornimento_luogo,
+                (float)31.4,// litri gasolio
+                (float)1.654,// gasolio euro/litro
+                (float)45,// euro spesa carburante
+                "par_accessori_descr",// "par_accessori_descr"
+                (float)0,// accessori_costo
+                "par_lavaggio_descr",//"par_lavaggio_descr"
+                (float)0,// lavaggio costo
+                "par_manutenzione_descr",// "par_manutenzione_descr"
+                LocalDate.EPOCH, // par_data_ingresso_officina
+                LocalDate.ofYearDay(1999, 300), // par_data_uscita_officina
+                (float)0, // manutenzione_costo
+                "par_altro_descriz",// "par_altro_descriz"
+                (float)0,// par_altro_euro
+                "par_sinistro_descriz",// "par_sinistro_descriz"
+                "par_conducente",//"par_conducente"
+                "par_descrizione_riga",//"par_descrizione_riga"
+                (float)0,// par_costo_totale_riga
+                (float)0 // par_franchigia_assicurazione
+        );
+        //postgSql.connection 3
+        //
         ArrayList<String[]> associated_array = null;// this is the original second member in the data structure.
-//        associated_array = new ArrayList<String[]>();
-//        String[] firstRow = new String[3];
-//        firstRow[0] = "uno";
-//        firstRow[1] = "due";
-//        firstRow[2] = "tre";
-//        associated_array.add(firstRow);
-//        //
-//        String[] secondRow = new String[4];
-//        secondRow[0] = "s_uno";
-//        secondRow[1] = "s_due";
-//        secondRow[2] = "s_tre";        
-//        secondRow[3] = "s_q";        
-//        associated_array.add( secondRow );
-        
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         associated_array = fm.txtStringMatrix( "./esempio_matA_.txt");
         //

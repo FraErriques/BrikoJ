@@ -41,8 +41,8 @@ public class Pg_usp_ge135zj_insert
     */
   
     public static void Pg_usp_ge135zj_insert_SERVICE(
-            java.sql.Connection connection,
-            //
+        java.sql.Connection connection,
+        //
 	LocalDate  par_data,
 	float par_km,
 	String par_rifornimento_luogo,
@@ -66,6 +66,7 @@ public class Pg_usp_ge135zj_insert
 	float par_franchigia_assicurazione
     )
     {
+        String sqlStatement;
         try
         {
             if(null==connection ||  !connection.isValid(0) )
@@ -74,20 +75,50 @@ public class Pg_usp_ge135zj_insert
             }// else continue.
             // create a Statement from the connection
             Statement statement = connection.createStatement();                
-            String sqlStatement;
             //
-            sqlStatement="CALL public.usp_ge135zj_insert(  ";
-//            sqlStatement += String.valueOf( Re_s);
-//            sqlStatement += " , ";// separation between parameters.
-//            sqlStatement += String.valueOf( Im_s);
-//            sqlStatement += " , ";// separation between parameters.
-//            sqlStatement += String.valueOf( Re_z);
-//            sqlStatement += " , ";// separation between parameters.
-//            sqlStatement += String.valueOf( Im_z);
-//            sqlStatement += " , ";// separation between parameters.
-//            sqlStatement += String.valueOf( Re_image);
-//            sqlStatement += " , ";// separation between parameters.
-//            sqlStatement += String.valueOf( Im_image);
+            sqlStatement= " CALL public.usp_ge135zj_insert(  ";
+            sqlStatement += String.valueOf( "'"+par_data+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_km);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_rifornimento_luogo+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_litri);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_gasolio_euro_litro);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_gasolio_euro);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_accessori_descr+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_accessori_euro);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_lavaggio_descr+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_lavaggio_euro);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_manutenzione_descr+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_data_ingresso_officina+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_data_uscita_officina+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_manutenzione_euro);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_altro_descriz+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_altro_euro);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_sinistro_descriz+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_conducente+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( "'"+par_descrizione_riga+"'");
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_costo_totale_riga);
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += String.valueOf( par_franchigia_assicurazione);
+            //
             sqlStatement += " );";
             // insert the data
             statement.executeUpdate( sqlStatement);
