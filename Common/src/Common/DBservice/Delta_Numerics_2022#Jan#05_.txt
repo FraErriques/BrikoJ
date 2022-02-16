@@ -1,0 +1,29 @@
+use Numerics
+
+CREATE TABLE dbo.NumDump2021 (
+  id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+  abscissa float,
+  ordinate float   )
+GO
+
+
+CREATE PROCEDURE usp_NumDump2021_INSERT
+--id identity PK
+@abscissa float,
+@ordinate float  
+AS  
+BEGIN  
+-- data is nullable, both in abscissa and in ordinate
+	INSERT INTO NumDump2021 (
+		--id
+		abscissa,
+		ordinate   
+			) values(
+		--id 
+		@abscissa,
+		@ordinate   );
+END
+GO
+
+select COUNT(*) from NumDump2021
+select * from NumDump2021

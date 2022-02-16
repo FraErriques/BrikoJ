@@ -1,7 +1,9 @@
 
-package Entity;
+package Entity.Table;
 
 import Common.ConfigurationService.*;
+import java.sql.Connection;
+import java.sql.Statement;
 
 
 public class SomeEntity
@@ -12,6 +14,6 @@ public class SomeEntity
         cs.getTokensFromConfigStream();
         return "SomeEntity";
     }
-    
-    
-}
+
+
+}// class

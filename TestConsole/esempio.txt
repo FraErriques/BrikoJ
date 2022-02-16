@@ -1,9 +1,3 @@
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
-Stringa di testo di prova.
+Stringa	di	testo	di	prova.
+123	25.21	56.123E+02	16.3
+zorro	tenco
