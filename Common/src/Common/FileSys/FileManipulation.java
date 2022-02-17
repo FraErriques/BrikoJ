@@ -174,8 +174,89 @@ public class FileManipulation
         return associated_array;
     }// end Prototype_txtFileReader    
     
+
+
+    /// parses a txtFile to get into memory a String matrix, in form of an ArrayList<String[]>
+    public ArrayList<ArrayList<String>> laboratory(String fullPath )
+    {
+        ArrayList<ArrayList<String>> associated_array = null;
+        associated_array = new ArrayList<ArrayList<String>>();
+        //--##
+        java.io.FileReader rr = null;
+        boolean hasReadSuccessfully = false;
+        StringBuilder sb;
+        String curLine;
+        try
+        {
+            rr = new java.io.FileReader( fullPath);
+            sb = new StringBuilder();
+            //curLine NO new(): it will get StringBuilder's memory content.
+            for (int ch=0; -1!= ch; )
+            {
+                ch = rr.read();
+                if( -1 == ch)// means reached EOF.
+                {
+                    break;// due EOF==EndOfFile
+                }// else still has to read
+                else if(10==ch || 13==ch)
+                {
+                    curLine = sb.toString();
+                    String[] lineTokens = curLine.split("\t");// split on blank XOR TAB
+                    ArrayList<String> currentRow = new ArrayList<String>();
+                    for(int curlineColumn=0; curlineColumn<lineTokens.length; curlineColumn++ )
+                    {
+                        currentRow.add( lineTokens[curlineColumn] );
+                    }
+//lineTokens.  has got no "remove"
+                    associated_array.add( currentRow);
+//associated_array.remove(atIndex)
+                    sb = null;//gc
+                    curLine = null;//gc
+                    currentRow = null;//gc
+                    lineTokens = null;//gc and then re-assigned by curLine.split("\t")
+                    sb = new StringBuilder();// a brand new sb for next line
+                    continue;// due EOL==EndOfLine
+                }// else still has to read
+                else
+                {// on regular chars, append to the StringBuolder sb.
+                    sb.append((char)ch);
+                }
+            }// end for "each char in stream".
+            hasReadSuccessfully = true;
+            rr.close();// txtFile close().
+        }// end try-read
+        catch( java.io.IOException e)//NB. the kind of exception
+        {
+            System.out.println("error while trying manipulate filestream : " + e.getMessage());
+            hasReadSuccessfully = false;
+        }
+        finally 
+        {
+            //?
+        }
+        return associated_array;
+    }// end laboratory    
     
-    
+
+    public void RemoveEmptyEntries( ArrayList<ArrayList<String>> par)
+    {
+        for( int row=0; row<par.size(); row++)
+        {
+            ArrayList<String> curRow = par.get(row);
+            for( int col=0; col<(par.get(row)).size(); col++ )
+            {
+                String curCol = (String)(curRow.get(col));
+                String trimmedEntry = curCol.trim();
+                if( 0==trimmedEntry.length() )
+                {
+                    par.get(row).remove(col);
+                }// emptyEntry removal.
+            }// for columns
+        }// for rows
+    }// method RemoveEmptyEntries
+
+
+
 }// end class
 
 
