@@ -238,7 +238,7 @@ public class FileManipulation
     }// end laboratory    
     
 
-    public void RemoveEmptyEntries( ArrayList<ArrayList<String>> par)
+    public ArrayList<ArrayList<String>> RemoveEmptyEntries( ArrayList<ArrayList<String>> par)
     {
         for( int row=0; row<par.size(); row++)
         {
@@ -253,6 +253,8 @@ public class FileManipulation
                 }// emptyEntry removal.
             }// for columns
         }// for rows
+        //
+        return par;
     }// method RemoveEmptyEntries
 
 
