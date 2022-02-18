@@ -240,21 +240,30 @@ public class FileManipulation
 
     public ArrayList<ArrayList<String>> RemoveEmptyEntries( ArrayList<ArrayList<String>> par)
     {
-        for( int row=0; row<par.size(); row++)
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+        int totRows = par.size();
+        for( int row=0; row<totRows; row++)
         {
+            res.add( new ArrayList<String>());// prepare a brand new row, for the result var;
             ArrayList<String> curRow = par.get(row);
-            for( int col=0; col<(par.get(row)).size(); col++ )
+            int totCols = (par.get(row)).size();
+            for( int col=0; col<totCols; col++ )
             {
                 String curCol = (String)(curRow.get(col));
                 String trimmedEntry = curCol.trim();
-                if( 0==trimmedEntry.length() )
+                if( 0<trimmedEntry.length() )
                 {
-                    par.get(row).remove(col);
-                }// emptyEntry removal.
+                    (res.get(row)).add(trimmedEntry);//else skip, cause it's an empty-entry.
+//                    par.get(row).remove(col);
+                }// Non-emptyEntry copy.
             }// for columns
+            if(res.get(row).size()==0)
+            {
+                res.remove(row);// remove row, iff empty.
+            }
         }// for rows
         //
-        return par;
+        return res;
     }// method RemoveEmptyEntries
 
 

@@ -70,7 +70,7 @@ public class TestConsole
         //
         ArrayList<String[]> associated_array = null;// this is the original second member in the data structure.
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
-        associated_array = fm.txtStringMatrix( "./esempio_matA_.txt");
+        associated_array = fm.txtStringMatrix( "./esempio_matB_.txt");
         //
         for(int row=0; row<associated_array.size(); row++)
         {
@@ -82,7 +82,7 @@ public class TestConsole
             System.out.println("\n\tEOL\n");
         }
         //
-        ArrayList<ArrayList<String>> res = fm.laboratory("./esempio_matA_.txt");
+        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matB_.txt");
         for( int row=0; row<res.size(); row++)
         {
             for( int col=0; col<res.get(row).size(); col++)
@@ -105,7 +105,7 @@ public class TestConsole
             System.out.println("\n\tEOL\n");
         }// end print matrix WITH empty entries
         //        
-        
+        int x=0;
 //        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
 //        fm.Prototype_txtFileReader("./esempio.txt");        
 //        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
