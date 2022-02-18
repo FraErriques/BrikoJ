@@ -68,21 +68,22 @@ public class TestConsole
 //        );
 //        //postgSql.connection 3
         //
-        ArrayList<String[]> associated_array = null;// this is the original second member in the data structure.
-        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
-        associated_array = fm.txtStringMatrix( "./esempio_matB_.txt");
+//        ArrayList<String[]> associated_array = null;// this is the original second member in the data structure.
+
+//        associated_array = fm.txtStringMatrix( "./esempio_matB_.txt");
+//        //
+//        for(int row=0; row<associated_array.size(); row++)
+//        {
+//            for(int col=0; col<associated_array.get(row).length ; col++)
+//            {
+//                System.out.print(associated_array.get(row)[col]);
+//                System.out.print(" ");
+//            }
+//            System.out.println("\n\tEOL\n");
+//        }
         //
-        for(int row=0; row<associated_array.size(); row++)
-        {
-            for(int col=0; col<associated_array.get(row).length ; col++)
-            {
-                System.out.print(associated_array.get(row)[col]);
-                System.out.print(" ");
-            }
-            System.out.println("\n\tEOL\n");
-        }
-        //
-        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matB_.txt");
+        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();        
+        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
         for( int row=0; row<res.size(); row++)
         {
             for( int col=0; col<res.get(row).size(); col++)

@@ -1,0 +1,3 @@
+nel mezzo del cammin		2		5			si trova l'oro
+	1,60E+02		dialVaco				
+0,090013894		0,278893561			0,83234316		

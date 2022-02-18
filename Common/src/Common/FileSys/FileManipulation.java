@@ -244,23 +244,22 @@ public class FileManipulation
         int totRows = par.size();
         for( int row=0; row<totRows; row++)
         {
-            res.add( new ArrayList<String>());// prepare a brand new row, for the result var;
+            ArrayList<String> responseRow_current =  new ArrayList<String>();// prepare a brand new row, for the result var;
             ArrayList<String> curRow = par.get(row);
-            int totCols = (par.get(row)).size();
+            int totCols = curRow.size();
             for( int col=0; col<totCols; col++ )
             {
                 String curCol = (String)(curRow.get(col));
                 String trimmedEntry = curCol.trim();
                 if( 0<trimmedEntry.length() )
                 {
-                    (res.get(row)).add(trimmedEntry);//else skip, cause it's an empty-entry.
-//                    par.get(row).remove(col);
+                    responseRow_current.add(trimmedEntry);//else skip, cause it's an empty-entry.
                 }// Non-emptyEntry copy.
             }// for columns
-            if(res.get(row).size()==0)
+            if(responseRow_current.size()>0)
             {
-                res.remove(row);// remove row, iff empty.
-            }
+                res.add(responseRow_current);// add row, iff NOT empty.
+            }// end // add row, iff NOT empty.
         }// for rows
         //
         return res;
