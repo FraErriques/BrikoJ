@@ -238,21 +238,31 @@ public class FileManipulation
     }// end laboratory    
     
 
-    public void RemoveEmptyEntries( ArrayList<ArrayList<String>> par)
+    public ArrayList<ArrayList<String>> RemoveEmptyEntries( ArrayList<ArrayList<String>> par)
     {
-        for( int row=0; row<par.size(); row++)
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+        int totRows = par.size();
+        for( int row=0; row<totRows; row++)
         {
+            ArrayList<String> responseRow_current =  new ArrayList<String>();// prepare a brand new row, for the result var;
             ArrayList<String> curRow = par.get(row);
-            for( int col=0; col<(par.get(row)).size(); col++ )
+            int totCols = curRow.size();
+            for( int col=0; col<totCols; col++ )
             {
                 String curCol = (String)(curRow.get(col));
                 String trimmedEntry = curCol.trim();
-                if( 0==trimmedEntry.length() )
+                if( 0<trimmedEntry.length() )
                 {
-                    par.get(row).remove(col);
-                }// emptyEntry removal.
+                    responseRow_current.add(trimmedEntry);//else skip, cause it's an empty-entry.
+                }// Non-emptyEntry copy.
             }// for columns
+            if(responseRow_current.size()>0)
+            {
+                res.add(responseRow_current);// add row, iff NOT empty.
+            }// end // add row, iff NOT empty.
         }// for rows
+        //
+        return res;
     }// method RemoveEmptyEntries
 
 
@@ -282,7 +292,7 @@ String closeFirstTable = "\">";
 //<td>indent 7</td>
 //<td>indent 8</td>
 //<td>content : The Maxwell equations are derived in chapter 15 using the properties of two fundamental groups 
-//in Physics: the Lorentz group SO(1,3) and the Poincaré group. Although it may appear that this 
+//in Physics: the Lorentz group SO(1,3) and the PoincarÃ© group. Although it may appear that this 
 //chapter is disconnected from the rest, it actually has been placed in the right place. On one 
 //hand, the Maxwell equations are connected to the most important physical groups,.and further, 
 //these are closely related to the conformal group previously introduced, being a natural link 
