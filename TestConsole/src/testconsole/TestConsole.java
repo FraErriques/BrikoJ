@@ -34,6 +34,20 @@ import java.util.ArrayList;
 public class TestConsole
 {
 
+//    public static void printWithoutEmptyEntries()
+//    {   
+//        ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries(res);
+//        //
+//        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
+//        {
+//            for( int col=0; col<afterPruneEmptyEntries.get(row).size(); col++)
+//            {
+//                System.out.print( afterPruneEmptyEntries.get(row).get(col) );
+//                System.out.print("_.");// space between columns
+//            }
+//            System.out.println("\n\tEOL\n");
+//        }// end print matrix WITHOUT empty entries
+//    }
 
 
     
@@ -83,7 +97,9 @@ public class TestConsole
 //        }
         //
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();        
-        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
+        //ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
+        ArrayList<ArrayList<String>> res = fm.laboratory( 
+                "/home/fra/src/GitHubSandBox/PostMRW/out20220219_.txt");
         for( int row=0; row<res.size(); row++)
         {
             for( int col=0; col<res.get(row).size(); col++)
@@ -104,7 +120,7 @@ public class TestConsole
                 System.out.print("_.");// space between columns
             }
             System.out.println("\n\tEOL\n");
-        }// end print matrix WITH empty entries
+        }// end print matrix WITHOUT empty entries
         //        
         int x=0;
 //        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
