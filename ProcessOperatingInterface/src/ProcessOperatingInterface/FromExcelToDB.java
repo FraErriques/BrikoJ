@@ -4,6 +4,7 @@
  */
 package ProcessOperatingInterface;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +22,33 @@ public class FromExcelToDB
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         ArrayList<ArrayList<String>> stringMatrix = fm.laboratory(textDumpFullpath);
         ArrayList<ArrayList<String>> cleanStringMatrix = fm.RemoveEmptyEntries( stringMatrix);
+        // TODO inserire in un doppio ciclo for -per righe e per colonne e scandire ArrayList<ArrayList<String>> facendo le giuste
+        // conversioni ed istanziando una classe per ogni riga di ArrayList<ArrayList<String>> e quindi chiamando il Proxy una volta per ogni riga
+        // della db-table.
+        Entity.Table.ReportAuto reportAuto = new Entity.Table.ReportAuto(
+                textDumpFullpath, 
+                LocalDate.MIN, 
+                0, 
+                textDumpFullpath,
+                0, 
+                0,
+                0,
+                textDumpFullpath, 
+                0,
+                textDumpFullpath,
+                0,
+                textDumpFullpath,
+                LocalDate.EPOCH,
+                LocalDate.MIN, 
+                0, 
+                textDumpFullpath, 
+                0,
+                textDumpFullpath,
+                textDumpFullpath,
+                textDumpFullpath, 
+                0,
+                0
+        );
         // TODO:
         // new Entity::fromExcelToDB
         // Entity::fromExcelToDB::ProxyToProcedure()

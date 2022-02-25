@@ -4,6 +4,8 @@
  */
 package Entity.Table;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author itfraerr
@@ -40,13 +42,85 @@ public class ReportAuto
     [descrizione_riga] [varchar](255) NOT NULL,
     [costo_totale_riga] [float] NOT NULL,
     [franchigia_assicurazione] [float] NULL,
+    ---------------------------------------------------------------end DB original  */
+    int autovettura_id;  // [int] IDENTITY(1,1) NOT NULL,
+    String targa_autovettura;//, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
+    LocalDate registration_date;//] [date] NULL,
+    float km; //] [float] NULL,
+    String rifornimento_luogo;//] [varchar](255) NOT NULL,
+    float rifornimento_litri;//  [float] NULL,
+    float costo_gasolio_euro_litro; //  [float] NULL,
+    float spesa_gasolio_euro;//  [float] NULL,
+    String accessori_descriz;//  [varchar](255) NULL,
+    float accessori_euro;//  [float] NULL,
+    String lavaggio_descr; //] [varchar](255) NULL,
+    float lavaggio_euro; //] [float] NULL,
+    String manutenzione_descr;//] [varchar](255) NULL,
+    LocalDate data_ingresso_officina; //] [date] NULL,
+    LocalDate data_uscita_officina;//] [date] NULL,
+    float    manutenzione_euro; // [float] NULL,
+    String altro_descriz; // ] [varchar](255) NULL,
+    float  altro_euro; // ] [float] NULL,
+    String sinistro_descriz; // ] [varchar](255) NULL,
+    String conducente; // ] [varchar](255) NULL,
+    String riga_descriz; // ] [varchar](255) NOT NULL,
+    float  costo_totale_riga_euro; //] [float] NOT NULL,
+    float  franchigia_assicurazione_euro; // ] [float] NULL,    
+    
 
-    -----end data ------------- */
+    //-----end data ------------- 
 
     
     // Ctor
-    public ReportAuto()//params.....
-    {}
+    public ReportAuto( //params.....
+        // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
+    String      par_targa_autovettura,       //, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
+    LocalDate   par_registration_date,    //] [date] NULL,
+    float       par_km,                       //] [float] NULL,
+    String      par_rifornimento_luogo,      //] [varchar](255) NOT NULL,
+    float       par_rifornimento_litri,       //  [float] NULL,
+    float       par_costo_gasolio_euro_litro, //  [float] NULL,
+    float       par_spesa_gasolio_euro,       //  [float] NULL,
+    String      par_accessori_descriz,       //  [varchar](255) NULL,
+    float       par_accessori_euro,           //  [float] NULL,
+    String      par_lavaggio_descr,          //] [varchar](255) NULL,
+    float       par_lavaggio_euro,            //] [float] NULL,
+    String      par_manutenzione_descr,      //] [varchar](255) NULL,
+    LocalDate   par_data_ingresso_officina,   //] [date] NULL,
+    LocalDate   par_data_uscita_officina,     //] [date] NULL,
+    float       par_manutenzione_euro,         // [float] NULL,
+    String      par_altro_descriz,               // ] [varchar](255) NULL,
+    float       par_altro_euro,                  // ] [float] NULL,
+    String      par_sinistro_descriz,            // ] [varchar](255) NULL,
+    String      par_conducente,                  // ] [varchar](255) NULL,
+    String      par_riga_descriz,                // ] [varchar](255) NOT NULL,
+    float       par_costo_totale_riga_euro,      //] [float] NOT NULL,
+    float       par_franchigia_assicurazione_euro
+    )
+    {
+        // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
+        this.targa_autovettura = par_targa_autovettura;
+        this.km                             =      par_km;
+        this.rifornimento_luogo             =      par_rifornimento_luogo;
+        this.rifornimento_litri             =      par_rifornimento_litri;
+        this.costo_gasolio_euro_litro       =      par_costo_gasolio_euro_litro;
+        this.spesa_gasolio_euro             =      par_spesa_gasolio_euro;
+        this.accessori_descriz              =      par_accessori_descriz;
+        this.accessori_euro                 =      par_accessori_euro;
+        this.lavaggio_descr                 =      par_lavaggio_descr;
+        this.lavaggio_euro                  =      par_lavaggio_euro;
+        this.manutenzione_descr             =      par_manutenzione_descr;
+        this.data_ingresso_officina         =      par_data_ingresso_officina;
+        this.data_uscita_officina           =      par_data_uscita_officina;
+        this.manutenzione_euro              =      par_manutenzione_euro;
+        this.altro_descriz                  =      par_altro_descriz;
+        this.altro_euro                     =      par_altro_euro;
+        this.sinistro_descriz               =      par_sinistro_descriz;
+        this.conducente                     =      par_conducente;
+        this.riga_descriz                   =      par_riga_descriz;
+        this.costo_totale_riga_euro         =      par_costo_totale_riga_euro;
+        this.franchigia_assicurazione_euro  =      par_franchigia_assicurazione_euro;
+    }// Ctor
     
     public void Postgres_ProxyWrapper_()
     {}//params will let understandable if the insertion has to be on a named table xor in the "all-car" one.
