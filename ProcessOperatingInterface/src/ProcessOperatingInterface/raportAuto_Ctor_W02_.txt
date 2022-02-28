@@ -1,0 +1,22 @@
+                    "targa autovettura",     //, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
+                    afterPruneEmptyEntries.get(row).get(0),  //     par_registrationDate
+                        //    float       par_km,                       //] [float] NULL,
+                    afterPruneEmptyEntries.get(row).get(1),  //     rifornimento_luogo
+afterPruneEmptyEntries.get(row).get(2), //    float       par_rifornimento_litri,       //  [float] NULL,
+afterPruneEmptyEntries.get(row).get(3), //    float       par_costo_gasolio_euro_litro, //  [float] NULL,
+afterPruneEmptyEntries.get(row).get(4), //    float       par_spesa_gasolio_euro,       //  [float] NULL,
+afterPruneEmptyEntries.get(row).get(5),//    String      par_accessori_descriz,       //  [varchar](255) NULL,
+afterPruneEmptyEntries.get(row).get(6),//    float       par_accessori_euro,           //  [float] NULL,
+afterPruneEmptyEntries.get(row).get(7),//    String      par_lavaggio_descr,          //] [varchar](255) NULL,
+afterPruneEmptyEntries.get(row).get(8),//    float       par_lavaggio_euro,            //] [float] NULL,
+afterPruneEmptyEntries.get(row).get(9),//    String      par_manutenzione_descr,      //] [varchar](255) NULL,
+afterPruneEmptyEntries.get(row).get(10),//    LocalDate   par_data_ingresso_officina,   //] [date] NULL,
+afterPruneEmptyEntries.get(row).get(11),//    LocalDate   par_data_uscita_officina,     //] [date] NULL,
+afterPruneEmptyEntries.get(row).get(12),//    float       par_manutenzione_euro,         // [float] NULL,
+afterPruneEmptyEntries.get(row).get(13),//    String      par_altro_descriz,               // ] [varchar](255) NULL,
+afterPruneEmptyEntries.get(row).get(14),//    float       par_altro_euro,                  // ] [float] NULL,
+afterPruneEmptyEntries.get(row).get(15),//    String      par_sinistro_descriz,            // ] [varchar](255) NULL,
+afterPruneEmptyEntries.get(row).get(16),//    String      par_conducente,                  // ] [varchar](255) NULL,
+afterPruneEmptyEntries.get(row).get(17),//    String      par_riga_descriz,                // ] [varchar](255) NOT NULL,
+afterPruneEmptyEntries.get(row).get(18),//    float       par_costo_totale_riga_euro,      //] [float] NOT NULL,
+afterPruneEmptyEntries.get(row).get(19)  //    float       par_franchigia_assicurazione_euro                

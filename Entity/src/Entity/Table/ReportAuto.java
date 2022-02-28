@@ -100,6 +100,7 @@ public class ReportAuto
     {
         // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
         this.targa_autovettura = par_targa_autovettura;
+        this.registration_date              =      par_registration_date;
         this.km                             =      par_km;
         this.rifornimento_luogo             =      par_rifornimento_luogo;
         this.rifornimento_litri             =      par_rifornimento_litri;
