@@ -1,0 +1,24 @@
+
+05/05/2021	0	ENI via Roma 96 BZ	47.06	 1.654	77.84  													gasolio	 77.84  	 
+21/05/2021		GSCHNITZER Vipiteno	32.25	 1.594	51.41  			lavaggio	 2.00  									gasolio+lavaggio	 53.41  	 
+31/05/2021	643																	km	     				
+18/06/2021	1.372	GSCHNITZER Vipiteno	39.03	 1.624  	 63.38  													gasolio	 63.38  				
+13/07/2021		GSCHNITZER Vipiteno	42.61	 1.664  	 70.90  													gasolio	 70.90  				
+30/07/2021	2.775	GSCHNITZER Vipiteno	30.00	 1.654  	 49.62  			lavaggio	 2.00  									gasolio+lavaggio	 51.62  				
+31/08/2021	2.775																	km	  				
+06/09/2021	3.506	ENI Naz-Sciaves	40.31	 1.664  	 67.08  													gasolio	 67.08  				
+02/10/2021	4.229	ENI Naz-Sciaves	35.31	 1.694  	 59.82  													gasolio	 59.82  				
+26/10/2021	4.229	ENI Naz-Sciaves	34.01	 1.854  	 63.05  													gasolio	 63.05  				
+15/11/2021	5.268	ENI GSCHNITZER Vipiteno	41.00	 1.756  	 72.00  	antigelo tergicristallo	 7.50  											gasolio+accessori	 79.50  				
+19/11/2021	5.268	ENI GSCHNITZER Vipiteno	17.84	 1.754  	 31.29  			lavaggio	 4.00  									gasolio+lavaggio	 35.29  				
+23/11/2021	5.268	ENI GSCHNITZER Vipiteno						lavaggio	 3.00  									lavaggio	 3.00  				
+03/12/2021	5.989	ENI GSCHNITZER Vipiteno	30.47	 1.734  	 52.83  			lavaggio	 5.00  									gasolio+lavaggio	 57.83  				
+17/12/2021	5.989	ENI GSCHNITZER Vipiteno	29.96	 1.734  	 51.95  	ADBlue	 25.00  	lavaggio	 2.00  									gasolio+accessori+lavaggio	 78.95  				
+																			  				
+																			  				
+																			  				
+																			  				
+																			  				
+																			  				
+																			  				
+																			  				

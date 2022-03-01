@@ -41,10 +41,26 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String exmplDate = "28/02/2022";
-        LocalDate res = LocalDate.parse( exmplDate, formatter);  // test
+        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+                "data\\GE144ZJ_.txt",
+                "GE144ZJ"
+        );
+
+    }// main
+    
+    
+}// end class TestConsole
+
+        
+
+
+//
+///*  ------------------------------- cantina ------------------------------------------
+////        //
+//        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        String exmplDate = "28/02/2022";
+//        LocalDate res = LocalDate.parse( exmplDate, formatter);  // test
                 
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 //        Entity.Proxy.Pg_usp_ge135zj_insert.Pg_usp_ge135zj_insert_SERVICE(
@@ -165,18 +181,6 @@ public class TestConsole
 //        msSql.insertionLoop_template();
 //        msSql.closeConnection();        
 //        //
-    }// main
-    
-    
-}// end class TestConsole
-
-        
-
-
-//
-///*  ------------------------------- cantina ------------------------------------------
-////        //
-
 
 
 

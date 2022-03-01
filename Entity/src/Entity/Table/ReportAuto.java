@@ -44,6 +44,8 @@ public class ReportAuto
     [costo_totale_riga] [float] NOT NULL,
     [franchigia_assicurazione] [float] NULL,
     ---------------------------------------------------------------end DB original  */
+    DateTimeFormatter dateFormatter;// Ctor will init it.
+    //
     int autovettura_id;  // [int] IDENTITY(1,1) NOT NULL,
     String targa_autovettura;//, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
     LocalDate registration_date;//] [date] NULL,
@@ -99,47 +101,121 @@ public class ReportAuto
     String   par_franchigia_assicurazione_euro
     )
     {// follows DateFormatter for every date field: check Excel, LibreOffice,..output for the present case.
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         /* examples of cast : every parameter needs to be cast and format-checked; this activity
         is centralized here. Ctor callers pass Strings from the String-matrix as-is.
         The callers are multiple; the casting is centralized here.
         ------------*/
         // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
         this.targa_autovettura = this.wrapSqlStrings( par_targa_autovettura);
-        this.registration_date              = LocalDate.parse( par_registration_date, dateFormatter);
-        this.km                             = Float.parseFloat( par_km);
-        this.rifornimento_luogo             =  this.wrapSqlStrings( par_rifornimento_luogo);
-        this.rifornimento_litri             = Float.parseFloat( par_rifornimento_litri);
-        this.costo_gasolio_euro_litro       = Float.parseFloat( par_costo_gasolio_euro_litro);
-        this.spesa_gasolio_euro             = Float.parseFloat( par_spesa_gasolio_euro);
+        this.registration_date              = tryParseLocalDate( par_registration_date );
+        this.km                             = tryParseFloat( par_km);
+        this.rifornimento_luogo             = this.wrapSqlStrings( par_rifornimento_luogo);
+        this.rifornimento_litri             = tryParseFloat( par_rifornimento_litri);
+        this.costo_gasolio_euro_litro       = tryParseFloat( par_costo_gasolio_euro_litro);
+        this.spesa_gasolio_euro             = tryParseFloat( par_spesa_gasolio_euro);
         this.accessori_descriz              = this.wrapSqlStrings( par_accessori_descriz);
-        this.accessori_euro                 = Float.parseFloat( par_accessori_euro);
+        this.accessori_euro                 = tryParseFloat( par_accessori_euro);
         this.lavaggio_descr                 = this.wrapSqlStrings( par_lavaggio_descr);
-        this.lavaggio_euro                  = Float.parseFloat( par_lavaggio_euro);
+        this.lavaggio_euro                  = tryParseFloat( par_lavaggio_euro);
         this.manutenzione_descr             = this.wrapSqlStrings( par_manutenzione_descr);
-        this.data_ingresso_officina         = LocalDate.parse( par_data_ingresso_officina);
-        this.data_uscita_officina           = LocalDate.parse( par_data_uscita_officina);
-        this.manutenzione_euro              = Float.parseFloat( par_manutenzione_euro);
+        this.data_ingresso_officina         = tryParseLocalDate( par_data_ingresso_officina );
+        this.data_uscita_officina           = tryParseLocalDate( par_data_uscita_officina );
+        this.manutenzione_euro              = tryParseFloat( par_manutenzione_euro);
         this.altro_descriz                  = this.wrapSqlStrings( par_altro_descriz);
-        this.altro_euro                     = Float.parseFloat( par_altro_euro);
+        this.altro_euro                     = tryParseFloat( par_altro_euro);
         this.sinistro_descriz               = this.wrapSqlStrings( par_sinistro_descriz);
         this.conducente                     = this.wrapSqlStrings( par_conducente);
         this.riga_descriz                   = this.wrapSqlStrings( par_riga_descriz);
-        this.costo_totale_riga_euro         = Float.parseFloat( par_costo_totale_riga_euro);
-        this.franchigia_assicurazione_euro  = Float.parseFloat( par_franchigia_assicurazione_euro);
+        this.costo_totale_riga_euro         = tryParseFloat( par_costo_totale_riga_euro);
+        this.franchigia_assicurazione_euro  = tryParseFloat( par_franchigia_assicurazione_euro);
     }// Ctor
     
     public void Postgres_ProxyWrapper_()
     {}//params will let understandable if the insertion has to be on a named table xor in the "all-car" one.
     
     public void MsSql_ProxyWrapper_()
-    {}//params will let understandable if the insertion has to be on a named table xor in the "all-car" one.    
+    {
+        // String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+        // String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
+        String connUrl_ITFORS1011_SUZE = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;databaseName=dotazioni2021;user=applicationuser;password=curricula";
+        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITFORS1011_SUZE);
+        //--------
+        Entity.Proxy.MsSql_usp_genericaautovettura_INSERT_.usp_genericaautovettura_INSERT(
+                msSql.connection,
+                // [id] IDENTITY
+                this.targa_autovettura,
+                this.registration_date,
+                this.km,
+                this.rifornimento_luogo,
+                this.rifornimento_litri,
+                this.costo_gasolio_euro_litro,
+                this.spesa_gasolio_euro,
+                this.accessori_descriz, 
+                this.accessori_euro,
+                this.lavaggio_descr,
+                this.lavaggio_euro,
+                this.manutenzione_descr,
+                this.data_ingresso_officina,
+                this.data_uscita_officina,
+                this.manutenzione_euro,
+                this.altro_descriz,
+                this.altro_euro,
+                this.sinistro_descriz,
+                this.conducente,
+                this.riga_descriz,
+                this.costo_totale_riga_euro,
+                this.franchigia_assicurazione_euro
+        );
+    }//MsSql
     
     private String wrapSqlStrings( String par)// both dates and actual strings
     {
-        String res = "'" + par + "'";
+        String res = "''";// a DB String.
+        if(null==par){return res;}
+        if(par.trim().length()>0)
+        {        
+            res = "'" + par + "'";
+        }// else Default is aapropriate.
         return res;
     }// wrapSqlStrings
+    
+    private float tryParseFloat( String par)
+    {
+        float res = (float)0.0;// init to default empty entry in a data sheet.
+        if(null==par){return res;}
+        if(par.trim().length()>0)
+        {
+            res = Float.parseFloat( par);
+        }// else Default is aapropriate.
+        return res;
+    }// float
+    
+    private String fromItalianDate_to_AmericanDate( String par )
+    {
+        String res = "";
+        if(par.trim().length()<10){return res;}// NO dd/MM/yyyy can be contained.
+        // else continue.
+        res = par.substring(6, 10);// yyyy
+        res += "/";
+        res += par.substring(3,5);// MM
+        res += "/";
+        res += par.substring(0,2);// dd
+        return res;
+    }
+    
+    private LocalDate tryParseLocalDate( String par )
+    {
+        LocalDate res = LocalDate.EPOCH;// TODO find an adequate default... init to default empty entry in a data sheet.
+        if(null==par){return res;}
+        if(par.trim().length()<10){return res;}// NO dd/MM/yyyy can be contained.
+        String dbDate = this.fromItalianDate_to_AmericanDate(par);
+        if(dbDate.trim().length()>0)
+        {
+            res = LocalDate.parse( dbDate, this.dateFormatter );
+        }// else Default is aapropriate.
+        return res;
+    }// LocalDate
     
 }// class ReportAuto
 
