@@ -5,6 +5,7 @@
 package Entity.Table;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -74,60 +75,58 @@ public class ReportAuto
     // Ctor
     public ReportAuto( //params.....
         // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
-    String      par_targa_autovettura,       //, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
-    LocalDate   par_registration_date,    //] [date] NULL,
-    float       par_km,                       //] [float] NULL,
-    String      par_rifornimento_luogo,      //] [varchar](255) NOT NULL,
-    float       par_rifornimento_litri,       //  [float] NULL,
-    float       par_costo_gasolio_euro_litro, //  [float] NULL,
-    float       par_spesa_gasolio_euro,       //  [float] NULL,
-    String      par_accessori_descriz,       //  [varchar](255) NULL,
-    float       par_accessori_euro,           //  [float] NULL,
-    String      par_lavaggio_descr,          //] [varchar](255) NULL,
-    float       par_lavaggio_euro,            //] [float] NULL,
-    String      par_manutenzione_descr,      //] [varchar](255) NULL,
-    LocalDate   par_data_ingresso_officina,   //] [date] NULL,
-    LocalDate   par_data_uscita_officina,     //] [date] NULL,
-    float       par_manutenzione_euro,         // [float] NULL,
-    String      par_altro_descriz,               // ] [varchar](255) NULL,
-    float       par_altro_euro,                  // ] [float] NULL,
-    String      par_sinistro_descriz,            // ] [varchar](255) NULL,
-    String      par_conducente,                  // ] [varchar](255) NULL,
-    String      par_riga_descriz,                // ] [varchar](255) NOT NULL,
-    float       par_costo_totale_riga_euro,      //] [float] NOT NULL,
-    float       par_franchigia_assicurazione_euro
+    String   par_targa_autovettura,       //, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
+    String   par_registration_date,    //] [date] NULL,
+    String   par_km,                       //] [float] NULL,
+    String   par_rifornimento_luogo,      //] [varchar](255) NOT NULL,
+    String   par_rifornimento_litri,       //  [float] NULL,
+    String   par_costo_gasolio_euro_litro, //  [float] NULL,
+    String   par_spesa_gasolio_euro,       //  [float] NULL,
+    String   par_accessori_descriz,       //  [varchar](255) NULL,
+    String   par_accessori_euro,           //  [float] NULL,
+    String   par_lavaggio_descr,          //] [varchar](255) NULL,
+    String   par_lavaggio_euro,            //] [float] NULL,
+    String   par_manutenzione_descr,      //] [varchar](255) NULL,
+    String   par_data_ingresso_officina,   //] [date] NULL,
+    String   par_data_uscita_officina,     //] [date] NULL,
+    String   par_manutenzione_euro,         // [float] NULL,
+    String   par_altro_descriz,               // ] [varchar](255) NULL,
+    String   par_altro_euro,                  // ] [float] NULL,
+    String   par_sinistro_descriz,            // ] [varchar](255) NULL,
+    String   par_conducente,                  // ] [varchar](255) NULL,
+    String   par_riga_descriz,                // ] [varchar](255) NOT NULL,
+    String   par_costo_totale_riga_euro,      //] [float] NOT NULL,
+    String   par_franchigia_assicurazione_euro
     )
-    {
+    {// follows DateFormatter for every date field: check Excel, LibreOffice,..output for the present case.
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         /* examples of cast : every parameter needs to be cast and format-checked; this activity
         is centralized here. Ctor callers pass Strings from the String-matrix as-is.
         The callers are multiple; the casting is centralized here.
-                    LocalDate.parse( afterPruneEmptyEntries.get(row).get(0), formatter),  //     par_registrationDate
-                    Float.parseFloat(afterPruneEmptyEntries.get(row).get(1)),    //    float       par_km,                       //] [float] NULL,
-                    afterPruneEmptyEntries.get(row).get(2),  //     rifornimento_luogo
-Float.parseFloat(afterPruneEmptyEntries.get(row).get(3)), //    float       par_rifornimento_litri,       //  [float] NULL,*/        
+        ------------*/
         // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
-        this.targa_autovettura = par_targa_autovettura;
-        this.registration_date              =      par_registration_date;
-        this.km                             =      par_km;
-        this.rifornimento_luogo             =      par_rifornimento_luogo;
-        this.rifornimento_litri             =      par_rifornimento_litri;
-        this.costo_gasolio_euro_litro       =      par_costo_gasolio_euro_litro;
-        this.spesa_gasolio_euro             =      par_spesa_gasolio_euro;
-        this.accessori_descriz              =      par_accessori_descriz;
-        this.accessori_euro                 =      par_accessori_euro;
-        this.lavaggio_descr                 =      par_lavaggio_descr;
-        this.lavaggio_euro                  =      par_lavaggio_euro;
-        this.manutenzione_descr             =      par_manutenzione_descr;
-        this.data_ingresso_officina         =      par_data_ingresso_officina;
-        this.data_uscita_officina           =      par_data_uscita_officina;
-        this.manutenzione_euro              =      par_manutenzione_euro;
-        this.altro_descriz                  =      par_altro_descriz;
-        this.altro_euro                     =      par_altro_euro;
-        this.sinistro_descriz               =      par_sinistro_descriz;
-        this.conducente                     =      par_conducente;
-        this.riga_descriz                   =      par_riga_descriz;
-        this.costo_totale_riga_euro         =      par_costo_totale_riga_euro;
-        this.franchigia_assicurazione_euro  =      par_franchigia_assicurazione_euro;
+        this.targa_autovettura = this.wrapSqlStrings( par_targa_autovettura);
+        this.registration_date              = LocalDate.parse( par_registration_date, dateFormatter);
+        this.km                             = Float.parseFloat( par_km);
+        this.rifornimento_luogo             =  this.wrapSqlStrings( par_rifornimento_luogo);
+        this.rifornimento_litri             = Float.parseFloat( par_rifornimento_litri);
+        this.costo_gasolio_euro_litro       = Float.parseFloat( par_costo_gasolio_euro_litro);
+        this.spesa_gasolio_euro             = Float.parseFloat( par_spesa_gasolio_euro);
+        this.accessori_descriz              = this.wrapSqlStrings( par_accessori_descriz);
+        this.accessori_euro                 = Float.parseFloat( par_accessori_euro);
+        this.lavaggio_descr                 = this.wrapSqlStrings( par_lavaggio_descr);
+        this.lavaggio_euro                  = Float.parseFloat( par_lavaggio_euro);
+        this.manutenzione_descr             = this.wrapSqlStrings( par_manutenzione_descr);
+        this.data_ingresso_officina         = LocalDate.parse( par_data_ingresso_officina);
+        this.data_uscita_officina           = LocalDate.parse( par_data_uscita_officina);
+        this.manutenzione_euro              = Float.parseFloat( par_manutenzione_euro);
+        this.altro_descriz                  = this.wrapSqlStrings( par_altro_descriz);
+        this.altro_euro                     = Float.parseFloat( par_altro_euro);
+        this.sinistro_descriz               = this.wrapSqlStrings( par_sinistro_descriz);
+        this.conducente                     = this.wrapSqlStrings( par_conducente);
+        this.riga_descriz                   = this.wrapSqlStrings( par_riga_descriz);
+        this.costo_totale_riga_euro         = Float.parseFloat( par_costo_totale_riga_euro);
+        this.franchigia_assicurazione_euro  = Float.parseFloat( par_franchigia_assicurazione_euro);
     }// Ctor
     
     public void Postgres_ProxyWrapper_()
