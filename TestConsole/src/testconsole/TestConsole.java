@@ -20,6 +20,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -40,6 +41,11 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String exmplDate = "28/02/2022";
+        LocalDate res = LocalDate.parse( exmplDate, formatter);  // test
+                
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 //        Entity.Proxy.Pg_usp_ge135zj_insert.Pg_usp_ge135zj_insert_SERVICE(
 //                postgSql.connection,// the db- connection
@@ -81,32 +87,32 @@ public class TestConsole
 //            }
 //            System.out.println("\n\tEOL\n");
 //        }
-        //
-        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();        
-        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
-        for( int row=0; row<res.size(); row++)
-        {
-            for( int col=0; col<res.get(row).size(); col++)
-            {
-                System.out.print( res.get(row).get(col) );
-                System.out.print(" ");// space between columns
-            }
-            System.out.println("\n\tEOL\n");
-        }// end print matrix WITH empty entries
-        //
-        ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries(res);
-        //
-        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
-        {
-            for( int col=0; col<afterPruneEmptyEntries.get(row).size(); col++)
-            {
-                System.out.print( afterPruneEmptyEntries.get(row).get(col) );
-                System.out.print(" ");// space between columns
-            }
-            System.out.println("\n\tEOL\n");
-        }// end print matrix WITH empty entries
-        //        
-        int x=0;
+//        //
+//        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();        
+//        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
+//        for( int row=0; row<res.size(); row++)
+//        {
+//            for( int col=0; col<res.get(row).size(); col++)
+//            {
+//                System.out.print( res.get(row).get(col) );
+//                System.out.print(" ");// space between columns
+//            }
+//            System.out.println("\n\tEOL\n");
+//        }// end print matrix WITH empty entries
+//        //
+//        ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries(res);
+//        //
+//        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
+//        {
+//            for( int col=0; col<afterPruneEmptyEntries.get(row).size(); col++)
+//            {
+//                System.out.print( afterPruneEmptyEntries.get(row).get(col) );
+//                System.out.print(" ");// space between columns
+//            }
+//            System.out.println("\n\tEOL\n");
+//        }// end print matrix WITH empty entries
+//        //        
+//        int x=0;
 //        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
 //        fm.Prototype_txtFileReader("./esempio.txt");        
 //        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);

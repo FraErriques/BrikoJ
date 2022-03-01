@@ -98,6 +98,13 @@ public class ReportAuto
     float       par_franchigia_assicurazione_euro
     )
     {
+        /* examples of cast : every parameter needs to be cast and format-checked; this activity
+        is centralized here. Ctor callers pass Strings from the String-matrix as-is.
+        The callers are multiple; the casting is centralized here.
+                    LocalDate.parse( afterPruneEmptyEntries.get(row).get(0), formatter),  //     par_registrationDate
+                    Float.parseFloat(afterPruneEmptyEntries.get(row).get(1)),    //    float       par_km,                       //] [float] NULL,
+                    afterPruneEmptyEntries.get(row).get(2),  //     rifornimento_luogo
+Float.parseFloat(afterPruneEmptyEntries.get(row).get(3)), //    float       par_rifornimento_litri,       //  [float] NULL,*/        
         // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
         this.targa_autovettura = par_targa_autovettura;
         this.registration_date              =      par_registration_date;
@@ -136,3 +143,27 @@ public class ReportAuto
     }// wrapSqlStrings
     
 }// class ReportAuto
+
+
+/***** cantina ***********************************
+ * 
+ // example of how in Java a Ctor can throw: the instance will then be in an invalid state and garbage-collected soon.
+ * a valid alternative to throwing inside a Ctor is using a boolean data member like "isHealtlyConstructed" and check it
+ * after the Ctor-execution. In case of false let the object null, so that it gets garbage-collected sooner.
+public class ConstructorExceptionTest {
+   public ConstructorExceptionTest() throws InterruptedException {
+      System.out.println("Preparing an Object");
+      Thread.sleep(1000);
+      System.out.println("Object is ready");
+   }
+   public static void main(String args[]) {
+      try {
+         ConstructorExceptionTest test = new ConstructorExceptionTest();
+      } catch (InterruptedException e) {
+         System.out.println("Got interrupted...");
+      }
+   }
+}
+* 
+* * @author itfraerr
+ */
