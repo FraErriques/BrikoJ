@@ -21,6 +21,11 @@ public class FromExcelToDB
     )
     {
         boolean res = false;
+        // String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+        // String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";
+        // DB connection. Close it after bulk insertion loop.        
+        String connUrl_ITFORS1011_SUZE = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;databaseName=dotazioni2022;user=applicationuser;password=curricula";
+        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITFORS1011_SUZE);
         //----follows the sequence to be used:
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         ArrayList<ArrayList<String>> stringMatrix = fm.laboratory(textDumpFullpath);
@@ -65,8 +70,10 @@ public class FromExcelToDB
                 afterPruneEmptyEntries.get(row).get(20)  // franchigia_assicurazione_euro
             );
             // Proxy  for each row:
-            reportAutoRiga.MsSql_ProxyWrapper_();
+            reportAutoRiga.MsSql_ProxyWrapper_( msSql);
         }// end forEach row: all rows in the String-Matrix have been sent to DB.
+        // only after last row: close the DB connection.
+        msSql.closeConnection();
         // ready.
         return res;
     }// fromTABseparatedTxtDumpTo_MsSql

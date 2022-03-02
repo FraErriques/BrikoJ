@@ -103,11 +103,11 @@ public class ReportAuto
     {// follows DateFormatter for every date field: check Excel, LibreOffice,..output for the present case.
         this.dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         /* examples of cast : every parameter needs to be cast and format-checked; this activity
-        is centralized here. Ctor callers pass Strings from the String-matrix as-is.
+        is centralized here. Ctor callers(i.e. Process::) pass Strings from the String-matrix as-are.
         The callers are multiple; the casting is centralized here.
         ------------*/
         // autovettura_id,             // [int] IDENTITY(1,1) NOT NULL,
-        this.targa_autovettura = this.wrapSqlStrings( par_targa_autovettura);
+        this.targa_autovettura              = this.wrapSqlStrings( par_targa_autovettura);
         this.registration_date              = tryParseLocalDate( par_registration_date );
         this.km                             = tryParseFloat( par_km);
         this.rifornimento_luogo             = this.wrapSqlStrings( par_rifornimento_luogo);
@@ -134,38 +134,35 @@ public class ReportAuto
     public void Postgres_ProxyWrapper_()
     {}//params will let understandable if the insertion has to be on a named table xor in the "all-car" one.
     
-    public void MsSql_ProxyWrapper_()
-    {
-        // String connUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
-        // String connUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";        
-        String connUrl_ITFORS1011_SUZE = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;databaseName=dotazioni2022;user=applicationuser;password=curricula";
-        Common.DBservice.MsSql msSql = new Common.DBservice.MsSql( connUrl_ITFORS1011_SUZE);
-        //--------
+    public void MsSql_ProxyWrapper_(
+        Common.DBservice.MsSql msSql
+    )
+    {// Proxy-caller:
         Entity.Proxy.MsSql_usp_genericaautovettura_INSERT_.usp_genericaautovettura_INSERT(
                 msSql.connection,
                 // [id] IDENTITY
                 this.targa_autovettura,
                 this.registration_date,
-                String. valueOf( this.km ),
+                String.valueOf( this.km ),
                 this.rifornimento_luogo,
-                String. valueOf( this.rifornimento_litri ),
-                String. valueOf( this.costo_gasolio_euro_litro ),
-                String. valueOf( this.spesa_gasolio_euro ),
+                String.valueOf( this.rifornimento_litri ),
+                String.valueOf( this.costo_gasolio_euro_litro ),
+                String.valueOf( this.spesa_gasolio_euro ),
                 this.accessori_descriz, 
-                String. valueOf( this.accessori_euro ) ,
+                String.valueOf( this.accessori_euro ) ,
                 this.lavaggio_descr,
-                String. valueOf( this.lavaggio_euro ) ,
+                String.valueOf( this.lavaggio_euro ) ,
                 this.manutenzione_descr,
                 this.data_ingresso_officina,
                 this.data_uscita_officina,
-                String. valueOf( this.manutenzione_euro ) ,
+                String.valueOf( this.manutenzione_euro ) ,
                 this.altro_descriz,
-                String. valueOf( this.altro_euro ) ,
+                String.valueOf( this.altro_euro ) ,
                 this.sinistro_descriz,
                 this.conducente,
                 this.riga_descriz,
-                String. valueOf( this.costo_totale_riga_euro ) ,
-                String. valueOf( this.franchigia_assicurazione_euro )
+                String.valueOf( this.costo_totale_riga_euro ) ,
+                String.valueOf( this.franchigia_assicurazione_euro )
         );
     }//MsSql
     
