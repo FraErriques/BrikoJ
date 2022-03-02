@@ -1,0 +1,444 @@
+_placeholder_	_placeholder_	
+05/05/2021	0	ENI Ponte Roma BZ	46.70	1.514	70.70	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	70.70	_placeholder_	
+19/05/2021	_placeholder_	ENI Seebacher NazSciaves	36.16	 1.619	 58.54  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 58.54  	_placeholder_	
+31/05/2021	800	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	km	_placeholder_	_placeholder_	
+08/06/2021	_placeholder_	ENI Cardano	33.26	 1.714	 57.01  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 57.01  	_placeholder_	
+17/06/2021	_placeholder_	ENI Cardano	35.55	 1.519	 54.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 54.00  	_placeholder_	
+30/06/2021	2.574	ENI Cardano	36.16	 1.549	 56.01  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 56.01  	_placeholder_	
+12/07/2021	_placeholder_	ENI Mayr Brixen	43.22	 1.689	 73.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 73.00  	_placeholder_	
+19/07/2021	_placeholder_	ENI Cardano	34.16	 1.569	 53.60  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 53.60  	_placeholder_	
+28/07/2021	4.902	ENI Cardano	32.07	 1.559	 50.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 50.00  	_placeholder_	
+31/08/2021	5.213	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	rilevazione chilometrica	_placeholder_	_placeholder_	
+02/09/2021	7.290	ENI Cardano	37.21	 1.774	 66.01  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 66.01  	_placeholder_	
+09/09/2021	7.290	ENI Mayr Brixen	24.50	 1.674	41.01	_placeholder_	_placeholder_	lavaggio	 5.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio e  lavaggio	 46.01  	_placeholder_	
+23/09/2021	7.290	ENI Cardano	38.88	 1.569	 61.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	 gasolio 	 61.00  	_placeholder_	
+28/09/2021	7.290	ENI Ponte Gardena	_placeholder_	_placeholder_	_placeholder_	ADBlue	 13.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	accessori	 13.00  	_placeholder_	
+04/10/2021	8.614	ENI Cardano	35.24	 1.589	 56.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	 gasolio 	 56.00  	_placeholder_	
+20/10/2021	8.614	ENI Cardano	39.42	 1.649	 65.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	 gasolio 	 65.00  	_placeholder_	
+04/11/2021	10.688	ENI Seebacher NazSciaves	38.28	 1.764	 67.53  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	 gasolio 	 67.53  	_placeholder_	
+15/11/2021	10.688	ENI Sterzing Gschnitzer	33.32	 1.756	 58.51  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	 gasolio 	 58.51  	_placeholder_	
+23/11/2021	10.688	ENI Ponte Roma BZ	29.96	 1.669	 50.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	 gasolio 	 50.00  	_placeholder_	
+23/11/2021	10.688	ENI Ponte Roma BZ	_placeholder_	_placeholder_	_placeholder_	ADBlue	 17.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	accessori	 17.00  	_placeholder_	
+01/12/2021	12.295	ENI via Druso 73 BZ	34.71	 1.671	 58.00  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 58.00  	_placeholder_	
+07/12/2021	12.295	ENI Seebacher NazSciaves	21.83	 1.759	 38.40  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 38.40  	_placeholder_	
+15/12/2021	12.295	ENI Seebacher NazSciaves	24.77	 1.859	 46.05  	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	gasolio	 46.05  	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	_placeholder_	
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					
+																					

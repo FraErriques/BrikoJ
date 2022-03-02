@@ -103,7 +103,7 @@ GO  */
         //
         //  [autovettura_id] IDENTITY
         String targa_autovettura,
-	LocalDate  registration_date,
+	String  registration_date,
 	float km,
 	String rifornimento_luogo,
 	float rifornimento_litri,
@@ -114,8 +114,8 @@ GO  */
 	String lavaggio_descr,
 	float lavaggio_euro,
 	String manutenzione_descr,
-	LocalDate data_ingresso_officina,
-	LocalDate data_uscita_officina,
+	String data_ingresso_officina,
+	String data_uscita_officina,
 	float manutenzione_euro,
 	String altro_descriz,
 	float altro_euro,

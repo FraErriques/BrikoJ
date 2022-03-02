@@ -48,7 +48,7 @@ public class ReportAuto
     //
     int autovettura_id;  // [int] IDENTITY(1,1) NOT NULL,
     String targa_autovettura;//, NB. deve essere utilizzata solo quando  la tabella e' multivettura. Altrimenti scegliere la tabella e non passare il parametro.
-    LocalDate registration_date;//] [date] NULL,
+    String registration_date;//] [date] NULL,
     float km; //] [float] NULL,
     String rifornimento_luogo;//] [varchar](255) NOT NULL,
     float rifornimento_litri;//  [float] NULL,
@@ -59,8 +59,8 @@ public class ReportAuto
     String lavaggio_descr; //] [varchar](255) NULL,
     float lavaggio_euro; //] [float] NULL,
     String manutenzione_descr;//] [varchar](255) NULL,
-    LocalDate data_ingresso_officina; //] [date] NULL,
-    LocalDate data_uscita_officina;//] [date] NULL,
+    String data_ingresso_officina; //] [date] NULL,
+    String data_uscita_officina;//] [date] NULL,
     float    manutenzione_euro; // [float] NULL,
     String altro_descriz; // ] [varchar](255) NULL,
     float  altro_euro; // ] [float] NULL,
@@ -184,6 +184,7 @@ public class ReportAuto
     {
         float res = (float)0.0;// init to default empty entry in a data sheet.
         if(null==par){return res;}
+        if(par.trim().equals("_placeholder_")){return res;}// a NULL field.
         if(par.trim().length()>0)
         {
             res = Float.parseFloat( par);
@@ -196,25 +197,29 @@ public class ReportAuto
         String res = "";
         if(par.trim().length()<10){return res;}// NO dd/MM/yyyy can be contained.
         // else continue.
+        res = "'";// start DB string
         res = par.substring(6, 10);// yyyy
         res += "/";
         res += par.substring(3,5);// MM
         res += "/";
         res += par.substring(0,2);// dd
+        res += "'";// end DB string
         return res;
     }
     
-    private LocalDate tryParseLocalDate( String par )
+    private String tryParseLocalDate( String par )
     {
         LocalDate res = LocalDate.EPOCH;// TODO find an adequate default... init to default empty entry in a data sheet.
-        if(null==par){return res;}
-        if(par.trim().length()<10){return res;}// NO dd/MM/yyyy can be contained.
-        String dbDate = this.fromItalianDate_to_AmericanDate(par);
-        if(dbDate.trim().length()>0)
-        {
-            res = LocalDate.parse( dbDate, this.dateFormatter );
-        }// else Default is aapropriate.
-        return res;
+        String dbDate = "'1970/01/31'";
+        if(null==par){return dbDate;}
+        if(par.trim().length()<10){return dbDate;}// NO dd/MM/yyyy can be contained.
+        if(par.trim().equals("_placeholder_")){return dbDate;}// a NULL field.
+        dbDate = this.fromItalianDate_to_AmericanDate(par);
+//        if(dbDate.trim().length()>0)
+//        {
+//            res = LocalDate.parse( dbDate, this.dateFormatter );
+//        }// else Default is aapropriate.
+        return dbDate;
     }// LocalDate
     
 }// class ReportAuto

@@ -42,7 +42,7 @@ public class TestConsole
     public static void main(String[] args)            
     {
         ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
-                "data\\GE144ZJ_.txt",
+                "data\\reportAuto_2021_GE139ZJ_.txt",
                 "GE144ZJ"
         );
 
