@@ -183,7 +183,7 @@ GO  */
             sqlStatement += "   ";// ending spaces
             // no parenthesis in MsSql sqlStatement += " );";
             // insert the data
-            statement.executeUpdate( sqlStatement);
+            statement.execute( sqlStatement);
             connection.commit(); //NB.  Cannot commit when autoCommit is enabled, on PostgreSql
         }
         catch( Exception e)

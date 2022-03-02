@@ -13,6 +13,7 @@ import ProcessOperatingInterface.*;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.lang.System;
+import java.sql.CallableStatement;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,6 +37,19 @@ public class TestConsole
 {
 
 
+  public static void someFunc(String a[])throws Exception {
+  Class.forName("com.mysql.jdbc.Driver").newInstance();
+  Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee","root","root");
+  CallableStatement calstat=conn.prepareCall("{call empproc(?,?,?)}");
+  calstat.setString(1,a[0]);
+  calstat.setString(2,a[1]);
+  calstat.setString(3,a[2]);
+  ResultSet rs = calstat.executeQuery();
+  conn.close();
+  calstat.close();
+  System.out.println("Your data has been inserted into table.");
+  }// someFunc
+    
 
     
     /******************* EntryPoint ****************************/
