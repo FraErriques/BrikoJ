@@ -146,26 +146,26 @@ public class ReportAuto
                 // [id] IDENTITY
                 this.targa_autovettura,
                 this.registration_date,
-                this.km,
+                String. valueOf( this.km ),
                 this.rifornimento_luogo,
-                this.rifornimento_litri,
-                this.costo_gasolio_euro_litro,
-                this.spesa_gasolio_euro,
+                String. valueOf( this.rifornimento_litri ),
+                String. valueOf( this.costo_gasolio_euro_litro ),
+                String. valueOf( this.spesa_gasolio_euro ),
                 this.accessori_descriz, 
-                this.accessori_euro,
+                String. valueOf( this.accessori_euro ) ,
                 this.lavaggio_descr,
-                this.lavaggio_euro,
+                String. valueOf( this.lavaggio_euro ) ,
                 this.manutenzione_descr,
                 this.data_ingresso_officina,
                 this.data_uscita_officina,
-                this.manutenzione_euro,
+                String. valueOf( this.manutenzione_euro ) ,
                 this.altro_descriz,
-                this.altro_euro,
+                String. valueOf( this.altro_euro ) ,
                 this.sinistro_descriz,
                 this.conducente,
                 this.riga_descriz,
-                this.costo_totale_riga_euro,
-                this.franchigia_assicurazione_euro
+                String. valueOf( this.costo_totale_riga_euro ) ,
+                String. valueOf( this.franchigia_assicurazione_euro )
         );
     }//MsSql
     
@@ -187,7 +187,20 @@ public class ReportAuto
         if(par.trim().equals("_placeholder_")){return res;}// a NULL field.
         if(par.trim().length()>0)
         {
-            res = Float.parseFloat( par);
+            try
+            {            
+                res = Float.parseFloat( par);
+            }
+            catch(Exception ex)
+            {
+                String dbg = ex.getMessage();
+                // in this case "dbDate" is not suitable, and so the default for invalid date will be returned.
+                res = (float)0.0;// reset the return value, since it has been dirtied in the conversione.
+            }
+            finally
+            {
+                int dbg_i = 12;
+            }            
         }// else Default is aapropriate.
         return res;
     }// float
@@ -209,19 +222,31 @@ public class ReportAuto
     
     private String tryParseLocalDate( String par )
     {
-        LocalDate res = LocalDate.EPOCH;// TODO find an adequate default... init to default empty entry in a data sheet.
-        String dbDate = "'1970/01/31'";
+        String dbDate = "'1970/01/31'";// TODO find an adequate default... init to default empty entry in a data sheet.
         if(null==par){return dbDate;}
         if(par.trim().length()<10){return dbDate;}// NO dd/MM/yyyy can be contained.
         if(par.trim().equals("_placeholder_")){return dbDate;}// a NULL field.
-        dbDate = this.fromItalianDate_to_AmericanDate(par);
-//        if(dbDate.trim().length()>0)
-//        {
-//            res = LocalDate.parse( dbDate, this.dateFormatter );
-//        }// else Default is aapropriate.
+        // now chech date appropriateness
+        LocalDate res = LocalDate.EPOCH;// ? (1970 , 01 , 31 );
+        try
+        {
+            dbDate = this.fromItalianDate_to_AmericanDate(par);
+            res = LocalDate.parse( dbDate, this.dateFormatter );
+        }
+        catch(Exception ex)
+        {
+            String dbg = ex.getMessage();
+            // in this case "dbDate" is not suitable, and so the default for invalid date will be returned.
+            dbDate = "'1970/01/31'";// reset the return value, since it has been dirtied in the conversione.
+        }
+        finally
+        {
+            int dbg_i = 12;
+        }
+        //
         return dbDate;
-    }// LocalDate
-    
+    }// tryParseLocalDate
+
 }// class ReportAuto
 
 

@@ -102,28 +102,28 @@ GO  */
         java.sql.Connection connection,
         //
         //  [autovettura_id] IDENTITY
-        String targa_autovettura,
+        String  targa_autovettura,
 	String  registration_date,
-	float km,
-	String rifornimento_luogo,
-	float rifornimento_litri,
-	float costo_gasolio_euro_litro,
-	float spesa_gasolio_euro,
-	String accessori_descriz,
-	float accessori_euro,
-	String lavaggio_descr,
-	float lavaggio_euro,
-	String manutenzione_descr,
-	String data_ingresso_officina,
-	String data_uscita_officina,
-	float manutenzione_euro,
-	String altro_descriz,
-	float altro_euro,
-	String sinistro_descriz,
-	String conducente,
-	String riga_descriz,
-	float costo_totale_riga_euro,
-	float franchigia_assicurazione_euro
+	String  km,
+	String  rifornimento_luogo,
+	String  rifornimento_litri,
+	String  costo_gasolio_euro_litro,
+	String  spesa_gasolio_euro,
+	String  accessori_descriz,
+	String  accessori_euro,
+	String  lavaggio_descr,
+	String  lavaggio_euro,
+	String  manutenzione_descr,
+	String  data_ingresso_officina,
+	String  data_uscita_officina,
+	String  manutenzione_euro,
+	String  altro_descriz,
+	String  altro_euro,
+	String  sinistro_descriz,
+	String  conducente,
+	String  riga_descriz,
+	String  costo_totale_riga_euro,
+	String  franchigia_assicurazione_euro
     )
     {
         String sqlStatement;// let it debuggable outside the "try"
@@ -136,49 +136,51 @@ GO  */
             // create a Statement from the connection
             Statement statement = connection.createStatement();
             //
-            sqlStatement="EXEC [dbo].[usp_genericaautovettura_INSERT] ";
-            sqlStatement += String.valueOf( targa_autovettura);
+            sqlStatement=" EXEC [dbo].[usp_genericaautovettura_INSERT]  ";
+            sqlStatement += targa_autovettura;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( registration_date);
+            sqlStatement += registration_date;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( km);
+            sqlStatement += km;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( rifornimento_luogo);
+            sqlStatement += rifornimento_luogo;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( rifornimento_litri);
+            sqlStatement += rifornimento_litri;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( costo_gasolio_euro_litro);
-            sqlStatement += String.valueOf( spesa_gasolio_euro);
+            sqlStatement += costo_gasolio_euro_litro;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( accessori_descriz);
+            sqlStatement += spesa_gasolio_euro;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( accessori_euro);
+            sqlStatement += accessori_descriz;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( lavaggio_descr);
+            sqlStatement += accessori_euro;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( lavaggio_euro);
+            sqlStatement += lavaggio_descr;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( manutenzione_descr);
+            sqlStatement += lavaggio_euro;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( data_ingresso_officina);
+            sqlStatement += manutenzione_descr;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( data_uscita_officina);
+            sqlStatement += data_ingresso_officina;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( manutenzione_euro);
+            sqlStatement += data_uscita_officina;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( altro_descriz);
+            sqlStatement += manutenzione_euro;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( altro_euro);
+            sqlStatement += altro_descriz;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( sinistro_descriz);
+            sqlStatement += altro_euro;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( conducente);
+            sqlStatement += sinistro_descriz;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( riga_descriz);
+            sqlStatement += conducente;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( costo_totale_riga_euro);
+            sqlStatement += riga_descriz;
             sqlStatement += " , ";// separation between parameters.
-            sqlStatement += String.valueOf( franchigia_assicurazione_euro);            
+            sqlStatement += costo_totale_riga_euro;
+            sqlStatement += " , ";// separation between parameters.
+            sqlStatement += franchigia_assicurazione_euro;
+            sqlStatement += "   ";// ending spaces
             // no parenthesis in MsSql sqlStatement += " );";
             // insert the data
             statement.executeUpdate( sqlStatement);
