@@ -131,8 +131,38 @@ public class ReportAuto
         this.franchigia_assicurazione_euro  = tryParseFloat( par_franchigia_assicurazione_euro);
     }// Ctor
     
-    public void Postgres_ProxyWrapper_()
-    {}//params will let understandable if the insertion has to be on a named table xor in the "all-car" one.
+    public void Postgres_ProxyWrapper_(
+        Common.DBservice.PostgreSql postgreSql    
+    )
+    {
+        Entity.Proxy.PostgreSql_usp_genericaautovettura_INSERT_.PostgreSql_usp_genericaautovettura_INSERT_SERVICE_
+            (
+                postgreSql.connection,
+                // [id] IDENTITY
+                this.targa_autovettura,
+                this.registration_date,
+                String.valueOf( this.km ),
+                this.rifornimento_luogo,
+                String.valueOf( this.rifornimento_litri ),
+                String.valueOf( this.costo_gasolio_euro_litro ),
+                String.valueOf( this.spesa_gasolio_euro ),
+                this.accessori_descriz, 
+                String.valueOf( this.accessori_euro ) ,
+                this.lavaggio_descr,
+                String.valueOf( this.lavaggio_euro ) ,
+                this.manutenzione_descr,
+                this.data_ingresso_officina,
+                this.data_uscita_officina,
+                String.valueOf( this.manutenzione_euro ) ,
+                this.altro_descriz,
+                String.valueOf( this.altro_euro ) ,
+                this.sinistro_descriz,
+                this.conducente,
+                this.riga_descriz,
+                String.valueOf( this.costo_totale_riga_euro ) ,
+                String.valueOf( this.franchigia_assicurazione_euro )
+        );
+    }// Postgres_ProxyWrapper_
     
     public void MsSql_ProxyWrapper_(
         Common.DBservice.MsSql msSql

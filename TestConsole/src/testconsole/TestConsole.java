@@ -40,10 +40,15 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
-        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
                 "data\\reportAuto_2021_GE139ZJ_.txt",
                 "GE144ZJ"
-        );
+        );        
+        
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+//                "data\\reportAuto_2021_GE139ZJ_.txt",
+//                "GE144ZJ"
+//        );
 
     }// main
     
