@@ -36,21 +36,6 @@ import java.util.ArrayList;
 public class TestConsole
 {
 
-
-  public static void someFunc(String a[])throws Exception {
-  Class.forName("com.mysql.jdbc.Driver").newInstance();
-  Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee","root","root");
-  CallableStatement calstat=conn.prepareCall("{call empproc(?,?,?)}");
-  calstat.setString(1,a[0]);
-  calstat.setString(2,a[1]);
-  calstat.setString(3,a[2]);
-  ResultSet rs = calstat.executeQuery();
-  conn.close();
-  calstat.close();
-  System.out.println("Your data has been inserted into table.");
-  }// someFunc
-    
-
     
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
@@ -70,6 +55,64 @@ public class TestConsole
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
+
+//public static void similADO()
+//{
+//ProcedureCall procedure = getSession().createStoredProcedureCall("my_procedure");
+
+//procedure.registerParameter("my_nullable_param", String.class, ParameterMode.IN) .bindValue(null);    
+//StoredProcedureQuery q = em.createStoredProcedureQuery(Globals.SPROC_PROBLEM_COMMENT2, ProblemCommentVO.class);
+//q.registerStoredProcedureParameter("Patient_ID", Long.class, ParameterMode.IN);
+//q.registerStoredProcedureParameter("Param2", Long.class, ParameterMode.IN);
+//q.registerStoredProcedureParameter("Param3", Long.class, ParameterMode.IN);
+//q.registerStoredProcedureParameter("Param4", Integer.class, ParameterMode.OUT);
+//q.setParameter("Patient_ID", patientId);
+//q.setParameter("Param2", null);//passing null value to Param2
+//q.setParameter("Param3", null);
+//
+//List<ProblemCommentVO> pComments = q.getResultList();
+//Integer a = (Integer) q.getOutputParameterValue("Param4");    
+    //---
+//StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("get_item", Item.class);
+//storedProcedure.registerStoredProcedureParameter(0, String.class, ParameterMode.IN);
+//storedProcedure.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+//storedProcedure.registerStoredProcedureParameter(2, Timestamp.class, ParameterMode.IN);
+//
+//storedProcedure.setParameter(0, a);
+//storedProcedure.setParameter(1, b);
+//storedProcedure.setParameter(2, c);
+//
+//storedProcedure.execute();    
+
+
+////--@
+//         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("sales_tax");
+//// set parameters
+//storedProcedure.registerStoredProcedureParameter("subtotal", Double.class, ParameterMode.IN);
+//storedProcedure.registerStoredProcedureParameter("tax", Double.class, ParameterMode.OUT);
+//storedProcedure.setParameter("subtotal", 1f);
+//// execute SP
+//storedProcedure.execute();
+//// get result
+//Double tax = (Double)storedProcedure.getOutputParameterValue("tax");
+//}
+//    
+// 
+//
+//  public static void someFunc(String a[])throws Exception {
+//  Class.forName("com.mysql.jdbc.Driver").newInstance();
+//  Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee","root","root");
+//  CallableStatement calstat=conn.prepareCall("{call empproc(?,?,?)}");
+//  calstat.setString(1,a[0]);
+//  calstat.setString(2,a[1]);
+//  calstat.setString(3,a[2]);
+//  ResultSet rs = calstat.executeQuery();
+//  conn.close();
+//  calstat.close();
+//  System.out.println("Your data has been inserted into table.");
+//  }// someFunc
+//    
+
 ////        //
 //        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

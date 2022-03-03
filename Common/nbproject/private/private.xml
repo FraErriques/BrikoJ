@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="BrikoJ">
+            <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/doc/SimilADO.java</file>
             <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
             <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql.java</file>
+            <file>file:/C:/root/projects/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/doc/StoredProcedureJpaQuery.java</file>
         </group>
     </open-files>
 </project-private>
