@@ -249,6 +249,11 @@ public class ReportAuto
         return res;
     }
     
+	// A note about the string "_placeholder_" :
+	// Excel and other spreadsheets cannot consider empty cells, while saving TAB-separated files.
+	// Such empty cells will then be ignored, taking the place of adjacent cells.
+	// To avoid such behaviour one has to insert a conventional string (here "_placeholder_") to signal that the field
+	// exists but it has intentionally not been valorized. This application supplies NULL parameters to the DB.
     private String tryParseLocalDate( String par )
     {
         String dbDate = "NULL";// an adequate default for an empty date-field in the txt.
