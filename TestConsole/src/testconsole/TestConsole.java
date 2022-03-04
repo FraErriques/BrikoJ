@@ -41,14 +41,14 @@ public class TestConsole
     public static void main(String[] args)            
     {
         ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
-                "data\\reportAuto_2021_GE139ZJ_.txt",
-                "GE144ZJ"
-        );        
+                "data\\reportAuto_tryNULL_.txt",
+                "tryNULL"
+        );
         
-//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
-//                "data\\reportAuto_2021_GE139ZJ_.txt",
-//                "GE144ZJ"
-//        );
+        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+                "data\\reportAuto_tryNULL_.txt",
+                "tryNULL"
+        );
 
     }// main
     

@@ -198,12 +198,14 @@ public class ReportAuto
     
     private String wrapSqlStrings( String par)// both dates and actual strings
     {
-        String res = "''";// a DB String.
+        String res = "NULL";// default for a DB String.
         if(null==par){return res;}
-        if(par.trim().length()>0)
-        {        
+        if(par.trim().equals("NULL")){return res;}
+        else if(par.trim().length()>0)
+        {
             res = "'" + par + "'";
         }// else Default is aapropriate.
+        if(res.trim().equals("'_placeholder_'")){return "NULL";}// a NULL field.
         return res;
     }// wrapSqlStrings
     
@@ -211,7 +213,7 @@ public class ReportAuto
     {
         float res = (float)0.0;// init to default empty entry in a data sheet.
         if(null==par){return res;}
-        if(par.trim().equals("_placeholder_")){return res;}// a NULL field.
+        if(par.trim().equals("_placeholder_")){return res;}// a zero field.
         if(par.trim().length()>0)
         {
             try
@@ -249,7 +251,7 @@ public class ReportAuto
     
     private String tryParseLocalDate( String par )
     {
-        String dbDate = "'1970/01/31'";// TODO find an adequate default... init to default empty entry in a data sheet.
+        String dbDate = "NULL";// an adequate default for an empty date-field in the txt.
         if(null==par){return dbDate;}
         if(par.trim().length()<10){return dbDate;}// NO dd/MM/yyyy can be contained.
         if(par.trim().equals("_placeholder_")){return dbDate;}// a NULL field.
@@ -264,7 +266,7 @@ public class ReportAuto
         {
             String dbg = ex.getMessage();
             // in this case "dbDate" is not suitable, and so the default for invalid date will be returned.
-            dbDate = "'1970/01/31'";// reset the return value, since it has been dirtied in the conversione.
+            dbDate = "NULL";// reset the return value, since it has been dirtied in the conversion.
         }
         finally
         {
