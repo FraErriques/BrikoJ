@@ -15,7 +15,7 @@ import java.sql.Statement;
 public class PostgreSql 
 {
     // Data
-    public Connection connection=null;
+    public Connection connection=null;    
     //String connectionUrl_Eulero = "jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0"
     // ITBZ  ("jdbc:postgresql://ITBZOW1422:5432/Numerics", "postgres", "Riemann0");
     //("jdbc:postgresql://ITBZOW1422:5432/mendola", "postgres", "Riemann0");

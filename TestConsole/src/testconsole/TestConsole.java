@@ -13,6 +13,7 @@ import ProcessOperatingInterface.*;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.lang.System;
+import java.sql.CallableStatement;
 import java.util.Set;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +21,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -34,26 +36,94 @@ import java.util.ArrayList;
 public class TestConsole
 {
 
-//    public static void printWithoutEmptyEntries()
-//    {   
-//        ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries(res);
-//        //
-//        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
-//        {
-//            for( int col=0; col<afterPruneEmptyEntries.get(row).size(); col++)
-//            {
-//                System.out.print( afterPruneEmptyEntries.get(row).get(col) );
-//                System.out.print("_.");// space between columns
-//            }
-//            System.out.println("\n\tEOL\n");
-//        }// end print matrix WITHOUT empty entries
-//    }
-
-
     
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
+        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
+                "data/reportAuto_tryNULL_.txt",
+                "tryNULL"
+        );
+        
+        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+                "data/reportAuto_tryNULL_.txt",
+                "tryNULL"
+        );
+
+    }// main
+    
+    
+}// end class TestConsole
+
+        
+
+
+//
+///*  ------------------------------- cantina ------------------------------------------
+
+//public static void similADO()
+//{
+//ProcedureCall procedure = getSession().createStoredProcedureCall("my_procedure");
+
+//procedure.registerParameter("my_nullable_param", String.class, ParameterMode.IN) .bindValue(null);    
+//StoredProcedureQuery q = em.createStoredProcedureQuery(Globals.SPROC_PROBLEM_COMMENT2, ProblemCommentVO.class);
+//q.registerStoredProcedureParameter("Patient_ID", Long.class, ParameterMode.IN);
+//q.registerStoredProcedureParameter("Param2", Long.class, ParameterMode.IN);
+//q.registerStoredProcedureParameter("Param3", Long.class, ParameterMode.IN);
+//q.registerStoredProcedureParameter("Param4", Integer.class, ParameterMode.OUT);
+//q.setParameter("Patient_ID", patientId);
+//q.setParameter("Param2", null);//passing null value to Param2
+//q.setParameter("Param3", null);
+//
+//List<ProblemCommentVO> pComments = q.getResultList();
+//Integer a = (Integer) q.getOutputParameterValue("Param4");    
+    //---
+//StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("get_item", Item.class);
+//storedProcedure.registerStoredProcedureParameter(0, String.class, ParameterMode.IN);
+//storedProcedure.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+//storedProcedure.registerStoredProcedureParameter(2, Timestamp.class, ParameterMode.IN);
+//
+//storedProcedure.setParameter(0, a);
+//storedProcedure.setParameter(1, b);
+//storedProcedure.setParameter(2, c);
+//
+//storedProcedure.execute();    
+
+
+////--@
+//         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("sales_tax");
+//// set parameters
+//storedProcedure.registerStoredProcedureParameter("subtotal", Double.class, ParameterMode.IN);
+//storedProcedure.registerStoredProcedureParameter("tax", Double.class, ParameterMode.OUT);
+//storedProcedure.setParameter("subtotal", 1f);
+//// execute SP
+//storedProcedure.execute();
+//// get result
+//Double tax = (Double)storedProcedure.getOutputParameterValue("tax");
+//}
+//    
+// 
+//
+//  public static void someFunc(String a[])throws Exception {
+//  Class.forName("com.mysql.jdbc.Driver").newInstance();
+//  Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/employee","root","root");
+//  CallableStatement calstat=conn.prepareCall("{call empproc(?,?,?)}");
+//  calstat.setString(1,a[0]);
+//  calstat.setString(2,a[1]);
+//  calstat.setString(3,a[2]);
+//  ResultSet rs = calstat.executeQuery();
+//  conn.close();
+//  calstat.close();
+//  System.out.println("Your data has been inserted into table.");
+//  }// someFunc
+//    
+
+////        //
+//        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        String exmplDate = "28/02/2022";
+//        LocalDate res = LocalDate.parse( exmplDate, formatter);  // test
+                
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 //        Entity.Proxy.Pg_usp_ge135zj_insert.Pg_usp_ge135zj_insert_SERVICE(
 //                postgSql.connection,// the db- connection
@@ -95,34 +165,32 @@ public class TestConsole
 //            }
 //            System.out.println("\n\tEOL\n");
 //        }
-        //
-        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();        
-        //ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
-        ArrayList<ArrayList<String>> res = fm.laboratory( 
-                "/home/fra/src/GitHubSandBox/PostMRW/out20220219_.txt");
-        for( int row=0; row<res.size(); row++)
-        {
-            for( int col=0; col<res.get(row).size(); col++)
-            {
-                System.out.print( res.get(row).get(col) );
-                System.out.print("_.");// space between columns
-            }
-            System.out.println("\n\tEOL\n");
-        }// end print matrix WITH empty entries
-        //
-        ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries(res);
-        //
-        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
-        {
-            for( int col=0; col<afterPruneEmptyEntries.get(row).size(); col++)
-            {
-                System.out.print( afterPruneEmptyEntries.get(row).get(col) );
-                System.out.print("_.");// space between columns
-            }
-            System.out.println("\n\tEOL\n");
-        }// end print matrix WITHOUT empty entries
-        //        
-        int x=0;
+//        //
+//        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();        
+//        ArrayList<ArrayList<String>> res = fm.laboratory( "./esempio_matC_.txt");
+//        for( int row=0; row<res.size(); row++)
+//        {
+//            for( int col=0; col<res.get(row).size(); col++)
+//            {
+//                System.out.print( res.get(row).get(col) );
+//                System.out.print(" ");// space between columns
+//            }
+//            System.out.println("\n\tEOL\n");
+//        }// end print matrix WITH empty entries
+//        //
+//        ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries(res);
+//        //
+//        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
+//        {
+//            for( int col=0; col<afterPruneEmptyEntries.get(row).size(); col++)
+//            {
+//                System.out.print( afterPruneEmptyEntries.get(row).get(col) );
+//                System.out.print(" ");// space between columns
+//            }
+//            System.out.println("\n\tEOL\n");
+//        }// end print matrix WITH empty entries
+//        //        
+//        int x=0;
 //        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
 //        fm.Prototype_txtFileReader("./esempio.txt");        
 //        NumericalAnalysis.ComplexField.Complex z = new Complex( +3.0 , +2.0);
@@ -175,18 +243,6 @@ public class TestConsole
 //        msSql.insertionLoop_template();
 //        msSql.closeConnection();        
 //        //
-    }// main
-    
-    
-}// end class TestConsole
-
-        
-
-
-//
-///*  ------------------------------- cantina ------------------------------------------
-////        //
-
 
 
 
