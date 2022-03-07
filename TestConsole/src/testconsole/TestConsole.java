@@ -40,15 +40,22 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
-        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
-                "data\\reportAuto_tryNULL_.txt",
-                "tryNULL"
+        //        truncate  zetadump RESTART IDENTITY;
+        //        select count(*) from zetadump;
+        //        select * from zetadump;
+        ProcessOperatingInterface.FromExcelToDB.ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
+            "C:\\root\\projects\\GitHubSandBox\\PostMRW\\TestConsole\\out20220219_.txt"
         );
-        
-        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
-                "data\\reportAuto_tryNULL_.txt",
-                "tryNULL"
-        );
+//        
+//        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
+//                "data\\reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
+//        
+//        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_MsSql_SERVICE(
+//                "data\\reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
 
     }// main
     

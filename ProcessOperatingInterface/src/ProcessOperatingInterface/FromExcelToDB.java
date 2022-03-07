@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class FromExcelToDB 
 {
 
-    public static boolean fromTABseparatedTxtDumpTo_MsSql(
+    public static boolean ReportAuto_fromTABseparatedTxtDumpTo_MsSql_SERVICE(
             String textDumpFullpath,
             String targaAutovettura
     )
@@ -80,7 +80,7 @@ public class FromExcelToDB
     
     
 
-    public static boolean fromTABseparatedTxtDumpTo_PostgreSql(
+    public static boolean ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
             String textDumpFullpath,
             String targaAutovettura
     )
@@ -139,5 +139,48 @@ public class FromExcelToDB
         // ready.
         return res;
     }// fromTABseparatedTxtDumpTo_PostgreSql    
+    
+    public static boolean ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
+            String textDumpFullpath
+    )
+    {
+        boolean res = false;
+        //connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
+        Common.DBservice.PostgreSql postgreSql = new Common.DBservice.PostgreSql();//connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
+        //----follows the sequence to be used:
+        Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
+        ArrayList<ArrayList<String>> stringMatrix = fm.laboratory(textDumpFullpath);
+        // ReportAuto has strategical empty-entries -> NO : ArrayList<ArrayList<String>> afterPruneEmptyEntries = fm.RemoveEmptyEntries( stringMatrix);
+        ArrayList<ArrayList<String>> afterPruneEmptyEntries = stringMatrix;// invariata.
+        // Segue:  un ciclo for per righe, istanziando una classe per ogni riga di ArrayList<ArrayList<String>> 
+        // e quindi chiamando il Proxy una volta per ogni riga della db-table.
+        //--@@@@@
+        Entity.Table.ZetaDump ZetaDump_Riga = null;
+        for( int row=0; row<afterPruneEmptyEntries.size(); row++)
+        {
+            // generic row( with all its columns) id afterPruneEmptyEntries.get(row)
+            ArrayList<String> curRow = afterPruneEmptyEntries.get(row);
+            if( curRow.size()<6 )// todo
+            {
+                continue;// skip inadequate row.
+            }// else treat it.
+            //
+            ZetaDump_Riga = new Entity.Table.ZetaDump(
+                // id IDENTITY
+                curRow.get(0), // s_re
+                curRow.get(1), // s_im
+                curRow.get(2), // z_re
+                curRow.get(3), // z_im
+                curRow.get(4), // image_re
+                curRow.get(5)  // image_im
+            );
+            // Proxy  for each row:
+            ZetaDump_Riga.Postgres_ProxyWrapper_( postgreSql);// the DB-object which contains the connection.
+        }// end forEach row: all rows in the String-Matrix have been sent to DB.
+        // only after last row: close the DB connection.
+        postgreSql.closeConnection();
+        // ready.
+        return res;
+    }// ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE
 
 } //  class FromExcelToDB 
