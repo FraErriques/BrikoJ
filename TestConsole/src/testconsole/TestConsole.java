@@ -40,12 +40,19 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
+        java.util.Hashtable< String, String > keyVectorMap = new java.util.Hashtable< String, String >();
+        keyVectorMap.put("first key", "first value content");
+        keyVectorMap.put("second key", "value content at position two");
+        //--
+        Object firstValue = keyVectorMap.get("first key");
+        
+        
         //        truncate  zetadump RESTART IDENTITY;
         //        select count(*) from zetadump;
         //        select * from zetadump;
-        ProcessOperatingInterface.FromExcelToDB.ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
-            "C:\\root\\projects\\GitHubSandBox\\PostMRW\\TestConsole\\out20220219_.txt"
-        );
+//        ProcessOperatingInterface.FromExcelToDB.ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
+//            "C:\\root\\projects\\GitHubSandBox\\PostMRW\\TestConsole\\out20220219_.txt"
+//        );
 //        
 //        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
 //                "data\\reportAuto_tryNULL_.txt",
