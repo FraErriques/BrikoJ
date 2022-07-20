@@ -9,6 +9,7 @@ import Common.MonteCarlo.*;
 import Entity.Proxy.MsSqlServer_ZetaDump;
 import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
+import Common.Dictionary.*;
 //
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -40,15 +41,19 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args)            
     {
-        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
-                "data/reportAuto_tryNULL_.txt",
-                "tryNULL"
-        );
-        
-        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
-                "data/reportAuto_tryNULL_.txt",
-                "tryNULL"
-        );
+        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+        String fullpath = "data/interni_IT_.txt";
+        ArrayList<String[]> tokenizedFile =
+            dictionary.txtStringMatrix(fullpath);
+        //--test
+        for( int row=0; row<tokenizedFile.size(); row++)
+        {
+            for( int column=0; column<tokenizedFile.get(row).length; column++)
+            {            
+                System.out.println( tokenizedFile.get(row)[column]);
+            }
+        }
+        dictionary.traverseDirect();
 
     }// main
     
@@ -60,6 +65,16 @@ public class TestConsole
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
+//
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
+//                "data/reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
+//        
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+//                "data/reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
 
 //public static void similADO()
 //{

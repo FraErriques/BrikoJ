@@ -5,13 +5,16 @@
 package Common.Dictionary;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.*;
+import java.util.Set;
 
 /**
  *
  * @author fra
  */
-public class MapOperation {
-    private Map<String, TheNode> dictionary;// =  new HashMap<String, String>();
+public class MapOperation 
+{
+    private Hashtable<String, TheNode> dictionary;// =  new HashMap<String, String>();
     public MapOperation()
     {
         this.dictionary = null;
@@ -31,6 +34,7 @@ public class MapOperation {
         try
         {
             rr = new java.io.FileReader( fullPath);
+            this.dictionary = new Hashtable<String, TheNode>();
             sb = new StringBuilder();
             //curLine NO new(): it will get StringBuilder's memory content.
             for (int ch=0; -1!= ch; )
@@ -44,6 +48,9 @@ public class MapOperation {
                 {
                     curLine = sb.toString();
                     String[] lineTokens = curLine.split("\t");// split on blank XOR TAB
+                    //-------------
+                    this.prune_recordLayout(lineTokens);
+                    //-------------
                     associated_array.add(lineTokens);
                     sb = null;//gc
                     curLine = null;//gc
@@ -56,7 +63,7 @@ public class MapOperation {
                     sb.append((char)ch);
                 }
             }// end for "each char in stream".
-            hasReadSuccessfully = true;
+            hasReadSuccessfully = true;  
             rr.close();// txtFile close().
         }// end try-read
         catch( java.io.IOException e)//NB. the kind of exception
@@ -66,11 +73,44 @@ public class MapOperation {
         }
         finally 
         {
-            //?
+            if(null!=rr)
+            {
+                // ? actions needed : deletion ?
+            }
         }
         return associated_array;
-    }// end Prototype_txtFileReader    
+    }// end Prototype_txtFileReader
     
+    public boolean prune_recordLayout( String[] columns)
+    {
+        boolean res = false;// init to invalid
+        if(true)//NB add here the pruning criteria
+        {
+            TheNode curRow = new TheNode( columns[0], columns[1]);
+            this.dictionary.put(columns[0], curRow);
+            res = true;
+        }// else res stays false
+        // ready
+        return res;
+    }// prune_recordLayout
+    
+    public void traverseDirect()
+    {
+        // Getting keySets of Hashtable and
+        // storing it into Set
+        Set<String> setOfKeys = this.dictionary.keySet();
+        
+        // Iterating through the Hashtable
+        // object using for-Each loop
+        for (String key : setOfKeys) 
+        {
+            // Print and display the Rank and Name
+            System.out.println("Rank : " + key
+                               + "\t\t Name : "
+                               + this.dictionary.get(key));
+        }// print
+        
+    }// traverseDirect
 
     
 }
