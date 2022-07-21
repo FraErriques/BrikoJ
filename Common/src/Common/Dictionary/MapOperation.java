@@ -92,7 +92,7 @@ public class MapOperation
                     columns[4], 
                     columns[5]            
             );
-            this.dictionary.put(columns[0], curRow);
+            this.dictionary.put(columns[1], curRow);
             res = true;
         }// else res stays false
         // ready
@@ -110,7 +110,7 @@ public class MapOperation
         for (String key : setOfKeys) 
         {
             // Print and display the Rank and Name
-            System.out.println("Rank : " + key
+            System.out.print("\n------Rank : " + key
                                + "\t\t Name : "
                                + this.dictionary.get(key));
             this.dictionary.get(key).internalPrint();
