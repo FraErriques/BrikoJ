@@ -86,7 +86,12 @@ public class MapOperation
         boolean res = false;// init to invalid
         if(true)//NB add here the pruning criteria
         {
-            TheNode curRow = new TheNode( columns[0], columns[1]);
+            TheNode curRow = new TheNode( 
+                    columns[1], 
+                    columns[2],
+                    columns[4], 
+                    columns[5]            
+            );
             this.dictionary.put(columns[0], curRow);
             res = true;
         }// else res stays false
@@ -108,9 +113,25 @@ public class MapOperation
             System.out.println("Rank : " + key
                                + "\t\t Name : "
                                + this.dictionary.get(key));
+            this.dictionary.get(key).internalPrint();
         }// print
-        
     }// traverseDirect
 
+    public void NodeGarbageCollection()
+    {
+        // Getting keySets of Hashtable and
+        // storing it into Set
+        Set<String> setOfKeys = this.dictionary.keySet();
+        
+        // Iterating through the Hashtable
+        // object using for-Each loop
+        for (String key : setOfKeys) 
+        {
+            // Print and display the Rank and Name
+            System.out.println("Preparing Garbage Collection for : " + key);
+            this.dictionary.get(key).prepareGarbageCollection();
+        }// foreach Key
+    }// NodeGarbageCollection    
     
-}
+    
+}// class

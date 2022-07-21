@@ -11,15 +11,34 @@ package Common.Dictionary;
 public class TheNode {
     private String name;
     private String email;
-    public TheNode( String name, String email)
+    private String internal;
+    private String cellPhone;
+    public TheNode( 
+            String name, 
+            String email,
+            String internal,
+            String cellPhone
+        )// Ctor
     {
-        this.name = name;
-        this.email = email;
+        this.name = new String(name);
+        this.email = new String (email);
+        this.internal = new String(internal);
+        this.cellPhone = new String (cellPhone);        
     }// Ctor
     public void internalPrint()
     {
-        System.out.println("\n------------Recapiti:\n");
-        System.out.println("\n\t"+this.name);
-        System.out.println("\n\t"+this.email);
+        System.out.print("\n-----------------------Recapiti: ");
+        System.out.print("\n\t"+this.name);
+        System.out.print("\n\t"+this.email);
+        System.out.print("\n\t"+this.internal);
+        System.out.print("\n\t"+this.cellPhone);
+        System.out.print("\n----------------------------------");
     }//internalPrint
+    public void prepareGarbageCollection()
+    {
+        this.name = null;
+        this.email = null;
+        this.internal = null;
+        this.cellPhone = null;
+    }// prepareGarbageCollection
 }// class
