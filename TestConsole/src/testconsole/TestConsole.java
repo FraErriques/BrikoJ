@@ -45,16 +45,18 @@ public class TestConsole
         String fullpath = "data/interni_IT_.txt";
         ArrayList<String[]> tokenizedFile =
             dictionary.txtStringMatrix(fullpath);
-        //--test
-        for( int row=0; row<tokenizedFile.size(); row++)
-        {
-            for( int column=0; column<tokenizedFile.get(row).length; column++)
-            {            
-                System.out.println( tokenizedFile.get(row)[column]);
-            }
-        }
+        //--test file tokenization
+//        for( int row=0; row<tokenizedFile.size(); row++)
+//        {
+//            for( int column=0; column<tokenizedFile.get(row).length; column++)
+//            {            
+//                System.out.println( tokenizedFile.get(row)[column]);
+//            }
+//        }
         dictionary.traverseDirect();
-
+        dictionary.NodeGarbageCollection();
+        dictionary = null;// gc
+        //ready
     }// main
     
     
