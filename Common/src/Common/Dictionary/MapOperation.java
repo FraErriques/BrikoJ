@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Common.Dictionary;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.*;
@@ -133,5 +136,53 @@ public class MapOperation
         }// foreach Key
     }// NodeGarbageCollection    
     
+    public void nodeFinder( String requiredkey)
+    {
+        if( null!=this.dictionary)
+        {
+            if( this.dictionary.containsKey(requiredkey))
+            {
+                this.dictionary.get(requiredkey).internalPrint();
+            }
+            else
+            {
+                System.out.println("\n\t key:"+requiredkey+" NOT FOUND.");
+            }
+        }
+        else
+        {
+            System.out.println("The map is empty.");
+        }
+    }// nodeFinder
+    
+    public void mapListener()
+    {
+        String acquiredString = "init";
+        // NB. technique to acquire a string from Console.
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        for(;;)
+        {
+            try
+            {
+                System.out.print("Enter Required Map-key: ");
+                acquiredString = bufferedReader.readLine();
+                if("Exit loop".equals(acquiredString))
+                {
+                    System.out.println("\n\t Exiting...Good bye\t");
+                    break;
+                }// else continue.
+                System.out.print(" required record: "+acquiredString);
+                this.nodeFinder(acquiredString);
+            }
+            catch(IOException IOspecificEx) 
+            {
+                System.err.println("IOspecificEx: "+IOspecificEx.getMessage());
+            }
+            catch(Exception genericEx) 
+            {
+                System.err.println("genericEx: "+genericEx.getMessage());
+            }            
+        }// for Listener core
+    }// mapListener
     
 }// class

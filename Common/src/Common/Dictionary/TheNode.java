@@ -32,7 +32,7 @@ public class TheNode {
         System.out.print("\n\t"+this.email);
         System.out.print("\n\t"+this.internal);
         System.out.print("\n\t"+this.cellPhone);
-        System.out.print("\n----------------------------------");
+        System.out.println("\n----------------------------------");
     }//internalPrint
     public void prepareGarbageCollection()
     {
