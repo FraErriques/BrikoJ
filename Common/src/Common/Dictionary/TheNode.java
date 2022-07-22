@@ -13,6 +13,8 @@ public class TheNode {
     private String email;
     private String internal;
     private String cellPhone;
+    
+    // Ctor
     public TheNode( 
             String name, 
             String email,
@@ -25,6 +27,8 @@ public class TheNode {
         this.internal = new String(internal);
         this.cellPhone = new String (cellPhone);        
     }// Ctor
+    
+    
     public void internalPrint()
     {
         System.out.print("\n-----------------------Recapiti: ");
@@ -34,6 +38,8 @@ public class TheNode {
         System.out.print("\n\t"+this.cellPhone);
         System.out.println("\n----------------------------------");
     }//internalPrint
+    
+    
     public void prepareGarbageCollection()
     {
         this.name = null;
