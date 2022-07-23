@@ -131,7 +131,7 @@ public class MapOperation
         for (String key : setOfKeys) 
         {
             // Print and display the Rank and Name
-            System.out.println("Preparing Garbage Collection for : " + key);
+            // DBG System.out.println("Preparing Garbage Collection for : " + key);
             this.dictionary.get(key).prepareGarbageCollection();
         }// foreach Key
     }// NodeGarbageCollection    
@@ -164,16 +164,31 @@ public class MapOperation
         {
             try
             {
-                System.out.print("Enter Required Map-key: ");
+                System.out.print("\n\t Enter FFWD to Traverse Forward the Map");
+                //System.out.print("\n\t Enter BKWD to Traverse Backward the Map");
+                System.out.print("\n\t Enter Required Map-key: ");
+                System.out.print("\n\t Enter \"Exit loop\" to abandon the application\n\n\t");                
+                //
                 acquiredString = bufferedReader.readLine();
                 if("Exit loop".equals(acquiredString))
                 {
                     System.out.println("\n\t Exiting...Good bye\t");
                     break;
                 }// else continue.
-                System.out.print(" required record: "+acquiredString);
-                this.nodeFinder(acquiredString);
-            }
+                else if("FFWD".equals(acquiredString))
+                {
+                    this.traverseDirect();
+                }
+//                else if("BKWD".equals(acquiredString))
+//                {
+//                    this.mapTraverseReverse();
+//                }
+                else
+                {
+                    // DBG System.out.print(" required record: "+acquiredString);
+                    this.nodeFinder( acquiredString);
+                }
+            }// try
             catch(IOException IOspecificEx) 
             {
                 System.err.println("IOspecificEx: "+IOspecificEx.getMessage());

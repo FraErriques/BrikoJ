@@ -35,7 +35,15 @@ public class TheNode {
         System.out.print("\n\t"+this.name);
         System.out.print("\n\t"+this.email);
         System.out.print("\n\t"+this.internal);
-        System.out.print("\n\t"+this.cellPhone);
+        if( null!= this.cellPhone && !"".equals( this.cellPhone.trim()) )
+        {
+            System.out.print("\n\t"+this.cellPhone);
+        }
+        else
+        {
+            System.out.print("\n\t missing cellPhone");
+        }
+        // ready    
         System.out.println("\n----------------------------------");
     }//internalPrint
     
