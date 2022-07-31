@@ -122,18 +122,21 @@ public class MapOperation
 
     public void NodeGarbageCollection()
     {
-        // Getting keySets of Hashtable and
-        // storing it into Set
-        Set<String> setOfKeys = this.dictionary.keySet();
-        
-        // Iterating through the Hashtable
-        // object using for-Each loop
-        for (String key : setOfKeys) 
+        if( null!=this.dictionary)
         {
-            // Print and display the Rank and Name
-            // DBG System.out.println("Preparing Garbage Collection for : " + key);
-            this.dictionary.get(key).prepareGarbageCollection();
-        }// foreach Key
+            // Getting keySets of Hashtable and
+            // storing it into Set
+            Set<String> setOfKeys = this.dictionary.keySet();
+
+            // Iterating through the Hashtable
+            // object using for-Each loop
+            for (String key : setOfKeys) 
+            {
+                // Print and display the Rank and Name
+                // DBG System.out.println("Preparing Garbage Collection for : " + key);
+                this.dictionary.get(key).prepareGarbageCollection();
+            }// foreach Key
+        }// if( null!=this.dictionary)
     }// NodeGarbageCollection    
     
     public void nodeFinder( String requiredkey)
