@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -37,6 +38,11 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     { 
+        File dir;
+        dir = new File(System.getProperty("user.dir"));
+        String absolutePath = dir.getAbsolutePath();
+        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
+    
         Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
         String fullpath = "data/interni_IT_.txt";
         ArrayList<String[]> tokenizedFile =
