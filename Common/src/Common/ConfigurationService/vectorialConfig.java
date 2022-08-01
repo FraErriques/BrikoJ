@@ -64,6 +64,7 @@ public class vectorialConfig extends KeyTokenRecognizer
     
     
     //---- querying method for a single vector-value, associated with the required key---------------------
+    // @SuppressWarnings("unchecked")
     public String[] getVectorValuesOnKey( String key)
     {
         Object associated_value = null;

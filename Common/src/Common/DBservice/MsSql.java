@@ -5,7 +5,7 @@
 package Common.DBservice;
 
 import java.sql.Connection;
-import java.sql.DriverManager;// mssql i.e. Microsoft SqlServer
+import java.sql.DriverManager;
 import java.sql.Statement;
 
 
@@ -16,35 +16,25 @@ import java.sql.Statement;
 public class MsSql 
 {
     // Data
-    Connection connection=null;
+    public Connection connection=null;
     // for named-instances the syntax seems to be "jdbc:sqlserver://vvv;instanceName=iii"
-    // where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there's an'=' sign
+    // where vvv is the hostname (xor IP) and instanceName is the instance name. NB. the separator is a semicolon ';' and there is an'=' sign
     // between the token instanceName and the actual instance-name.
-    //Update the username and password below
-    // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
-    // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
-    // String connectionUrl   = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0"; TODO Cantor
-    //String connectionUrl   = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
-    // String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1433;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
-    //String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";        
-    //String connectionUrl = "jdbc:sqlserver://ITBZOW1422;instanceName=SqlExpress;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
-    //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=SqlExpress:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
-    //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=dotazioni2021;user=sa;password=M1 Sxpdx";
-    //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1434;databaseName=PrimeData;user=applicationuser;password=curricula";
-    //String connectionUrl = "jdbc:sqlserver://192.168.30.63;instanceName=ExpressLie:1433;databaseName=PrimeData;user=applicationuser;password=curricula";
-    //String connectionUrl = "jdbc:sqlserver://ITBZOW1422.BBT.INT;instanceName=ExpressLie;databaseName=PrimeData;user=applicationuser;password=curricula";
+    // Update the username and password below
+    //
+    // String connectionUrl   = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
     // String connectionUrl = "jdbc:sqlserver://Cantor;databaseName=PrimeData;user=sa;password=Riemann0";
-    String connectionUrl_Eulero = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";
-    //"jdbc:microsoft:sqlserver://Cantor:1433;DatabaseName=PrimeData", "sa", "sa");    
-    
-    
+    // String connectionUrl_Eulero = "jdbc:sqlserver://Eulero;databaseName=TestDb;user=sa;password=Riemann0";    
+    // String connectionUrl_ITBZ_Delta = "jdbc:sqlserver://ITBZOW1422;instanceName=Delta;databaseName=Numerics;user=applicationuser;password=curricula";
+    // String connectionUrl_ITBZ_ExpressLie = "jdbc:sqlserver://ITBZOW1422;instanceName=ExpressLie;databaseName=Numerics;user=applicationuser;password=curricula";
+
     // Ctor
-    public MsSql()
+    public MsSql( String connUrl)
     {
         try
         {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(connectionUrl_Eulero);
+            connection = DriverManager.getConnection(connUrl);
         }
         catch( Exception e)
         {
@@ -52,6 +42,7 @@ public class MsSql
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
+        System.out.println(" Connection to database opened successfully");        
     }// Ctor
     
     
@@ -106,7 +97,7 @@ public class MsSql
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }        
-        System.out.println(" Connection to database closed successfully");        
+        System.out.println(" Connection to database closed successfully");
     }// like Dtor    
 
     
