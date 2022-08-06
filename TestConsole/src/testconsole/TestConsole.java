@@ -9,6 +9,7 @@ import Common.MonteCarlo.*;
 import Entity.Proxy.MsSqlServer_ZetaDump;
 import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
+import Common.Dictionary.*;
 //
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -23,12 +24,10 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-
-
-
-
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 
@@ -36,27 +35,23 @@ import java.util.ArrayList;
 public class TestConsole
 {
 
-    
     /******************* EntryPoint ****************************/
-    public static void main(String[] args)            
-    {
-        //        truncate  zetadump RESTART IDENTITY;
-        //        select count(*) from zetadump;
-        //        select * from zetadump;
-        ProcessOperatingInterface.FromExcelToDB.ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
-            "C:\\root\\projects\\GitHubSandBox\\PostMRW\\TestConsole\\out20220219_.txt"
-        );
-//        
-//        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
-//                "data\\reportAuto_tryNULL_.txt",
-//                "tryNULL"
-//        );
-//        
-//        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_MsSql_SERVICE(
-//                "data\\reportAuto_tryNULL_.txt",
-//                "tryNULL"
-//        );
-
+    public static void main(String[] args) throws IOException 
+    { 
+        File dir;
+        dir = new File(System.getProperty("user.dir"));
+        String absolutePath = dir.getAbsolutePath();
+        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
+    
+        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+        String fullpath = "data/interni_IT_.txt";
+        ArrayList<String[]> tokenizedFile =
+            dictionary.txtStringMatrix(fullpath);
+        //dictionary.traverseDirect();
+        dictionary.mapListener();
+        dictionary.NodeGarbageCollection();
+        dictionary = null;// gc
+        //ready
     }// main
     
     
@@ -67,6 +62,50 @@ public class TestConsole
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
+//
+        //--test file tokenization
+//        for( int row=0; row<tokenizedFile.size(); row++)
+//        {
+//            for( int column=0; column<tokenizedFile.get(row).length; column++)
+//            {            
+//                System.out.println( tokenizedFile.get(row)[column]);
+//            }
+//        }
+        // NB. technique to acquire a string from Console.
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        System.out.print("Enter String: ");
+//        String acquiredString = bufferedReader.readLine();
+//        System.out.print("Enter Integer:");
+//        int acquiredInteger = -1;
+//        try 
+//        {            
+//            acquiredInteger = Integer.parseInt(bufferedReader.readLine());
+//            // riscontro feedback
+//            System.out.println("acquiredString = "+acquiredString );
+//            System.out.println("acquiredInteger = "+acquiredInteger );
+//        } 
+//        catch(NumberFormatException nfe) 
+//        {
+//            System.err.println("Invalid Format!");
+//        }
+//            
+//    
+        //-----listener prototype-------------
+//        System.out.print("Enter something:  ");
+//        java.lang.System.console debuggingConsole = new java.lang.System.console();
+//        String listenerCaughtString = debuggingConsole.readLine();
+//        System.out.println( listenerCaughtString);
+        //-------listener prototype-----------
+
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
+//                "data/reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
+//        
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+//                "data/reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
 
 //public static void similADO()
 //{
