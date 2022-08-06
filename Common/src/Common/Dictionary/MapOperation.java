@@ -90,12 +90,12 @@ public class MapOperation
         if(true)//NB add here the pruning criteria
         {
             TheNode curRow = new TheNode( 
-                    columns[1], 
-                    columns[2],
-                    columns[4], 
-                    columns[5]            
+                    columns[2], 
+                    columns[3],
+                    columns[5], 
+                    columns[6]            
             );
-            this.dictionary.put(columns[1], curRow);
+            this.dictionary.put(columns[2], curRow);
             res = true;
         }// else res stays false
         // ready
@@ -107,6 +107,7 @@ public class MapOperation
         // Getting keySets of Hashtable and
         // storing it into Set
         Set<String> setOfKeys = this.dictionary.keySet();
+        System.out.println("\n-----The Dictionary contains #_"+setOfKeys.size() + " elements \n");
         
         // Iterating through the Hashtable
         // object using for-Each loop
@@ -118,6 +119,7 @@ public class MapOperation
                                + this.dictionary.get(key));
             this.dictionary.get(key).internalPrint();
         }// print
+        System.out.println("\n-----The Dictionary contains #_"+setOfKeys.size() + " elements \n");
     }// traverseDirect
 
     public void NodeGarbageCollection()
@@ -127,15 +129,16 @@ public class MapOperation
             // Getting keySets of Hashtable and
             // storing it into Set
             Set<String> setOfKeys = this.dictionary.keySet();
-
             // Iterating through the Hashtable
             // object using for-Each loop
+            System.out.println("\n-----The Dictionary contains #_"+setOfKeys.size() + " elements \n");
             for (String key : setOfKeys) 
             {
                 // Print and display the Rank and Name
                 // DBG System.out.println("Preparing Garbage Collection for : " + key);
                 this.dictionary.get(key).prepareGarbageCollection();
             }// foreach Key
+            System.out.println("\n-----The Dictionary contains #_"+setOfKeys.size() + " elements \n");
         }// if( null!=this.dictionary)
     }// NodeGarbageCollection    
     
@@ -167,7 +170,7 @@ public class MapOperation
         {
             try
             {
-                System.out.print("\n\t Enter FFWD to Traverse Forward the Map");
+                System.out.print("\n\n\t Enter FFWD to Traverse Forward the Map");
                 //System.out.print("\n\t Enter BKWD to Traverse Backward the Map");
                 System.out.print("\n\t Enter Required Map-key: ");
                 System.out.print("\n\t Enter \"Exit loop\" to abandon the application\n\n\t");                

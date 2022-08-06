@@ -44,7 +44,7 @@ public class TestConsole
         System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
     
         Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
-        String fullpath = "data/interni_IT_.txt";
+        String fullpath = "data/telExport_Excel_TAB_.txt";
         ArrayList<String[]> tokenizedFile =
             dictionary.txtStringMatrix(fullpath);
         //dictionary.traverseDirect();
