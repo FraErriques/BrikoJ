@@ -1,0 +1,4 @@
+cd TestConsole
+then ..
+fra@Eulero:~/src/GitHubSandBox/BrikoJ/TestConsole$ java -jar dist/TestConsole.jar
+
