@@ -9,6 +9,7 @@ import Common.MonteCarlo.*;
 import Entity.Proxy.MsSqlServer_ZetaDump;
 import NumericalAnalysis.ComplexField.Complex;
 import ProcessOperatingInterface.*;
+import Common.Dictionary.*;
 //
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -23,9 +24,10 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 
@@ -36,17 +38,23 @@ import java.util.ArrayList;
 public class TestConsole
 {
 
+    public static void main(String[] args) throws IOException 
+    { 
+        File dir;
+        dir = new File(System.getProperty("user.dir"));
+        String absolutePath = dir.getAbsolutePath();
+        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
     
     /******************* EntryPoint ****************************/
-    public static void main(String[] args)            
-    {
-        java.util.Hashtable< String, String > keyVectorMap = new java.util.Hashtable< String, String >();
-        keyVectorMap.put("first key", "first value content");
-        keyVectorMap.put("second key", "value content at position two");
-        //--
-        Object firstValue = keyVectorMap.get("first key");
-        
-        
+        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+        String fullpath = "data/telExport_Excel_TAB_.txt";
+        ArrayList<String[]> tokenizedFile =
+            dictionary.txtStringMatrix(fullpath);
+        //dictionary.traverseDirect();
+        dictionary.mapListener();
+        dictionary.NodeGarbageCollection();
+        dictionary = null;// gc
+        //ready
         //        truncate  zetadump RESTART IDENTITY;
         //        select count(*) from zetadump;
         //        select * from zetadump;
