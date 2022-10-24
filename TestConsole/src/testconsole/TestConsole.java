@@ -32,12 +32,10 @@ import java.io.InputStreamReader;
 
 
 
-
-
-
 public class TestConsole
 {
 
+    /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     { 
         File dir;
@@ -45,7 +43,6 @@ public class TestConsole
         String absolutePath = dir.getAbsolutePath();
         System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
     
-    /******************* EntryPoint ****************************/
         Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
         String fullpath = "data/telExport_Excel_TAB_.txt";
         ArrayList<String[]> tokenizedFile =
@@ -55,23 +52,6 @@ public class TestConsole
         dictionary.NodeGarbageCollection();
         dictionary = null;// gc
         //ready
-        //        truncate  zetadump RESTART IDENTITY;
-        //        select count(*) from zetadump;
-        //        select * from zetadump;
-//        ProcessOperatingInterface.FromExcelToDB.ZetaDump_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
-//            "C:\\root\\projects\\GitHubSandBox\\PostMRW\\TestConsole\\out20220219_.txt"
-//        );
-//        
-//        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
-//                "data\\reportAuto_tryNULL_.txt",
-//                "tryNULL"
-//        );
-//        
-//        ProcessOperatingInterface.FromExcelToDB.ReportAuto_fromTABseparatedTxtDumpTo_MsSql_SERVICE(
-//                "data\\reportAuto_tryNULL_.txt",
-//                "tryNULL"
-//        );
-
     }// main
     
     
@@ -82,6 +62,50 @@ public class TestConsole
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
+//
+        //--test file tokenization
+//        for( int row=0; row<tokenizedFile.size(); row++)
+//        {
+//            for( int column=0; column<tokenizedFile.get(row).length; column++)
+//            {            
+//                System.out.println( tokenizedFile.get(row)[column]);
+//            }
+//        }
+        // NB. technique to acquire a string from Console.
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        System.out.print("Enter String: ");
+//        String acquiredString = bufferedReader.readLine();
+//        System.out.print("Enter Integer:");
+//        int acquiredInteger = -1;
+//        try 
+//        {            
+//            acquiredInteger = Integer.parseInt(bufferedReader.readLine());
+//            // riscontro feedback
+//            System.out.println("acquiredString = "+acquiredString );
+//            System.out.println("acquiredInteger = "+acquiredInteger );
+//        } 
+//        catch(NumberFormatException nfe) 
+//        {
+//            System.err.println("Invalid Format!");
+//        }
+//            
+//    
+        //-----listener prototype-------------
+//        System.out.print("Enter something:  ");
+//        java.lang.System.console debuggingConsole = new java.lang.System.console();
+//        String listenerCaughtString = debuggingConsole.readLine();
+//        System.out.println( listenerCaughtString);
+        //-------listener prototype-----------
+
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_PostgreSql(
+//                "data/reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
+//        
+//        ProcessOperatingInterface.FromExcelToDB.fromTABseparatedTxtDumpTo_MsSql(
+//                "data/reportAuto_tryNULL_.txt",
+//                "tryNULL"
+//        );
 
 //public static void similADO()
 //{
