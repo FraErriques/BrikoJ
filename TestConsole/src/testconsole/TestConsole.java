@@ -36,7 +36,8 @@ public class TestConsole
 {
 
     /******************* EntryPoint ****************************/
-    public static void main(String[] args) throws IOException 
+    
+    public static void rubrica_Parser(String[] args) throws IOException 
     { 
         File dir;
         dir = new File(System.getProperty("user.dir"));
@@ -53,6 +54,26 @@ public class TestConsole
         dictionary = null;// gc
         //ready
     }// main
+    
+    public static void main(String[] args) throws IOException 
+    {
+        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+        for( double c=+1.0; c<10; c+= +0.1)
+        {
+            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+                    c,
+                    c+1,
+                    c+2,
+                    c+3,
+                    c+4,
+                    c+5 
+            );
+        }// for
+        //postgSql.insertionLoop_template();
+        postgSql.closeConnection();
+    }// main
+
+            
     
     
 }// end class TestConsole
