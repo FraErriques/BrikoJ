@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="BrikoJ">
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/ZetaDump.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/generica_autovettura.sql</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/SomeEntity.java</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/usp_genericaautovettura_INSERT.sql</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/PostgreSql_ZetaDump.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/SomeEntity.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/MsSqlServer_ZetaDump.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/MsSql_usp_genericaautovettura_INSERT_.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/TxtParser.java</file>
         </group>
     </open-files>
 </project-private>

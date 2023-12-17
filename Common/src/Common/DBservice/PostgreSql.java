@@ -15,7 +15,21 @@ import java.sql.Statement;
 public class PostgreSql 
 {
     // Data
-    public Connection connection=null;    
+    public Connection connection=null;
+    // config files:
+    // in /var/lib/pgsql/data
+    // file postgresql.conf
+    /*
+        listen_addresses = '*'	# what IP address(es) to listen on;
+                                # comma-separated list of addresses;
+                                # defaults to 'localhost'; use '*' for all
+    */
+    // file pg_hba.conf
+    /*
+        # IPv4 local connections:
+        host    all             all             0.0.0.0/0            trust    
+    */
+    //
     //String connectionUrl_Eulero = "jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0"
     // ITBZ  ("jdbc:postgresql://ITBZOW1422:5432/Numerics", "postgres", "Riemann0");
     //("jdbc:postgresql://ITBZOW1422:5432/mendola", "postgres", "Riemann0");
@@ -30,7 +44,8 @@ public class PostgreSql
             Class.forName("org.postgresql.Driver");
             //connection = DriverManager.getConnection("jdbc:postgresql://Riemann:5432/mendola", "sa", "sa");
             //connection = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "fra", "Riemann0");
+            // loopback connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "fra", "Riemann0");
+            connection = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/postgres", "fra", "Riemann0");
         }
         catch( Exception e)
         {
