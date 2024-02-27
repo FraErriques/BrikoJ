@@ -30,7 +30,8 @@ public class PostgreSql
             Class.forName("org.postgresql.Driver");
             //connection = DriverManager.getConnection("jdbc:postgresql://Riemann:5432/mendola", "sa", "sa");
             //connection = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
-            connection = DriverManager.getConnection("jdbc:postgresql://SophusLie:5432/testdb", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://SophusLie:5432/testdb", "postgres", "Riemann0");
+            connection = DriverManager.getConnection("jdbc:postgresql://Maxwell:5432/numerics", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
