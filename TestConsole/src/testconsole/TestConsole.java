@@ -53,8 +53,10 @@ public class TestConsole
         dictionary.NodeGarbageCollection();
         dictionary = null;// gc
         //ready
-    }// main
+    }// rubrica_Parser
     
+    // Entry Point
+    // test performed on Weierstrass on 2024.may.28
     public static void main(String[] args) throws IOException 
     {
         Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
