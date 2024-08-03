@@ -47,7 +47,7 @@ public class PostgreSql
             //connection = DriverManager.getConnection("jdbc:postgresql://SophusLie:5432/testdb", "postgres", "Riemann0");
             //connection = DriverManager.getConnection("jdbc:postgresql://Maxwell:5432/numerics", "postgres", "Riemann0");
             //connection = DriverManager.getConnection("jdbc:postgresql://192.168.122.224:5432/numerics", "postgres", "Riemann0");
-            connection = DriverManager.getConnection("jdbc:postgresql://Weierstrass:5432/numerics", "postgres", "Riemann0");
+            connection = DriverManager.getConnection("jdbc:postgresql://Cantor:5432/postgres", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
