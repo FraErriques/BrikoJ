@@ -14,5 +14,7 @@ dist/
 *.dll
 *.cbp
 *.class
+*.private.xml
 *.private.properties
+*.private.xml
 
