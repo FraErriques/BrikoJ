@@ -60,16 +60,18 @@ public class TestConsole
     public static void main(String[] args) throws IOException 
     {
         Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-        for( double c=+1.0; c<10; c+= +0.1)
+//        for( double c=+1.0; c<10; c+= +0.1)
+        for( long P=1; P<10; P++)
         {
-            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
-                    c,
-                    c+1,
-                    c+2,
-                    c+3,
-                    c+4,
-                    c+5 
-            );
+            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
+//            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+//                    c,
+//                    c+1,
+//                    c+2,
+//                    c+3,
+//                    c+4,
+//                    c+5 
+//            );
         }// for
         //postgSql.insertionLoop_template();
         postgSql.closeConnection();
