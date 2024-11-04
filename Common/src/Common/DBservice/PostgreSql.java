@@ -15,9 +15,25 @@ import java.sql.Statement;
 public class PostgreSql 
 {
     // Data
-    public Connection connection=null;    
+    public Connection connection=null;
+    // config files:
+    // in /var/lib/pgsql/data
+    // file postgresql.conf
+    /*
+        listen_addresses = '*'	# what IP address(es) to listen on;
+                                # comma-separated list of addresses;
+                                # defaults to 'localhost'; use '*' for all
+    */
+    // file pg_hba.conf
+    /*
+        # IPv4 local connections:
+        host    all             all             0.0.0.0/0            trust    
+    */
+    //
     //String connectionUrl_Eulero = "jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0"
+    // ITBZ  ("jdbc:postgresql://ITBZOW1422:5432/Numerics", "postgres", "Riemann0");
     //("jdbc:postgresql://ITBZOW1422:5432/mendola", "postgres", "Riemann0");
+    //("jdbc:postgresql://Riemann:5432/mendola", "postgres", "Riemann0");
     
     
     // Ctor
@@ -26,7 +42,15 @@ public class PostgreSql
         try
         {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://ITBZOW1422:5432/Numerics", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://Riemann:5432/mendola", "sa", "sa");
+            //connection = DriverManager.getConnection("jdbc:postgresql://Eulero:5432/numerics", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://SophusLie:5432/testdb", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://Maxwell:5432/numerics", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://192.168.122.224:5432/numerics", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://Cantor:5432/postgres", "postgres", "Riemann0");
+            //connection = DriverManager.getConnection("jdbc:postgresql://Frechet:5432/numerics", "postgres", "Riemann0");
+            
+            //connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.50:5432/Numerics", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
