@@ -22,9 +22,9 @@ public class PrimesThreadForker implements Runnable
     public void run()
     {
         //do something
-        System.out.println("from inside a Forked Thread" );
-        System.out.println("current Thread : " + Thread.currentThread() );
-        System.out.println( );
+        //System.out.println("from inside a Forked Thread" );
+        //System.out.println("current Thread : " + Thread.currentThread() );
+        //System.out.println( );
     }// run
     
 }// class ThreadForker

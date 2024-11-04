@@ -102,8 +102,8 @@ public class Jprimes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,11 +127,11 @@ public class Jprimes extends javax.swing.JFrame {
 
     private void mnu_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_enrichDBMouseReleased
         // TODO add your handling code here:
-        this.jTextArea1.insert("TEST \n", 0);
+        //this.jTextArea1.insert("TEST \n", 0);
         java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
             new java.util.Hashtable< String, java.util.Stack<String> >();
         
-        for(int c=0; c<50; c++)
+        for(int c=0; c<2; c++)
         {
             PrimesThreadForker theForker = new PrimesThreadForker();
             String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
@@ -142,34 +142,41 @@ public class Jprimes extends javax.swing.JFrame {
             //
             if( threadLoggingStack.containsKey( threadName) )
             {
-                this.jTextArea1.insert("key representing thread named : "+threadName+" found.",0);
+                this.jTextArea1.insert("\n key representing thread named: ___   "+threadName+"   ___ found.",0);
                 long cardThreadStack = 0;
-                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
-                for(int d=0; d<cardThreadStack; d++)
+                //cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
+                cardThreadStack = 2;
+                for(int d=0; d<=cardThreadStack; d++)
                 {
-                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
+                    //threadLoggingStack.get( threadName).addElement(" stack level "+d+" on "+ threadName);
                 }
             }
             else
             {
-                this.jTextArea1.insert("key representing thread named : "+threadName+" NOT found.",0);
-                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+                this.jTextArea1.insert("\n key representing thread named : ___   "+threadName+"   ____NOT__found.",0);
+                //threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
             }
             
-        }// for 50 forks
+        }// for xx forks
+        this.jTextArea1.insert("\n\n", 0);
         
         Set<String> theKeys = threadLoggingStack.keySet();
         Object[] theKeysArray = theKeys.toArray();
+        this.jTextArea1.insert("\n\n",0);
         for( int c=0; c<theKeysArray.length; c++)
         {
-            System.out.println( (String)(theKeysArray[c]) );
+            this.jTextArea1.insert( "\n"+ (String)(theKeysArray[c]) , 0 );
+            //System.out.println( (String)(theKeysArray[c]) );
             int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
             for( int d=0; d<cardCurThreadStack; d++)
             {
-                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
+                this.jTextArea1.insert( "\n recorded thread :  "+threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d), 0 );
+                //System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
             }// for cardCurThreadStack
-            System.out.println( );
+            //this.jTextArea1.insert("\n\n" ,0);
+            //System.out.println( );
         }// for each thread.        
+        this.jTextArea1.insert("\n\n",0);
         //
         // done : enrich db collection - delegate
     }//GEN-LAST:event_mnu_enrichDBMouseReleased
