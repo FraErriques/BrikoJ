@@ -1,14 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package testgui;
+package NumberTheory;
+
+/**
+ *
+ * @author admin
+ */
+public class PrimeThreadForker  implements Runnable {
 
 // the "Runnable" interface requires the override of the "run()" method, which contains the actions that the new thread is
 // requested to perform.
-public class PrimesThreadForker implements Runnable
-{
+ 
     // NB. do NOT call this method directly, since it would be executed within the caller thread. To guarantee
     // that the VM lets the OS fork a new thread, the "start()" method of the Thread class must be called instead. Such
     // method is implemented to spawn a new thread and let it execute the code of the overridden "run()" method.
