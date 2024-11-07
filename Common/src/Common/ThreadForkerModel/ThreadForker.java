@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testconsole;
+package Common.ThreadForkerModel;
 
 // the "Runnable" interface requires the override of the "run()" method, which contains the actions that the new thread is
 // requested to perform.
