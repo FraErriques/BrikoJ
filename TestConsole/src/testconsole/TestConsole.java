@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.Thread.State;
 
 
 
@@ -68,6 +69,9 @@ public class TestConsole
             ThreadForker theForker = new ThreadForker();
             String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
             Thread t = new Thread( theForker, threadName );            
+            State threadState = t.getState();
+            t.interrupt();
+            threadState = t.getState();
             threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
             //
             t.start();// run asynchronously.
@@ -106,6 +110,7 @@ public class TestConsole
         // done        
         
         
+                
         //----
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 ////        for( double c=+1.0; c<10; c+= +0.1)
