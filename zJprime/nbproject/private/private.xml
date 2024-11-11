@@ -2,11 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="BrikoJ">
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/zJprime/src/NumberTheory/frmJprime.java</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/zJprime/src/NumberTheory/frmOrdinalAcquirer.java</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/zJprime/src/NumberTheory/JprimeBeanInfo.java</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/zJprime/nbproject/build-impl.xml</file>
-        </group>
+        <group name="BrikoJ"/>
     </open-files>
 </project-private>
