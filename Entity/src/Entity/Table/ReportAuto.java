@@ -132,7 +132,7 @@ public class ReportAuto
     }// Ctor
     
     public void Postgres_ProxyWrapper_(
-        Common.DBservice.PostgreSql postgreSql    
+        Common.DBservice.PostgreSql_ITFORS1011_ postgreSql    
     )
     {
         Entity.Proxy.PostgreSql_usp_genericaautovettura_INSERT_.PostgreSql_usp_genericaautovettura_INSERT_SERVICE_

@@ -12,7 +12,7 @@ import java.sql.Statement;
  *
  * @author fra
  */
-public class PostgreSql 
+public class PostgreSql_ITFORS1011_ 
 {
     // Data
     public Connection connection=null;
@@ -37,7 +37,7 @@ public class PostgreSql
     
     
     // Ctor
-    public PostgreSql()
+    public PostgreSql_ITFORS1011_()
     {
         try
         {
@@ -49,8 +49,8 @@ public class PostgreSql
             //connection = DriverManager.getConnection("jdbc:postgresql://192.168.122.224:5432/numerics", "postgres", "Riemann0");
             //connection = DriverManager.getConnection("jdbc:postgresql://Cantor:5432/postgres", "postgres", "Riemann0");
             //connection = DriverManager.getConnection("jdbc:postgresql://Frechet:5432/numerics", "postgres", "Riemann0");
-            
-            //connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.50:5432/Numerics", "postgres", "Riemann0");
+
+            connection = DriverManager.getConnection("jdbc:postgresql://192.168.4.50:5432/Numerics", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
