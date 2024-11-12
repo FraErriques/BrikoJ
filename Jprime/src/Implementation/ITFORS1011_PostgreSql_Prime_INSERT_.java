@@ -22,10 +22,18 @@ public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
     // to implement the unicity, for being able to recognize which thread is coming in action. As an example
     // I want to check-in every thread that comes to write in a Logging application, for the purpose of recognizing 
     // its stack, and so be able to know which functions such thread owns and deduce its indentment level.
+    // TODO:
+    //Create a class that implements Runnable .
+    //Provide a run method in the Runnable class.
+    //Create an instance of the Thread class and pass your Runnable object to its constructor as a parameter.
+    //Call the Thread object's start method.  <------NB
     @Override
     public void run()
     {
         //do something
+        System.out.println("from inside a Forked Thread" );
+        System.out.println("current Thread : " + Thread.currentThread() );
+        System.out.println( );
     }// run    
     
 }// class

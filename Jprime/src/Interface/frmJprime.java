@@ -101,9 +101,12 @@ public class frmJprime extends javax.swing.JFrame {
     private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
         // TODO add your handling code here:
         Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_();
+        
         Thread t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
+        synchronized (t){
         try
         {
+            t.start();// thread start
             t.wait(5000);// milliseconds until it dies.
         }
         catch (InterruptedException e) 
@@ -111,6 +114,7 @@ public class frmJprime extends javax.swing.JFrame {
             // close connection
             Thread.currentThread().interrupt(); 
         }
+        }// synchro
     }//GEN-LAST:event_mnuItem_enrichDBMouseReleased
 
     private void mnuItem_stopDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_stopDBMouseReleased
