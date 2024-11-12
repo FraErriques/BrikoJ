@@ -6,7 +6,7 @@ package Interface;
 
 /**
  *
- * @author fra
+ * @author admin
  */
 public class frmJprime extends javax.swing.JFrame {
 
@@ -26,54 +26,56 @@ public class frmJprime extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtClipboard = new javax.swing.JTextArea();
         mnuStripTop = new javax.swing.JMenuBar();
-        mnuTitleFileSystem = new javax.swing.JMenu();
-        mnuItemExit = new javax.swing.JMenuItem();
-        mnuTitleCalculation = new javax.swing.JMenu();
-        mnuTitleDatabase = new javax.swing.JMenu();
-        mnuTitle_msSql = new javax.swing.JMenu();
-        mnuItem_msSql_enrichDB = new javax.swing.JMenuItem();
-        mnuItem_msSql_stop = new javax.swing.JMenuItem();
-        mnuTitle_postgreSql = new javax.swing.JMenu();
-        mnuItem_postgreSql_enrichDB = new javax.swing.JMenuItem();
+        mnuTitle_FileSystem = new javax.swing.JMenu();
+        mnuItem_exit = new javax.swing.JMenuItem();
+        mnuTitle_Calculation = new javax.swing.JMenu();
+        mnuTitle_DB = new javax.swing.JMenu();
+        mnuItem_enrichDB = new javax.swing.JMenuItem();
+        mnuItem_stopDB = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        mnuTitleFileSystem.setText("FileSystem");
+        txtClipboard.setColumns(20);
+        txtClipboard.setRows(5);
+        jScrollPane1.setViewportView(txtClipboard);
 
-        mnuItemExit.setText("Exit");
-        mnuItemExit.addMouseListener(new java.awt.event.MouseAdapter() {
+        mnuTitle_FileSystem.setText("FileSystem");
+
+        mnuItem_exit.setText("Exit");
+        mnuItem_exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                mnuItemExitMouseReleased(evt);
+                mnuItem_exitMouseReleased(evt);
             }
         });
-        mnuTitleFileSystem.add(mnuItemExit);
+        mnuTitle_FileSystem.add(mnuItem_exit);
 
-        mnuStripTop.add(mnuTitleFileSystem);
+        mnuStripTop.add(mnuTitle_FileSystem);
 
-        mnuTitleCalculation.setText("Calculation");
-        mnuStripTop.add(mnuTitleCalculation);
+        mnuTitle_Calculation.setText("Calculation");
+        mnuStripTop.add(mnuTitle_Calculation);
 
-        mnuTitleDatabase.setText("Database");
+        mnuTitle_DB.setText("DataBase");
 
-        mnuTitle_msSql.setText("msSql");
+        mnuItem_enrichDB.setText("enrich DB");
+        mnuItem_enrichDB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItem_enrichDBMouseReleased(evt);
+            }
+        });
+        mnuTitle_DB.add(mnuItem_enrichDB);
 
-        mnuItem_msSql_enrichDB.setText(" enrich DB");
-        mnuTitle_msSql.add(mnuItem_msSql_enrichDB);
+        mnuItem_stopDB.setText("stop enriching DB");
+        mnuItem_stopDB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItem_stopDBMouseReleased(evt);
+            }
+        });
+        mnuTitle_DB.add(mnuItem_stopDB);
 
-        mnuItem_msSql_stop.setText("DB calc stop");
-        mnuTitle_msSql.add(mnuItem_msSql_stop);
-
-        mnuTitleDatabase.add(mnuTitle_msSql);
-
-        mnuTitle_postgreSql.setText("postgreSql");
-
-        mnuItem_postgreSql_enrichDB.setText("enrich DB");
-        mnuTitle_postgreSql.add(mnuItem_postgreSql_enrichDB);
-
-        mnuTitleDatabase.add(mnuTitle_postgreSql);
-
-        mnuStripTop.add(mnuTitleDatabase);
+        mnuStripTop.add(mnuTitle_DB);
 
         setJMenuBar(mnuStripTop);
 
@@ -81,19 +83,47 @@ public class frmJprime extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnuItemExitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItemExitMouseReleased
+    private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
+        // TODO add your handling code here:
+        Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_();
+        
+        Thread t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
+        synchronized (t){
+        try
+        {
+            t.start();// thread start
+            t.wait(5000);// milliseconds until it dies.
+        }
+        catch (InterruptedException e) 
+        {
+            // close connection
+            Thread.currentThread().interrupt(); 
+        }
+        }// synchro
+    }//GEN-LAST:event_mnuItem_enrichDBMouseReleased
+
+    private void mnuItem_stopDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_stopDBMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItem_stopDBMouseReleased
+
+    private void mnuItem_exitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_exitMouseReleased
         System.exit(0);// normal exit
-    }//GEN-LAST:event_mnuItemExitMouseReleased
+    }//GEN-LAST:event_mnuItem_exitMouseReleased
 
     /**
      * @param args the command line arguments
@@ -128,18 +158,17 @@ public class frmJprime extends javax.swing.JFrame {
                 new frmJprime().setVisible(true);
             }
         });
-    }// main
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem mnuItemExit;
-    private javax.swing.JMenuItem mnuItem_msSql_enrichDB;
-    private javax.swing.JMenuItem mnuItem_msSql_stop;
-    private javax.swing.JMenuItem mnuItem_postgreSql_enrichDB;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem mnuItem_enrichDB;
+    private javax.swing.JMenuItem mnuItem_exit;
+    private javax.swing.JMenuItem mnuItem_stopDB;
     private javax.swing.JMenuBar mnuStripTop;
-    private javax.swing.JMenu mnuTitleCalculation;
-    private javax.swing.JMenu mnuTitleDatabase;
-    private javax.swing.JMenu mnuTitleFileSystem;
-    private javax.swing.JMenu mnuTitle_msSql;
-    private javax.swing.JMenu mnuTitle_postgreSql;
+    private javax.swing.JMenu mnuTitle_Calculation;
+    private javax.swing.JMenu mnuTitle_DB;
+    private javax.swing.JMenu mnuTitle_FileSystem;
+    private javax.swing.JTextArea txtClipboard;
     // End of variables declaration//GEN-END:variables
-}// class frmJprime
+}
