@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.Thread.State;
 
 
 
@@ -35,7 +36,7 @@ import java.io.InputStreamReader;
 public class TestConsole
 {
 
-    /******************* EntryPoint ****************************/
+    
     
     public static void rubrica_Parser(String[] args) throws IOException 
     { 
@@ -55,79 +56,19 @@ public class TestConsole
         //ready
     }// rubrica_Parser
     
-    // Entry Point
-    // test performed on Weierstrass on 2024.may.28
+
+    /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        
-        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
-            new java.util.Hashtable< String, java.util.Stack<String> >();
-        
-        for(int c=0; c<50; c++)
+        Common.DBservice.PostgreSql_ITFORS1011_ postgSql = new Common.DBservice.PostgreSql_ITFORS1011_();
+        for( long P=1; P<10; P++)
         {
-            ThreadForker theForker = new ThreadForker();
-            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
-            Thread t = new Thread( theForker, threadName );            
-            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            //
-            t.start();// run asynchronously.
-            //
-            if( threadLoggingStack.containsKey( threadName) )
-            {
-                System.out.println("key representing thread named : "+threadName+" found.");
-                long cardThreadStack = 0;
-                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
-                for(int d=0; d<cardThreadStack; d++)
-                {
-                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
-                }
-            }
-            else
-            {
-                System.out.println("key representing thread named : "+threadName+" NOT found.");
-                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            }
-            
-        }// for 50 forks
-        
-        Set<String> theKeys = threadLoggingStack.keySet();
-        Object[] theKeysArray = theKeys.toArray();
-        for( int c=0; c<theKeysArray.length; c++)
-        {
-            System.out.println( (String)(theKeysArray[c]) );
-            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
-            for( int d=0; d<cardCurThreadStack; d++)
-            {
-                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
-            }// for cardCurThreadStack
-            System.out.println( );
-        }// for each thread.        
-        //
-        // done        
-        
-        
-        //----
-//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-////        for( double c=+1.0; c<10; c+= +0.1)
-//        for( long P=1; P<10; P++)
-//        {
-//            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
-////            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
-////                    c,
-////                    c+1,
-////                    c+2,
-////                    c+3,
-////                    c+4,
-////                    c+5 
-////            );
-//        }// for
-//        //postgSql.insertionLoop_template();
-//        postgSql.closeConnection();
+            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
+        }// for
+        //  a template is in: postgSql.insertionLoop_template();
+        postgSql.closeConnection();
     }// main
 
-            
-    
-    
 }// end class TestConsole
 
         
@@ -136,6 +77,55 @@ public class TestConsole
 //
 ///*  ------------------------------- cantina ------------------------------------------
 //
+//        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
+//            new java.util.Hashtable< String, java.util.Stack<String> >();
+//        
+//        for(int c=0; c<50; c++)
+//        {
+//            ThreadForker theForker = new ThreadForker();
+//            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
+//            Thread t = new Thread( theForker, threadName );            
+//            State threadState = t.getState();
+//            t.interrupt();
+//            threadState = t.getState();
+//            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            //
+//            t.start();// run asynchronously.
+//            //
+//            if( threadLoggingStack.containsKey( threadName) )
+//            {
+//                System.out.println("key representing thread named : "+threadName+" found.");
+//                long cardThreadStack = 0;
+//                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
+//                for(int d=0; d<cardThreadStack; d++)
+//                {
+//                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
+//                }
+//            }
+//            else
+//            {
+//                System.out.println("key representing thread named : "+threadName+" NOT found.");
+//                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            }
+//            
+//        }// for 50 forks
+//        
+//        Set<String> theKeys = threadLoggingStack.keySet();
+//        Object[] theKeysArray = theKeys.toArray();
+//        for( int c=0; c<theKeysArray.length; c++)
+//        {
+//            System.out.println( (String)(theKeysArray[c]) );
+//            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
+//            for( int d=0; d<cardCurThreadStack; d++)
+//            {
+//                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
+//            }// for cardCurThreadStack
+//            System.out.println( );
+//        }// for each thread.        
+//        //
+//        // done        
+//        
+
         //--test file tokenization
 //        for( int row=0; row<tokenizedFile.size(); row++)
 //        {

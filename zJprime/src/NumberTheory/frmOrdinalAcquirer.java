@@ -92,7 +92,9 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmOrdinalAcquirer().setVisible(true);
+                frmOrdinalAcquirer f = new frmOrdinalAcquirer();
+                f.setVisible(true);
+                f.lblOrdinalAcquirer.setText("context dependent label in form ordinal-acquirer.");
             }
         });
     }
