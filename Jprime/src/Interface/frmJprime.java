@@ -9,12 +9,14 @@ package Interface;
  * @author admin
  */
 public class frmJprime extends javax.swing.JFrame {
-
+    private Thread t;
+    
     /**
      * Creates new form frmJprime
      */
     public frmJprime() {
         initComponents();
+        this.t = null;
     }
 
     /**
@@ -105,7 +107,7 @@ public class frmJprime extends javax.swing.JFrame {
         );
         // this.txtClipboard
         
-        Thread t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
+        this.t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
         synchronized (t){
         try
         {
@@ -122,7 +124,9 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_enrichDBMouseReleased
 
     private void mnuItem_stopDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_stopDBMouseReleased
-        // TODO add your handling code here:
+        // TODO add your handling code here:  thread.interrupt();
+        this.t.interrupt();
+        this.txtClipboard.append("\n this.t.isAlive() "+ this.t.isAlive() );
     }//GEN-LAST:event_mnuItem_stopDBMouseReleased
 
     private void mnuItem_exitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_exitMouseReleased
