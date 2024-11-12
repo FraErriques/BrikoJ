@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="BrikoJ">
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/TestGUI/src/testgui/PrimesThreadForker.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/TestGUI/src/testgui/Jwin.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/TestGUI/src/testgui/TestGUI.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/TestGUI/src/testgui/JAutoDialogo.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/TestGUI/src/testgui/Jprimes.example</file>
-        </group>
+        <group name="BrikoJ"/>
     </open-files>
 </project-private>

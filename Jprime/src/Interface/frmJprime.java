@@ -84,8 +84,8 @@ public class frmJprime extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +100,10 @@ public class frmJprime extends javax.swing.JFrame {
 
     private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
         // TODO add your handling code here:
-        Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_();
+        Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_(
+                this.txtClipboard
+        );
+        // this.txtClipboard
         
         Thread t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
         synchronized (t){
@@ -111,6 +114,7 @@ public class frmJprime extends javax.swing.JFrame {
         }
         catch (InterruptedException e) 
         {
+            System.out.println("background thread interrupted.");
             // close connection
             Thread.currentThread().interrupt(); 
         }
@@ -169,6 +173,6 @@ public class frmJprime extends javax.swing.JFrame {
     private javax.swing.JMenu mnuTitle_Calculation;
     private javax.swing.JMenu mnuTitle_DB;
     private javax.swing.JMenu mnuTitle_FileSystem;
-    private javax.swing.JTextArea txtClipboard;
+    public javax.swing.JTextArea txtClipboard;
     // End of variables declaration//GEN-END:variables
 }
