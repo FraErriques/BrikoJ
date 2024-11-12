@@ -10,7 +10,12 @@ package Implementation;
  */
 public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
 {
+    public javax.swing.JTextArea local_txtClipboard;
     
+    public ITFORS1011_PostgreSql_Prime_INSERT_(javax.swing.JTextArea txtClipboard)
+    {
+        this.local_txtClipboard = txtClipboard;
+    }// ctor
     
     // NB. do NOT call this method directly, since it would be executed within the caller thread. 
     // To guarantee that the VM lets the OS fork a new thread, the "start()" method of the Thread class must be called instead. 
@@ -31,8 +36,12 @@ public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
     public void run()
     {
         //do something
+        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
+        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
+        this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
+        //
         System.out.println("from inside a Forked Thread" );
-        System.out.println("current Thread : " + Thread.currentThread() );
+        System.out.println("current Thread : " + Thread.currentThread().getId() );
         System.out.println( );
     }// run    
     
