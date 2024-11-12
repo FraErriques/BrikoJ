@@ -36,12 +36,12 @@ public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
     public void run()
     {
         //do something
-        this.local_txtClipboard.append("\n from inside a Forked Thread" );
-        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread());
+        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
+        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
         this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
         //
         System.out.println("from inside a Forked Thread" );
-        System.out.println("current Thread : " + Thread.currentThread() );
+        System.out.println("current Thread : " + Thread.currentThread().getId() );
         System.out.println( );
     }// run    
     
