@@ -4,6 +4,9 @@
  */
 package Implementation;
 
+// import Entity;  ???
+import java.sql.Connection;
+
 /**
  *
  * @author admin
@@ -36,13 +39,32 @@ public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
     public void run()
     {
         //do something
-        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
-        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
-        this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
-        //
-        System.out.println("from inside a Forked Thread" );
-        System.out.println("current Thread : " + Thread.currentThread().getId() );
-        System.out.println( );
-    }// run    
+        synchronized(this)  
+        {
+            java.sql.Connection conn = null;
+            Common.DBservice.PostgreSql_ITFORS1011_ prime_ITFORS = 
+                    new Common.DBservice.PostgreSql_ITFORS1011_();
+            conn = prime_ITFORS.connectionProvider();
+            if( null==conn) {return;}
+            for(int c=0; c<5000; c++)
+            {
+                try
+                {// use a sticky connection
+                    Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(conn, c);
+
+//                    this.local_txtClipboard.append("\n\n from inside a Forked Thread --- iteration #"+c );
+//                    this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
+//                    this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
+                    Thread.currentThread().sleep(500);
+                }
+                catch(InterruptedException ex)
+                {
+                    prime_ITFORS.closeConnection();// close both in premature death
+                    System.out.println( ex.toString() );
+                }
+            }// for
+            prime_ITFORS.closeConnection();// and in natural death
+        }// synchronized
+    }// run  
     
 }// class
