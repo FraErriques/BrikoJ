@@ -29,6 +29,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.Thread.State;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -36,37 +39,29 @@ import java.lang.Thread.State;
 public class TestConsole
 {
 
-    
-    
-    public static void rubrica_Parser(String[] args) throws IOException 
-    { 
-        File dir;
-        dir = new File(System.getProperty("user.dir"));
-        String absolutePath = dir.getAbsolutePath();
-        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
-    
-        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
-        String fullpath = "data/telExport_Excel_TAB_.txt";
-        ArrayList<String[]> tokenizedFile =
-            dictionary.txtStringMatrix(fullpath);
-        //dictionary.traverseDirect();
-        dictionary.mapListener();
-        dictionary.NodeGarbageCollection();
-        dictionary = null;// gc
-        //ready
-    }// rubrica_Parser
-    
+   
 
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.PostgreSql_ITFORS1011_ postgSql = new Common.DBservice.PostgreSql_ITFORS1011_();
-        for( long P=1; P<10; P++)
+        
+        try
         {
-            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
-        }// for
+            Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(2, 4);
+        }
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.toString() );
+            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+//  Common.DBservice.PostgreSql_ITFORS1011_ postgSql = new Common.DBservice.PostgreSql_ITFORS1011_();        
+//        for( long P=1; P<10; P++)
+//        {
+//            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
+//        }// for
         //  a template is in: postgSql.insertionLoop_template();
-        postgSql.closeConnection();
+        
     }// main
 
 }// end class TestConsole
@@ -76,7 +71,26 @@ public class TestConsole
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
-//
+////
+//    
+//    public static void rubrica_Parser(String[] args) throws IOException 
+//    { 
+//        File dir;
+//        dir = new File(System.getProperty("user.dir"));
+//        String absolutePath = dir.getAbsolutePath();
+//        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
+//    
+//        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+//        String fullpath = "data/telExport_Excel_TAB_.txt";
+//        ArrayList<String[]> tokenizedFile =
+//            dictionary.txtStringMatrix(fullpath);
+//        //dictionary.traverseDirect();
+//        dictionary.mapListener();
+//        dictionary.NodeGarbageCollection();
+//        dictionary = null;// gc
+//        //ready
+//    }// rubrica_Parser
+//    
 //        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
 //            new java.util.Hashtable< String, java.util.Stack<String> >();
 //        
