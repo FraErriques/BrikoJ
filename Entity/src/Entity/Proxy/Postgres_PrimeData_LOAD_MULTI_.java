@@ -10,6 +10,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+
+class Riga
+        {
+            long ord;
+            long prime;
+            //
+            public void setOrdinal(long the_ordinal)
+            {this.ord = the_ordinal;}
+            
+            public void setPrime(long the_prime)
+            {this.prime = the_prime;}
+        };
 
 /**
  *
@@ -34,15 +49,20 @@ public class Postgres_PrimeData_LOAD_MULTI_
         CallableStatement ps=con.prepareCall(query);//<------------------------------------------------NB----------
 //ps.setInt(1,5);  // it means we are setting value 5 at first index.
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
-      //  List<Emp> listOfEmp=new ArrayList<Emp>();
 
-        while(rs.next()){
+        ArrayList<Riga> listOf_Riga = new ArrayList<Riga>();
 
-        //Emp data=new Emp();
-        //data.setEmpno(rs.getInt("empid"));
-        //data.setEmpName(rs.getString("empid"));
-        //listOfEmp.add(data);
-
+        while( rs.next() )
+        {
+            Riga data = new Riga();
+            long tmp_ordinal = rs.getLong("ordinal");
+            data.setOrdinal( tmp_ordinal);
+            long tmp_prime = rs.getLong("prime");
+            data.setPrime( tmp_prime);
+            listOf_Riga.add(data);
+            // 
+            // dbg
+            System.out.println( data.ord + "_____"+data.prime);
         }
         //system.out.println("Total emp"+listOfEmp.size());
         pgITFORS.closeConnection();
