@@ -1,0 +1,34 @@
+public class Employee {
+    public static void main(String[] args) {
+
+    try {
+    callProc();
+    }Catch(SQLException e) {
+    e.printStackTrace();
+    }
+    }
+
+    public static void callProc () throws SQLException {
+
+
+
+        Connection con=DBConnection.getConnection();
+        Statement statement=con.createStatement();
+    //Call to postgresql function   
+        String query=" call myfunction(?)";
+        CallableStatement ps=con.prepareCall(query);<------------------------------------------------NB----------
+        ps.setInt(1,5)  // it means we are setting value 5 at first index.
+        ResultSet rs=ps.executeQuery();<------------------------------------------------NB----------
+        List<Emp> listOfEmp=new ArrayList<Emp>();
+
+        while(rs.next()){
+
+        Emp data=new Emp();
+        data.setEmpno(rs.getInt("empid"));
+        data.setEmpName(rs.getString("empid"));
+        listOfEmp.add(data);
+
+        }
+        system.out.println("Total emp"+listOfEmp.size());
+    }
+}
