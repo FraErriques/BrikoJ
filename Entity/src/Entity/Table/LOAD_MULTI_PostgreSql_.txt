@@ -1,0 +1,30 @@
+
+create or replace FUNCTION public.primedata_LOAD_atMaxOrdinal()
+  returns setof public.primedata
+AS
+$func$
+  SELECT ordinal, prime FROM public.primedata
+  where ordinal=( select count(ordinal) from primedata);
+$func$
+LANGUAGE sql;
+
+
+
+create or replace FUNCTION public.primedata_LOAD_MULTI(
+start_ordinal bigint, end_ordinal bigint
+)
+  returns setof public.primedata
+AS
+$func$
+  SELECT *
+  FROM public.primedata
+  where	
+  	ordinal >= start_ordinal
+	and ordinal <= end_ordinal;
+$func$
+LANGUAGE sql;
+
+--*********** TEST
+
+select * from primedata_LOAD_MULTI( start_ordinal=>5, end_ordinal=>5);
+select * from primedata where ordinal<=5;

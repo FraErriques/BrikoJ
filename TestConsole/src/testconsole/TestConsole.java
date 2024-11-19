@@ -1,12 +1,10 @@
 
 package testconsole;
 
-import Common.ThreadForkerModel.ThreadForker;
-import java.lang.System;
-import java.util.Set;
-import java.util.ArrayList;
-import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -15,76 +13,123 @@ public class TestConsole
 {
 
     
-    
-    public static void rubrica_Parser(String[] args) throws IOException 
-    { 
-        File dir;
-        dir = new File(System.getProperty("user.dir"));
-        String absolutePath = dir.getAbsolutePath();
-        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
-    
-        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
-        String fullpath = "data/telExport_Excel_TAB_.txt";
-        ArrayList<String[]> tokenizedFile =
-            dictionary.txtStringMatrix(fullpath);
-        //dictionary.traverseDirect();
-        dictionary.mapListener();
-        dictionary.NodeGarbageCollection();
-        dictionary = null;// gc
-        //ready
-    }// rubrica_Parser
-    
+
     /******************* EntryPoint ****************************/
-    // test performed on Weierstrass on 2024.may.28
     public static void main(String[] args) throws IOException 
     {
-        
-        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
-            new java.util.Hashtable< String, java.util.Stack<String> >();
-        
-        for(int c=0; c<50; c++)
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
+        try 
         {
-            ThreadForker theForker = new ThreadForker();
-            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
-            Thread t = new Thread( theForker, threadName );            
-            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            //
-            t.start();// run asynchronously.
-            //
-            if( threadLoggingStack.containsKey( threadName) )
-            {
-                System.out.println("key representing thread named : "+threadName+" found.");
-                long cardThreadStack = 0;
-                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
-                for(int d=0; d<cardThreadStack; d++)
-                {
-                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
-                }
-            }
-            else
-            {
-                System.out.println("key representing thread named : "+threadName+" NOT found.");
-                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
-            }
-            
-        }// for 50 forks
-        
-        Set<String> theKeys = threadLoggingStack.keySet();
-        Object[] theKeysArray = theKeys.toArray();
-        for( int c=0; c<theKeysArray.length; c++)
+            resultset = 
+                    Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_Frechet.usp_PrimeData_LOAD_MULTI_Postgres_Frechet_SERVICE_(5, 8);
+            lastRecord = 
+                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_();
+
+        } 
+        catch (SQLException ex) 
         {
-            System.out.println( (String)(theKeysArray[c]) );
-            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
-            for( int d=0; d<cardCurThreadStack; d++)
-            {
-                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
-            }// for cardCurThreadStack
-            System.out.println( );
-        }// for each thread.        
+            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //
-        // done        
+        for(int c=0; c<resultset.size(); c++)
+        {
+            // resultset.get(c) eccess ArrayList element
+            System.out.println( 
+                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+
+                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getPrime()             );
+        }
+        System.out.println( "Last Record : " +
+                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getOrdinal() +"__"+
+                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getPrime()             );
         
+        //----- Process::
+        Entity.Proxy.PrimedataRiga processLastRecord = 
+                ProcessOperatingInterface.postgres_Frechet_LoadAtMaxOrdinal.postgres_Frechet_LoadAtMaxOrdinal_SERVICE_();
+        System.out.println( "Process:: Last Record : " +
+                processLastRecord.getOrdinal() +"__"+
+                processLastRecord.getPrime()             );        
+        //---process
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> oneRow =  
+                ProcessOperatingInterface.postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,5);
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> multiRow =  
+                ProcessOperatingInterface.postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,15);
+        //
+        for(int c=0; c<multiRow.size(); c++)
+        {
+            // resultset.get(c) eccess ArrayList element
+            System.out.println( 
+                    ((Entity.Proxy.PrimedataRiga)(multiRow.get(c))).getOrdinal() +"__"+
+                    ((Entity.Proxy.PrimedataRiga)(multiRow.get(c))).getPrime()             );
+        }        
+        //
+        for(int c=0; c<oneRow.size(); c++)
+        {
+            // resultset.get(c) eccess ArrayList element
+            System.out.println( 
+                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getOrdinal() +"__"+
+                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getPrime()             );
+        }           
+    }// main
+
+            
+    
+    
+}// end class TestConsole
+
         
+
+
+//
+///*  ------------------------------- cantina ------------------------------------------
+////
+//        
+//        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
+//            new java.util.Hashtable< String, java.util.Stack<String> >();
+//        
+//        for(int c=0; c<50; c++)
+//        {
+//            ThreadForker theForker = new ThreadForker();
+//            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
+//            Thread t = new Thread( theForker, threadName );            
+//            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            //
+//            t.start();// run asynchronously.
+//            //
+//            if( threadLoggingStack.containsKey( threadName) )
+//            {
+//                System.out.println("key representing thread named : "+threadName+" found.");
+//                long cardThreadStack = 0;
+//                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
+//                for(int d=0; d<cardThreadStack; d++)
+//                {
+//                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
+//                }
+//            }
+//            else
+//            {
+//                System.out.println("key representing thread named : "+threadName+" NOT found.");
+//                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            }
+//            
+//        }// for 50 forks
+//        
+//        Set<String> theKeys = threadLoggingStack.keySet();
+//        Object[] theKeysArray = theKeys.toArray();
+//        for( int c=0; c<theKeysArray.length; c++)
+//        {
+//            System.out.println( (String)(theKeysArray[c]) );
+//            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
+//            for( int d=0; d<cardCurThreadStack; d++)
+//            {
+//                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
+//            }// for cardCurThreadStack
+//            System.out.println( );
+//        }// for each thread.        
+//        //
+//        // done        
+//        
+//        
         //----
 //        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
 ////        for( double c=+1.0; c<10; c+= +0.1)
@@ -102,19 +147,26 @@ public class TestConsole
 //        }// for
 //        //postgSql.insertionLoop_template();
 //        postgSql.closeConnection();
-    }// main
+//    
+//    public static void rubrica_Parser(String[] args) throws IOException 
+//    { 
+//        File dir;
+//        dir = new File(System.getProperty("user.dir"));
+//        String absolutePath = dir.getAbsolutePath();
+//        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
+//    
+//        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+//        String fullpath = "data/telExport_Excel_TAB_.txt";
+//        ArrayList<String[]> tokenizedFile =
+//            dictionary.txtStringMatrix(fullpath);
+//        //dictionary.traverseDirect();
+//        dictionary.mapListener();
+//        dictionary.NodeGarbageCollection();
+//        dictionary = null;// gc
+//        //ready
+//    }// rubrica_Parser
+//    
 
-            
-    
-    
-}// end class TestConsole
-
-        
-
-
-//
-///*  ------------------------------- cantina ------------------------------------------
-//
         //--test file tokenization
 //        for( int row=0; row<tokenizedFile.size(); row++)
 //        {
