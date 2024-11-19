@@ -4,6 +4,8 @@
  */
 package Implementation;
 
+import java.sql.Connection;
+
 /**
  *
  * @author admin
@@ -11,10 +13,12 @@ package Implementation;
 public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
 {
     public javax.swing.JTextArea local_txtClipboard;
+    Connection con;
     
-    public ITFORS1011_PostgreSql_Prime_INSERT_(javax.swing.JTextArea txtClipboard)
+    public ITFORS1011_PostgreSql_Prime_INSERT_(javax.swing.JTextArea txtClipboard, Connection con)
     {
         this.local_txtClipboard = txtClipboard;
+        this.con = con;
     }// ctor
     
     // NB. do NOT call this method directly, since it would be executed within the caller thread. 
@@ -36,13 +40,19 @@ public class ITFORS1011_PostgreSql_Prime_INSERT_ implements Runnable
     public void run()
     {
         //do something
-        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
-        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
-        this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
+//        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
+//        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
+//        this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
+//        //
+//        System.out.println("from inside a Forked Thread" );
+//        System.out.println("current Thread : " + Thread.currentThread().getId() );
+//        System.out.println( );
+
         //
-        System.out.println("from inside a Forked Thread" );
-        System.out.println("current Thread : " + Thread.currentThread().getId() );
-        System.out.println( );
+        for(long c=102; c<3000; c++)
+        {
+            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(con, 101);
+        }        
     }// run    
     
 }// class

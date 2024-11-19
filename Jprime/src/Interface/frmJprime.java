@@ -4,12 +4,17 @@
  */
 package Interface;
 
+import java.sql.Connection;
+
 /**
  *
  * @author admin
  */
 public class frmJprime extends javax.swing.JFrame {
     private Thread t;
+    Connection con;
+    Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
+
     
     /**
      * Creates new form frmJprime
@@ -101,9 +106,11 @@ public class frmJprime extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
-        // TODO add your handling code here:
+        this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+        this.con = pgFrechet.getConnection();    
         Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_(
-                this.txtClipboard
+                this.txtClipboard,
+                con
         );
         // this.txtClipboard
         
@@ -124,8 +131,8 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_enrichDBMouseReleased
 
     private void mnuItem_stopDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_stopDBMouseReleased
-        // TODO add your handling code here:  thread.interrupt();
         this.t.interrupt();
+        this.pgFrechet.closeConnection();
         this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
     }//GEN-LAST:event_mnuItem_stopDBMouseReleased
 
