@@ -1,34 +1,7 @@
 
 package testconsole;
 
-import Common.EncryptStore.*;
-import Common.DBservice.*;
-import Common.FileSys.TokenReader;     
-import Common.ConfigurationService.*;
-import Common.MonteCarlo.*;        
-import Entity.Proxy.MsSqlServer_ZetaDump;
-import NumericalAnalysis.ComplexField.Complex;
-import ProcessOperatingInterface.*;
-import Common.Dictionary.*;
-//
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.lang.System;
-import java.sql.CallableStatement;
-import java.util.Set;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.Thread.State;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,31 +12,69 @@ import java.util.logging.Logger;
 public class TestConsole
 {
 
-   
+    
 
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        
-        try
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
+        try 
         {
-            Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(2, 4);
-        }
+            resultset = 
+                    Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_Frechet.usp_PrimeData_LOAD_MULTI_Postgres_Frechet_SERVICE_(5, 8);
+            lastRecord = 
+                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_();
+
+        } 
         catch (SQLException ex) 
         {
-            System.out.println(ex.toString() );
             Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //
+        for(int c=0; c<resultset.size(); c++)
+        {
+            // resultset.get(c) eccess ArrayList element
+            System.out.println( 
+                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+
+                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getPrime()             );
+        }
+        System.out.println( "Last Record : " +
+                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getOrdinal() +"__"+
+                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getPrime()             );
         
-//  Common.DBservice.PostgreSql_ITFORS1011_ postgSql = new Common.DBservice.PostgreSql_ITFORS1011_();        
-//        for( long P=1; P<10; P++)
-//        {
-//            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
-//        }// for
-        //  a template is in: postgSql.insertionLoop_template();
-        
+        //----- Process::
+        Entity.Proxy.PrimedataRiga processLastRecord = 
+                ProcessOperatingInterface.postgres_Frechet_LoadAtMaxOrdinal.postgres_Frechet_LoadAtMaxOrdinal_SERVICE_();
+        System.out.println( "Process:: Last Record : " +
+                processLastRecord.getOrdinal() +"__"+
+                processLastRecord.getPrime()             );        
+        //---process
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> oneRow =  
+                ProcessOperatingInterface.postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,5);
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> multiRow =  
+                ProcessOperatingInterface.postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,15);
+        //
+        for(int c=0; c<multiRow.size(); c++)
+        {
+            // resultset.get(c) eccess ArrayList element
+            System.out.println( 
+                    ((Entity.Proxy.PrimedataRiga)(multiRow.get(c))).getOrdinal() +"__"+
+                    ((Entity.Proxy.PrimedataRiga)(multiRow.get(c))).getPrime()             );
+        }        
+        //
+        for(int c=0; c<oneRow.size(); c++)
+        {
+            // resultset.get(c) eccess ArrayList element
+            System.out.println( 
+                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getOrdinal() +"__"+
+                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getPrime()             );
+        }           
     }// main
 
+            
+    
+    
 }// end class TestConsole
 
         
@@ -72,25 +83,7 @@ public class TestConsole
 //
 ///*  ------------------------------- cantina ------------------------------------------
 ////
-//    
-//    public static void rubrica_Parser(String[] args) throws IOException 
-//    { 
-//        File dir;
-//        dir = new File(System.getProperty("user.dir"));
-//        String absolutePath = dir.getAbsolutePath();
-//        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
-//    
-//        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
-//        String fullpath = "data/telExport_Excel_TAB_.txt";
-//        ArrayList<String[]> tokenizedFile =
-//            dictionary.txtStringMatrix(fullpath);
-//        //dictionary.traverseDirect();
-//        dictionary.mapListener();
-//        dictionary.NodeGarbageCollection();
-//        dictionary = null;// gc
-//        //ready
-//    }// rubrica_Parser
-//    
+//        
 //        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
 //            new java.util.Hashtable< String, java.util.Stack<String> >();
 //        
@@ -99,9 +92,6 @@ public class TestConsole
 //            ThreadForker theForker = new ThreadForker();
 //            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
 //            Thread t = new Thread( theForker, threadName );            
-//            State threadState = t.getState();
-//            t.interrupt();
-//            threadState = t.getState();
 //            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
 //            //
 //            t.start();// run asynchronously.
@@ -139,6 +129,43 @@ public class TestConsole
 //        //
 //        // done        
 //        
+//        
+        //----
+//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+////        for( double c=+1.0; c<10; c+= +0.1)
+//        for( long P=1; P<10; P++)
+//        {
+//            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
+////            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+////                    c,
+////                    c+1,
+////                    c+2,
+////                    c+3,
+////                    c+4,
+////                    c+5 
+////            );
+//        }// for
+//        //postgSql.insertionLoop_template();
+//        postgSql.closeConnection();
+//    
+//    public static void rubrica_Parser(String[] args) throws IOException 
+//    { 
+//        File dir;
+//        dir = new File(System.getProperty("user.dir"));
+//        String absolutePath = dir.getAbsolutePath();
+//        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
+//    
+//        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+//        String fullpath = "data/telExport_Excel_TAB_.txt";
+//        ArrayList<String[]> tokenizedFile =
+//            dictionary.txtStringMatrix(fullpath);
+//        //dictionary.traverseDirect();
+//        dictionary.mapListener();
+//        dictionary.NodeGarbageCollection();
+//        dictionary = null;// gc
+//        //ready
+//    }// rubrica_Parser
+//    
 
         //--test file tokenization
 //        for( int row=0; row<tokenizedFile.size(); row++)

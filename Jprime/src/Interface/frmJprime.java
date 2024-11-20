@@ -4,12 +4,19 @@
  */
 package Interface;
 
+import java.sql.Connection;
+import  DB_thread.PostgreSql_anyInstance_Prime_INSERT_;
+
+
 /**
  *
  * @author admin
  */
 public class frmJprime extends javax.swing.JFrame {
     private Thread t;
+    Connection con;
+    Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS;
+
     
     /**
      * Creates new form frmJprime
@@ -36,6 +43,7 @@ public class frmJprime extends javax.swing.JFrame {
         mnuTitle_Calculation = new javax.swing.JMenu();
         mnuTitle_DB = new javax.swing.JMenu();
         mnuItem_enrichDB = new javax.swing.JMenuItem();
+        mnuItemEnrichMsSql = new javax.swing.JMenuItem();
         mnuItem_stopDB = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,6 +77,15 @@ public class frmJprime extends javax.swing.JFrame {
         });
         mnuTitle_DB.add(mnuItem_enrichDB);
 
+        mnuItemEnrichMsSql.setText("jMenuItem1");
+        mnuItemEnrichMsSql.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItemEnrichMsSqlMouseReleased(evt);
+            }
+        });
+        mnuTitle_DB.add(mnuItemEnrichMsSql);
+        mnuItemEnrichMsSql.getAccessibleContext().setAccessibleName("msSql  enrich DB");
+
         mnuItem_stopDB.setText("stop enriching DB");
         mnuItem_stopDB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -101,13 +118,13 @@ public class frmJprime extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
-        // TODO add your handling code here:
-        Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_(
-                this.txtClipboard
-        );
-        // this.txtClipboard
-        
-        this.t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
+        //this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+        this.pgITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        this.con = pgITFORS.getConnection();    
+        DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =
+                new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
+
+        this.t = new Thread( postgresPrimedata, "ITFORS1011_prime_insert" );// Fork
         synchronized (t){
         try
         {
@@ -124,14 +141,18 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_enrichDBMouseReleased
 
     private void mnuItem_stopDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_stopDBMouseReleased
-        // TODO add your handling code here:  thread.interrupt();
-        this.t.interrupt();
+        this.t.interrupt();// which before ?
+        this.pgITFORS.closeConnection();
         this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
     }//GEN-LAST:event_mnuItem_stopDBMouseReleased
 
     private void mnuItem_exitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_exitMouseReleased
         System.exit(0);// normal exit
     }//GEN-LAST:event_mnuItem_exitMouseReleased
+
+    private void mnuItemEnrichMsSqlMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItemEnrichMsSqlMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItemEnrichMsSqlMouseReleased
 
     /**
      * @param args the command line arguments
@@ -170,6 +191,7 @@ public class frmJprime extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem mnuItemEnrichMsSql;
     private javax.swing.JMenuItem mnuItem_enrichDB;
     private javax.swing.JMenuItem mnuItem_exit;
     private javax.swing.JMenuItem mnuItem_stopDB;

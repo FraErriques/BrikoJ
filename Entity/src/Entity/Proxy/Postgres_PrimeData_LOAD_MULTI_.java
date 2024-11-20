@@ -4,27 +4,13 @@
  */
 package Entity.Proxy;
 
-import Common.DBservice.PostgreSql_ITFORS1011_;
+import Common.DBservice.connectionProvider_postgreSql_Frechet;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-
-class Riga
-        {
-            long ord;
-            long prime;
-            //
-            public void setOrdinal(long the_ordinal)
-            {this.ord = the_ordinal;}
-            
-            public void setPrime(long the_prime)
-            {this.prime = the_prime;}
-        };
 
 /**
  *
@@ -38,34 +24,34 @@ public class Postgres_PrimeData_LOAD_MULTI_
         ,long to
     ) throws SQLException 
     {        
-        PostgreSql_ITFORS1011_ pgITFORS = new Common.DBservice.PostgreSql_ITFORS1011_();
-        
-        Connection con = pgITFORS.connectionProvider();
-        
-        Statement statement = con.createStatement();
-    //Call to postgresql function   
-        String query="select * from primedata_LOAD_MULTI( "+" start_ordinal=>"+
-                from +", end_ordinal=>"+to  +")";
+        connectionProvider_postgreSql_Frechet pgFrechet = new connectionProvider_postgreSql_Frechet();
+        Connection con = pgFrechet.getConnection();
+        //Call to postgresql function   
+        String query="select * from primedata_LOAD_MULTI( "+" start_ordinal=>"+from +", end_ordinal=>"+to  +")";
         CallableStatement ps=con.prepareCall(query);//<------------------------------------------------NB----------
-//ps.setInt(1,5);  // it means we are setting value 5 at first index.
+        //ps.setInt(1,5);  // it means we are setting value 5 at first index.  ??
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
-
-        ArrayList<Riga> listOf_Riga = new ArrayList<Riga>();
-
-        while( rs.next() )
+        // prepare to fetch the DB-cursor into a Java-resultset.
+        ArrayList<Entity.Proxy.PrimedataRiga> listOf_Riga = new ArrayList<Entity.Proxy.PrimedataRiga>();
+        //
+        while( rs.next() )// cursor fetch
         {
-            Riga data = new Riga();
-            long tmp_ordinal = rs.getLong("ordinal");
+            Entity.Proxy.PrimedataRiga data = new Entity.Proxy.PrimedataRiga();// next row.
+            //
+            long tmp_ordinal = rs.getLong("ordinal");// get field by column name. Data-type has to be specified.
             data.setOrdinal( tmp_ordinal);
-            long tmp_prime = rs.getLong("prime");
+            //
+            long tmp_prime = rs.getLong("prime");// get field by column name. Data-type has to be specified.
             data.setPrime( tmp_prime);
-            listOf_Riga.add(data);
+            //
+            listOf_Riga.add(data);// add the row in the ArrayList that will contain the resultset.
             // 
             // dbg
             System.out.println( data.ord + "_____"+data.prime);
-        }
-        //system.out.println("Total emp"+listOfEmp.size());
-        pgITFORS.closeConnection();
+        }// cursor fetch
+        //
+        System.out.println("Total resultset="+listOf_Riga.size() );
+        pgFrechet.closeConnection();
     }// LOAD_MULTI
-        
+
 }// class

@@ -28,3 +28,5 @@ LANGUAGE sql;
 
 select * from primedata_LOAD_MULTI( start_ordinal=>5, end_ordinal=>5);
 select * from primedata where ordinal<=5;
+
+TRUNCATE TABLE table_name RESTART IDENTITY;
