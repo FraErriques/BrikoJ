@@ -43,7 +43,7 @@ public class frmJprime extends javax.swing.JFrame {
         mnuTitle_Calculation = new javax.swing.JMenu();
         mnuTitle_DB = new javax.swing.JMenu();
         mnuItem_enrichDB = new javax.swing.JMenuItem();
-        mnuItemEnrichMsSql = new javax.swing.JMenuItem();
+        mnuItem_DB_AvailableThreshold = new javax.swing.JMenuItem();
         mnuItem_stopDB = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +67,13 @@ public class frmJprime extends javax.swing.JFrame {
         mnuTitle_Calculation.setText("Calculation");
         mnuStripTop.add(mnuTitle_Calculation);
 
+        mnuTitle_DB.setBorder(null);
         mnuTitle_DB.setText("DataBase");
+        mnuTitle_DB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuTitle_DBMouseReleased(evt);
+            }
+        });
 
         mnuItem_enrichDB.setText("enrich DB");
         mnuItem_enrichDB.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,14 +83,18 @@ public class frmJprime extends javax.swing.JFrame {
         });
         mnuTitle_DB.add(mnuItem_enrichDB);
 
-        mnuItemEnrichMsSql.setText("jMenuItem1");
-        mnuItemEnrichMsSql.addMouseListener(new java.awt.event.MouseAdapter() {
+        mnuItem_DB_AvailableThreshold.setText("Available Threshold");
+        mnuItem_DB_AvailableThreshold.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                mnuItemEnrichMsSqlMouseReleased(evt);
+                mnuItem_DB_AvailableThresholdMouseReleased(evt);
             }
         });
-        mnuTitle_DB.add(mnuItemEnrichMsSql);
-        mnuItemEnrichMsSql.getAccessibleContext().setAccessibleName("msSql  enrich DB");
+        mnuItem_DB_AvailableThreshold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItem_DB_AvailableThresholdActionPerformed(evt);
+            }
+        });
+        mnuTitle_DB.add(mnuItem_DB_AvailableThreshold);
 
         mnuItem_stopDB.setText("stop enriching DB");
         mnuItem_stopDB.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,7 +139,7 @@ public class frmJprime extends javax.swing.JFrame {
         try
         {
             t.start();// thread start
-            t.wait(5000);// milliseconds until it dies.
+            t.wait(5000);// dbg milliseconds
         }
         catch (InterruptedException e) 
         {
@@ -150,9 +160,22 @@ public class frmJprime extends javax.swing.JFrame {
         System.exit(0);// normal exit
     }//GEN-LAST:event_mnuItem_exitMouseReleased
 
-    private void mnuItemEnrichMsSqlMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItemEnrichMsSqlMouseReleased
+    private void mnuTitle_DBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuTitle_DBMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_mnuItemEnrichMsSqlMouseReleased
+    }//GEN-LAST:event_mnuTitle_DBMouseReleased
+
+    private void mnuItem_DB_AvailableThresholdMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdMouseReleased
+        this.pgITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        this.con = pgITFORS.getConnection();    
+        //
+        Entity.Proxy.PrimedataRiga res = 
+        ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_(txtClipboard, con);
+        txtClipboard.append(res.getOrdinal()+"___"+res.getPrime());
+    }//GEN-LAST:event_mnuItem_DB_AvailableThresholdMouseReleased
+
+    private void mnuItem_DB_AvailableThresholdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItem_DB_AvailableThresholdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +214,7 @@ public class frmJprime extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem mnuItemEnrichMsSql;
+    private javax.swing.JMenuItem mnuItem_DB_AvailableThreshold;
     private javax.swing.JMenuItem mnuItem_enrichDB;
     private javax.swing.JMenuItem mnuItem_exit;
     private javax.swing.JMenuItem mnuItem_stopDB;

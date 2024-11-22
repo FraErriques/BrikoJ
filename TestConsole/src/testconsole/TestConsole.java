@@ -24,7 +24,7 @@ public class TestConsole
             resultset = 
                     Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_Frechet.usp_PrimeData_LOAD_MULTI_Postgres_Frechet_SERVICE_(5, 8);
             lastRecord = 
-                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_();
+                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_();
 
         } 
         catch (SQLException ex) 
@@ -45,7 +45,7 @@ public class TestConsole
         
         //----- Process::
         Entity.Proxy.PrimedataRiga processLastRecord = 
-                ProcessOperatingInterface.postgres_Frechet_LoadAtMaxOrdinal.postgres_Frechet_LoadAtMaxOrdinal_SERVICE_();
+                ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_Frechet_LoadAtMaxOrdinal_SERVICE_();
         System.out.println( "Process:: Last Record : " +
                 processLastRecord.getOrdinal() +"__"+
                 processLastRecord.getPrime()             );        

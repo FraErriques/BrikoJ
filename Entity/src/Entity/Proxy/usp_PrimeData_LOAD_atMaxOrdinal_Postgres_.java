@@ -14,23 +14,22 @@ import java.util.ArrayList;
  *
  * @author fra
  */
-public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet 
+public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_ 
 {
 
-    public static java.util.ArrayList<Entity.Proxy.PrimedataRiga>  usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_ (
-    ) throws SQLException 
+    public static java.util.ArrayList<Entity.Proxy.PrimedataRiga>  usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_ (
+            java.sql.Connection con   )   throws SQLException 
     {
-        Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-        Connection con = pgFrechet.getConnection();
-        //Call to postgresql function   
-        
+        if(null==con ||  !con.isValid(0) )
+        {
+            return null;
+        }// else continue.  
+        //Call to postgresql function:
         String query="select * from public.primedata_LOAD_AtMaxOrdinal()";
-        CallableStatement ps=con.prepareCall(query);//<------------------------------------------------NB----------
+        CallableStatement ps = con.prepareCall(query);//<------------------------------------------------NB----------
         //ps.setInt(1,5); ???? // it means we are setting value 5 at first index.
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
-
         ArrayList<Entity.Proxy.PrimedataRiga> listOf_Riga = new ArrayList<Entity.Proxy.PrimedataRiga>();
-
         while( rs.next() )// fetch the DB-cursor.
         {
             Entity.Proxy.PrimedataRiga data = new Entity.Proxy.PrimedataRiga();// a record(i.e. class) for each table-row.
@@ -47,7 +46,7 @@ public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet
             System.out.println( data.ord + "_____"+data.prime);
         }
         System.out.println(" Resultset row cardinality == "+listOf_Riga.size());
-        pgFrechet.closeConnection();
+        con.close();
         //
         return listOf_Riga;
     }// LOAD_MULTI    

@@ -4,6 +4,7 @@
  */
 package ProcessOperatingInterface;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,22 +13,26 @@ import java.util.logging.Logger;
  *
  * @author fra
  */
-public class postgres_Frechet_LoadAtMaxOrdinal 
+public class postgres_LoadAtMaxOrdinal 
 {
-    public static Entity.Proxy.PrimedataRiga postgres_Frechet_LoadAtMaxOrdinal_SERVICE_()
+    public static Entity.Proxy.PrimedataRiga postgres_LoadAtMaxOrdinal_SERVICE_(
+            javax.swing.JTextArea txtClipboard,
+            Connection con )
     {
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
         try 
         {
             lastRecord = 
-                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_();
+                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(con);
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(postgres_Frechet_LoadAtMaxOrdinal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(postgres_LoadAtMaxOrdinal.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         //        
+        // dbg
+        // dbg   txtClipboard.append(lastRecord.get(0).toString());
         return ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0)));
     }// service
     
