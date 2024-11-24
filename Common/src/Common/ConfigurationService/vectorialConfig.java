@@ -65,6 +65,7 @@ public class vectorialConfig extends KeyTokenRecognizer
     
     //---- querying method for a single vector-value, associated with the required key---------------------
     // @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public String[] getVectorValuesOnKey( String key)
     {
         Object associated_value = null;
@@ -72,7 +73,7 @@ public class vectorialConfig extends KeyTokenRecognizer
         String outVec[] = null;
         if( this.keyVectorMap.containsKey( key) )
         {
-            associated_value = this.keyVectorMap.get( key);
+            associated_value = (ArrayList<String>)(this.keyVectorMap.get( key));
             if( null != associated_value)
             {
                 associated_array = (ArrayList<String>)associated_value;
@@ -98,7 +99,8 @@ public class vectorialConfig extends KeyTokenRecognizer
     }//---end---- querying method for ALL keys -----------------------------------
         
  
-        //---- querying method for a single vector-value, associated with the required key---------------------
+    //---- querying method for a single vector-value, associated with the required key---------------------
+    @SuppressWarnings("unchecked")
     public int[] tryGetIntVectorValuesOnKey( String key) throws Exception
     {
         Object associated_value = null;
@@ -129,6 +131,7 @@ public class vectorialConfig extends KeyTokenRecognizer
 
 
     //---- querying method for a single vector-value, associated with the required key---------------------
+    @SuppressWarnings("unchecked")
     public double[] tryGettDoubleVectorValuesOnKey( String key) throws Exception
     {
         Object associated_value = null;

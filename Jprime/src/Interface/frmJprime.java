@@ -39,9 +39,15 @@ public class frmJprime extends javax.swing.JFrame {
         mnuTitle_FileSystem = new javax.swing.JMenu();
         mnuItem_exit = new javax.swing.JMenuItem();
         mnuTitle_Calculation = new javax.swing.JMenu();
-        mnuTitle_DB = new javax.swing.JMenu();
+        mnuStrip_DB_ITFORS1011 = new javax.swing.JMenu();
         mnuItem_enrichDB = new javax.swing.JMenuItem();
         mnuItem_stopDB = new javax.swing.JMenuItem();
+        mnuStrip_DB_Frechet = new javax.swing.JMenu();
+        mnu_Item_DB_Frechet_AvailableThresh = new javax.swing.JMenuItem();
+        mnuItem_Frechet_ReadSingle = new javax.swing.JMenuItem();
+        mnu_Item_DBfrechet_ReadRange = new javax.swing.JMenuItem();
+        mnuItem_DBfrechet_enrich = new javax.swing.JMenuItem();
+        mnuItem_DBfrechet_stopEnriching = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,7 +70,8 @@ public class frmJprime extends javax.swing.JFrame {
         mnuTitle_Calculation.setText("Calculation");
         mnuStripTop.add(mnuTitle_Calculation);
 
-        mnuTitle_DB.setText("DataBase");
+        mnuStrip_DB_ITFORS1011.setText("DB ITFORS1011");
+        mnuStrip_DB_ITFORS1011.setAutoscrolls(true);
 
         mnuItem_enrichDB.setText("enrich DB");
         mnuItem_enrichDB.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,7 +79,7 @@ public class frmJprime extends javax.swing.JFrame {
                 mnuItem_enrichDBMouseReleased(evt);
             }
         });
-        mnuTitle_DB.add(mnuItem_enrichDB);
+        mnuStrip_DB_ITFORS1011.add(mnuItem_enrichDB);
 
         mnuItem_stopDB.setText("stop enriching DB");
         mnuItem_stopDB.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,9 +87,45 @@ public class frmJprime extends javax.swing.JFrame {
                 mnuItem_stopDBMouseReleased(evt);
             }
         });
-        mnuTitle_DB.add(mnuItem_stopDB);
+        mnuStrip_DB_ITFORS1011.add(mnuItem_stopDB);
 
-        mnuStripTop.add(mnuTitle_DB);
+        mnuStripTop.add(mnuStrip_DB_ITFORS1011);
+
+        mnuStrip_DB_Frechet.setText("DB Frechet");
+
+        mnu_Item_DB_Frechet_AvailableThresh.setText("Available Threshold");
+        mnu_Item_DB_Frechet_AvailableThresh.setToolTipText("");
+        mnuStrip_DB_Frechet.add(mnu_Item_DB_Frechet_AvailableThresh);
+
+        mnuItem_Frechet_ReadSingle.setText("Read Single");
+        mnuItem_Frechet_ReadSingle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItem_Frechet_ReadSingleMouseReleased(evt);
+            }
+        });
+        mnuStrip_DB_Frechet.add(mnuItem_Frechet_ReadSingle);
+
+        mnu_Item_DBfrechet_ReadRange.setText("Read Range");
+        mnuStrip_DB_Frechet.add(mnu_Item_DBfrechet_ReadRange);
+
+        mnuItem_DBfrechet_enrich.setText("Enrich DB");
+        mnuItem_DBfrechet_enrich.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItem_DBfrechet_enrichMouseReleased(evt);
+            }
+        });
+        mnuStrip_DB_Frechet.add(mnuItem_DBfrechet_enrich);
+
+        mnuItem_DBfrechet_stopEnriching.setText("stop enriching");
+        mnuItem_DBfrechet_stopEnriching.setToolTipText("");
+        mnuItem_DBfrechet_stopEnriching.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItem_DBfrechet_stopEnrichingMouseReleased(evt);
+            }
+        });
+        mnuStrip_DB_Frechet.add(mnuItem_DBfrechet_stopEnriching);
+
+        mnuStripTop.add(mnuStrip_DB_Frechet);
 
         setJMenuBar(mnuStripTop);
 
@@ -106,20 +149,18 @@ public class frmJprime extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
+        //this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
         this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
         this.con = pgFrechet.getConnection();    
-        Implementation.ITFORS1011_PostgreSql_Prime_INSERT_ primeInserter = new Implementation.ITFORS1011_PostgreSql_Prime_INSERT_(
-                this.txtClipboard,
-                con
-        );
-        // this.txtClipboard
-        
-        this.t = new Thread( primeInserter, "ITFORS1011_prime_insert" );// Fork
+        DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =
+                new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
+
+        this.t = new Thread( postgresPrimedata, "ITFORS1011_prime_insert" );// Fork
         synchronized (t){
         try
         {
             t.start();// thread start
-            t.wait(5000);// milliseconds until it dies.
+            t.wait(5000);// dbg milliseconds
         }
         catch (InterruptedException e) 
         {
@@ -139,6 +180,33 @@ public class frmJprime extends javax.swing.JFrame {
     private void mnuItem_exitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_exitMouseReleased
         System.exit(0);// normal exit
     }//GEN-LAST:event_mnuItem_exitMouseReleased
+
+
+
+    private void mnuItem_DB_AvailableThresholdMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdMouseReleased
+        this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+        this.con = pgFrechet.getConnection();    
+        //
+        Entity.Proxy.PrimedataRiga res = 
+        ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_(txtClipboard, con);
+        txtClipboard.append(res.getOrdinal()+"___"+res.getPrime());
+    }//GEN-LAST:event_mnuItem_DB_AvailableThresholdMouseReleased
+
+    private void mnuItem_DB_AvailableThresholdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItem_DB_AvailableThresholdActionPerformed
+
+    private void mnuItem_Frechet_ReadSingleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingleMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItem_Frechet_ReadSingleMouseReleased
+
+    private void mnuItem_DBfrechet_enrichMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrichMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItem_DBfrechet_enrichMouseReleased
+
+    private void mnuItem_DBfrechet_stopEnrichingMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     /**
      * @param args the command line arguments
@@ -177,13 +245,19 @@ public class frmJprime extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem mnuItem_DBfrechet_enrich;
+    private javax.swing.JMenuItem mnuItem_DBfrechet_stopEnriching;
+    private javax.swing.JMenuItem mnuItem_Frechet_ReadSingle;
     private javax.swing.JMenuItem mnuItem_enrichDB;
     private javax.swing.JMenuItem mnuItem_exit;
     private javax.swing.JMenuItem mnuItem_stopDB;
     private javax.swing.JMenuBar mnuStripTop;
+    private javax.swing.JMenu mnuStrip_DB_Frechet;
+    private javax.swing.JMenu mnuStrip_DB_ITFORS1011;
     private javax.swing.JMenu mnuTitle_Calculation;
-    private javax.swing.JMenu mnuTitle_DB;
     private javax.swing.JMenu mnuTitle_FileSystem;
+    private javax.swing.JMenuItem mnu_Item_DB_Frechet_AvailableThresh;
+    private javax.swing.JMenuItem mnu_Item_DBfrechet_ReadRange;
     public javax.swing.JTextArea txtClipboard;
     // End of variables declaration//GEN-END:variables
 }

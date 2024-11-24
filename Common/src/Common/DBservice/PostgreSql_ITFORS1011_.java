@@ -6,6 +6,7 @@ package Common.DBservice;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -62,6 +63,27 @@ public class PostgreSql_ITFORS1011_
     }// Ctor    
     
     
+    public Connection connectionProvider()
+    {
+        try
+        {
+            if(null==connection)
+                {return null;}
+            if( ! connection.isValid(0) )
+                {return null;}
+        }// try
+        catch( SQLException e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            return null;
+        }// catch
+        System.out.println(" Connection to database ITFORS1011::PostgreSql successfully provided to a requirer");
+        return this.connection;
+    }// connectionProvider
+    
+
+    
     public void insertionLoop_template()
     {
         try
@@ -115,7 +137,7 @@ public class PostgreSql_ITFORS1011_
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }        
-        System.out.println(" Connection to database closed successfully");        
+        System.out.println(" Connection to database closed successfully");
     }// like Dtor    
 
     

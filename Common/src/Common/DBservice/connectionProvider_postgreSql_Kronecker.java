@@ -11,7 +11,7 @@ import java.sql.DriverManager;
  *
  * @author fra
  */
-public class connectionProvider_postgreSql_ITFORS1011 
+public class connectionProvider_postgreSql_Kronecker 
 {
     // Data
     private Connection connection=null;
@@ -33,13 +33,13 @@ public class connectionProvider_postgreSql_ITFORS1011
     
     
     // Ctor
-    public connectionProvider_postgreSql_ITFORS1011()
+    public connectionProvider_postgreSql_Kronecker()
     {
         try
         {
             Class.forName("org.postgresql.Driver");
             //
-            connection = DriverManager.getConnection("jdbc:postgresql://ITFORS1011:5432/Numerics", "postgres", "Riemann0");
+            connection = DriverManager.getConnection("jdbc:postgresql://Kronecker:5432/numerics", "postgres", "Riemann0");
         }
         catch( Exception e)
         {
