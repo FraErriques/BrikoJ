@@ -3,12 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="BrikoJ">
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/Postgres_PrimeData_LOAD_MULTI_.java</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/PostgreSql_usp_PrimeData_INSERT_.java</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/LOAD_MULTI_PostgreSql_.txt</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/tbl_PrimeData_.sql</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/Resultset_.txt</file>
-            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Table/TxtParser.java</file>
+            <file>file:/D:/root/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.java</file>
         </group>
     </open-files>
 </project-private>

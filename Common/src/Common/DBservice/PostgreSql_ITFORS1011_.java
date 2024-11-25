@@ -6,8 +6,8 @@ package Common.DBservice;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.text.html.parser.Entity;
 
 /**
  *
@@ -72,7 +72,7 @@ public class PostgreSql_ITFORS1011_
             if( ! connection.isValid(0) )
                 {return null;}
         }// try
-        catch( Exception e)
+        catch( SQLException e)
         {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());

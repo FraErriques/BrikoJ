@@ -24,16 +24,11 @@
             <Property name="text" type="java.lang.String" value="Calculation"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuTitle_DB">
+        <Menu class="javax.swing.JMenu" name="mnuStrip_DB_ITFORS1011">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="DataBase"/>
+            <Property name="text" type="java.lang.String" value="DB ITFORS1011"/>
+            <Property name="autoscrolls" type="boolean" value="true"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuTitle_DBMouseReleased"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItem_enrichDB">
               <Properties>
@@ -43,21 +38,106 @@
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_enrichDBMouseReleased"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DB_AvailableThreshold">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Available Threshold"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DB_AvailableThresholdMouseReleased"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuItem_DB_AvailableThresholdActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItem_stopDB">
               <Properties>
                 <Property name="text" type="java.lang.String" value="stop enriching DB"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_stopDBMouseReleased"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mnuStrip_DB_Frechet">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="DB Frechet"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnu_Item_DB_Frechet_AvailableThresh">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Available Threshold"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_Frechet_ReadSingle">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Read Single"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_Frechet_ReadSingleMouseReleased"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnu_Item_DBfrechet_ReadRange">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Read Range"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_enrich">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Enrich DB"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBfrechet_enrichMouseReleased"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_stopEnriching">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="stop enriching"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBfrechet_stopEnrichingMouseReleased"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mnuStrip_DB_ITFORS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="DB  BBT::ITFORS1011"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuStrip_DB_ITFORSMouseReleased"/>
+          </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnu_DBITFORS_AvailThresh">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Available Threshold"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnu_DBITFORS_AvailThreshMouseReleased"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnu_DBITFORS_AvailThreshActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_Frechet_ReadSingle1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Read Single"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_Frechet_ReadSingle1MouseReleased"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnu_Item_DBfrechet_ReadRange1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Read Range"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_enrich1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Enrich DB"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBfrechet_enrich1MouseReleased"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_stopEnriching1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="stop enriching"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBfrechet_stopEnriching1MouseReleased"/>
               </Events>
             </MenuItem>
           </SubComponents>
