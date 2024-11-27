@@ -5,7 +5,6 @@
 package Entity.Proxy;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,10 +19,15 @@ public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_
     public static java.util.ArrayList<Entity.Proxy.PrimedataRiga>  usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_ (
             java.sql.Connection con   )   throws SQLException 
     {
-        if(null==con ||  !con.isValid(0) )
+        if(null==con)
         {
             return null;
         }// else continue.  
+        boolean connValidity = con.isValid(0); 
+        if( ! connValidity)
+        {
+            return null;
+        }// else continue.              
         //Call to postgresql function:
         String query="select * from public.primedata_LOAD_AtMaxOrdinal()";
         CallableStatement ps = con.prepareCall(query);//<------------------------------------------------NB----------
@@ -46,7 +50,7 @@ public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_
             System.out.println( data.ord + "_____"+data.prime);
         }
         System.out.println(" Resultset row cardinality == "+listOf_Riga.size());
-        con.close();
+        // DON'T caller must do it : con.close();
         //
         return listOf_Riga;
     }// LOAD_MULTI    
