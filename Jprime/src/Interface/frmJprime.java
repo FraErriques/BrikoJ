@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -273,7 +274,23 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     private void mnuItem_Frechet_ReadSingle1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingle1MouseReleased
-        // TODO add your handling code here:
+        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer();
+        theOrdinalAcquirer.setTitle("supply the Ordinal for the required Prime");
+        theOrdinalAcquirer.setAlwaysOnTop(true);
+        theOrdinalAcquirer.setVisible(true);
+        // on-reEntry-----------------------------
+        int i = 2+4;
+        long localOrdinal = theOrdinalAcquirer.theOrdinalL;
+        long prime = -1;
+        try
+        {
+            prime = usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
+        }
+        catch( Exception ex)
+        {
+            this.txtClipboard.append("SQL Exception.");
+        }
+        this.txtClipboard.append("Prime["+localOrdinal+"]== "+prime);
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingle1MouseReleased
 
     private void mnuItem_DBfrechet_enrich1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrich1MouseReleased

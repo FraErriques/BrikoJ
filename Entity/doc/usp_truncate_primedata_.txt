@@ -1,0 +1,12 @@
+-- PROCEDURE: public.usp_truncate_primedata()
+
+-- DROP PROCEDURE IF EXISTS public.usp_truncate_primedata();
+
+CREATE OR REPLACE PROCEDURE public.usp_truncate_primedata(
+	)
+LANGUAGE 'sql'
+AS $BODY$
+TRUNCATE TABLE primedata RESTART IDENTITY;
+$BODY$;
+ALTER PROCEDURE public.usp_truncate_primedata()
+    OWNER TO postgres;

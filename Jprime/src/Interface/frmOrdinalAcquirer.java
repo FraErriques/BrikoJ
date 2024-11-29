@@ -9,12 +9,13 @@ package Interface;
  * @author admin
  */
 public class frmOrdinalAcquirer extends javax.swing.JFrame {
-
+    public long theOrdinalL;
     /**
      * Creates new form frmOrdinalAcquirer
      */
     public frmOrdinalAcquirer() {
         initComponents();
+        this.theOrdinalL = -1;// init to invalid
     }
 
     /**
@@ -26,41 +27,102 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        lblOrdinalAcquirer = new javax.swing.JLabel();
+        txtOrdinal = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(1);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtOrdinal.setText("the Ordinal in <ordinal,prime> sequence.");
+        txtOrdinal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOrdinalMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtOrdinalMouseEntered(evt);
+            }
+        });
 
-        lblOrdinalAcquirer.setText("ordinal  of a required prime");
-        lblOrdinalAcquirer.setToolTipText("");
+        btnSubmit.setText("Submit");
+        btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSubmitMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtOrdinal, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOrdinalAcquirer, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(btnSubmit)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(lblOrdinalAcquirer)
+                .addContainerGap()
+                .addComponent(txtOrdinal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSubmit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSubmitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseReleased
+        // event not fired : String theOrdinal = this.txtOrdinal.getText();
+    }//GEN-LAST:event_btnSubmitMouseReleased
+
+    private void txtOrdinalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdinalMouseEntered
+        // do nothing.
+    }//GEN-LAST:event_txtOrdinalMouseEntered
+
+    private void txtOrdinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdinalMouseClicked
+        this.txtOrdinal.setText("");
+    }//GEN-LAST:event_txtOrdinalMouseClicked
+
+    private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
+        String theOrdinal = this.txtOrdinal.getText();        
+        try
+        {
+            this.theOrdinalL = Long.parseLong(theOrdinal);
+        }
+        catch( NumberFormatException ex)
+        {// this way theOrdinalL stays to invalid value==-1;
+            this.txtOrdinal.setText("wrong integer");
+        }
+        this.dispose();// destroy.
+    }//GEN-LAST:event_btnSubmitMouseClicked
+
+    private void btnSubmitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMousePressed
+        //String theOrdinal = this.txtOrdinal.getText();
+    }//GEN-LAST:event_btnSubmitMousePressed
+
+    private void btnSubmitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseEntered
+        // int i = 2+3;
+    }//GEN-LAST:event_btnSubmitMouseEntered
+
+    private void btnSubmitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseExited
+      // int i = 2+3;
+    }//GEN-LAST:event_btnSubmitMouseExited
 
     /**
      * @param args the command line arguments
@@ -95,14 +157,12 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
             public void run() {
                 frmOrdinalAcquirer f = new frmOrdinalAcquirer();
                 f.setVisible(true);
-                f.lblOrdinalAcquirer.setText("context dependent label in form ordinal-acquirer.");
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    public javax.swing.JLabel lblOrdinalAcquirer;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JTextField txtOrdinal;
     // End of variables declaration//GEN-END:variables
 }
