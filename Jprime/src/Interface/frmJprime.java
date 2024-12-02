@@ -20,6 +20,7 @@ public class frmJprime extends javax.swing.JFrame {
     Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
     Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
     public String theOrdinalStr = null;
+    public long theOrdinalLong = -1L;
 
     
     /**
@@ -57,7 +58,7 @@ public class frmJprime extends javax.swing.JFrame {
         mnuStrip_DB_ITFORS = new javax.swing.JMenu();
         mnu_DBITFORS_AvailThresh = new javax.swing.JMenuItem();
         mnuItem_Frechet_ReadSingle1 = new javax.swing.JMenuItem();
-        mnu_Item_DBfrechet_ReadRange1 = new javax.swing.JMenuItem();
+        mnu_Item_DBITFORS_ReadRange = new javax.swing.JMenuItem();
         mnuItem_DBfrechet_enrich1 = new javax.swing.JMenuItem();
         mnuItem_DBfrechet_stopEnriching1 = new javax.swing.JMenuItem();
 
@@ -141,11 +142,6 @@ public class frmJprime extends javax.swing.JFrame {
 
         mnuStrip_DB_ITFORS.setText("DB  BBT::ITFORS1011");
         mnuStrip_DB_ITFORS.setToolTipText("");
-        mnuStrip_DB_ITFORS.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                mnuStrip_DB_ITFORSMouseReleased(evt);
-            }
-        });
 
         mnu_DBITFORS_AvailThresh.setText("Available Threshold");
         mnu_DBITFORS_AvailThresh.setToolTipText("");
@@ -169,8 +165,13 @@ public class frmJprime extends javax.swing.JFrame {
         });
         mnuStrip_DB_ITFORS.add(mnuItem_Frechet_ReadSingle1);
 
-        mnu_Item_DBfrechet_ReadRange1.setText("Read Range");
-        mnuStrip_DB_ITFORS.add(mnu_Item_DBfrechet_ReadRange1);
+        mnu_Item_DBITFORS_ReadRange.setText("Read Range");
+        mnu_Item_DBITFORS_ReadRange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnu_Item_DBITFORS_ReadRangeMouseReleased(evt);
+            }
+        });
+        mnuStrip_DB_ITFORS.add(mnu_Item_DBITFORS_ReadRange);
 
         mnuItem_DBfrechet_enrich1.setText("Enrich DB");
         mnuItem_DBfrechet_enrich1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,7 +252,7 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DB_AvailableThresholdActionPerformed
 
     private void mnuItem_Frechet_ReadSingleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingleMouseReleased
-        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer( this.theOrdinalStr, this);
+        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer( this);
         frmAcquirer.setVisible(true);
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingleMouseReleased
 
@@ -275,7 +276,7 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     private void mnuItem_Frechet_ReadSingle1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingle1MouseReleased
-        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this.theOrdinalStr, this);
+        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this);
         theOrdinalAcquirer.setTitle("supply the Ordinal for the required Prime");
         theOrdinalAcquirer.setAlwaysOnTop(true);
         theOrdinalAcquirer.setVisible(true);
@@ -313,10 +314,6 @@ public class frmJprime extends javax.swing.JFrame {
         this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnriching1MouseReleased
 
-    private void mnuStrip_DB_ITFORSMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuStrip_DB_ITFORSMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mnuStrip_DB_ITFORSMouseReleased
-
     private void mnu_DBITFORS_AvailThreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnu_DBITFORS_AvailThreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mnu_DBITFORS_AvailThreshActionPerformed
@@ -339,6 +336,18 @@ public class frmJprime extends javax.swing.JFrame {
             this.txtClipboard.append("\n last Ordinal= "+ lastRow.getOrdinal() +" \t last Prime= " +lastRow.getPrime() );
         }//else
     }//GEN-LAST:event_mnu_DBITFORS_AvailThreshMouseReleased
+
+    private void mnu_Item_DBITFORS_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
+        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this);
+        //
+        theOrdinalAcquirer.setTitle("supply the Ordinal for the lower Prime");
+        theOrdinalAcquirer.setAlwaysOnTop(true);
+        theOrdinalAcquirer.setVisible(true);
+        //
+        theOrdinalAcquirer.setTitle("supply the Ordinal for the upper Prime");
+        theOrdinalAcquirer.setAlwaysOnTop(true);
+        theOrdinalAcquirer.setVisible(true);        
+    }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
 
     /**
      * @param args the command line arguments
@@ -393,9 +402,9 @@ public class frmJprime extends javax.swing.JFrame {
     private javax.swing.JMenu mnuTitle_Calculation;
     private javax.swing.JMenu mnuTitle_FileSystem;
     private javax.swing.JMenuItem mnu_DBITFORS_AvailThresh;
+    private javax.swing.JMenuItem mnu_Item_DBITFORS_ReadRange;
     private javax.swing.JMenuItem mnu_Item_DB_Frechet_AvailableThresh;
     private javax.swing.JMenuItem mnu_Item_DBfrechet_ReadRange;
-    private javax.swing.JMenuItem mnu_Item_DBfrechet_ReadRange1;
     public javax.swing.JTextArea txtClipboard;
     // End of variables declaration//GEN-END:variables
 }

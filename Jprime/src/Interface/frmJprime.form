@@ -96,9 +96,6 @@
             <Property name="text" type="java.lang.String" value="DB  BBT::ITFORS1011"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuStrip_DB_ITFORSMouseReleased"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnu_DBITFORS_AvailThresh">
               <Properties>
@@ -118,10 +115,13 @@
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_Frechet_ReadSingle1MouseReleased"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnu_Item_DBfrechet_ReadRange1">
+            <MenuItem class="javax.swing.JMenuItem" name="mnu_Item_DBITFORS_ReadRange">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Read Range"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnu_Item_DBITFORS_ReadRangeMouseReleased"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_enrich1">
               <Properties>

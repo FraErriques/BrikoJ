@@ -12,15 +12,20 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
     public long theOrdinalL;
     public String theOrdinalStr = null;
     public frmJprime theMainFrm = null;
-    
+
+    // Ctor default
+    public frmOrdinalAcquirer( ) {
+        initComponents();
+    }// Ctor default
     
     // Ctor
-    public frmOrdinalAcquirer(String theOrdinalStr, frmJprime theMainFrm) {
+    public frmOrdinalAcquirer(frmJprime theMainFrm) {
         initComponents();
-        this.theOrdinalL = -1;// init to invalid
-        this.theOrdinalStr = theOrdinalStr;
+        //
         this.theMainFrm = theMainFrm;
-    }
+        this.theOrdinalStr = this.theMainFrm.theOrdinalStr;
+        this.theOrdinalL =  this.theMainFrm.theOrdinalLong = -1L;// init to invalid
+    }// Ctor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,7 +131,7 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         {
           theMainFrm.txtClipboard.append(ex.getMessage() );
         }
-        theMainFrm.txtClipboard.append("Prime["+localOrdinal+"]== "+prime);        
+        theMainFrm.txtClipboard.append("Prime["+localOrdinal+"]== "+prime+"\n");
     }//GEN-LAST:event_btnSubmitMouseClicked
 
     private void btnSubmitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMousePressed
@@ -172,8 +177,7 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmJprime frmMain = new frmJprime();
-                frmOrdinalAcquirer f = new frmOrdinalAcquirer( theOrdinalStr, frmMain);
+                frmOrdinalAcquirer f = new frmOrdinalAcquirer();
                 f.setVisible(true);
             }
         });
