@@ -10,12 +10,16 @@ package Interface;
  */
 public class frmOrdinalAcquirer extends javax.swing.JFrame {
     public long theOrdinalL;
-    /**
-     * Creates new form frmOrdinalAcquirer
-     */
-    public frmOrdinalAcquirer() {
+    public String theOrdinalStr = null;
+    public frmJprime theMainFrm = null;
+    
+    
+    // Ctor
+    public frmOrdinalAcquirer(String theOrdinalStr, frmJprime theMainFrm) {
         initComponents();
         this.theOrdinalL = -1;// init to invalid
+        this.theOrdinalStr = theOrdinalStr;
+        this.theMainFrm = theMainFrm;
     }
 
     /**
@@ -100,16 +104,29 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrdinalMouseClicked
 
     private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
-        String theOrdinal = this.txtOrdinal.getText();        
+        this.theOrdinalStr = this.txtOrdinal.getText();        
         try
         {
-            this.theOrdinalL = Long.parseLong(theOrdinal);
+            this.theOrdinalL = Long.parseLong(this.theOrdinalStr);
         }
         catch( NumberFormatException ex)
         {// this way theOrdinalL stays to invalid value==-1;
             this.txtOrdinal.setText("wrong integer");
         }
-        this.dispose();// destroy.
+        this.setVisible(false);
+        // this.dispose();// destroy. NOT before 
+        // on-reEntry-----------------------------
+        long localOrdinal = this.theOrdinalL;
+        long prime = -1;
+        try
+        {
+            prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
+        }
+        catch( Exception ex)
+        {
+          theMainFrm.txtClipboard.append(ex.getMessage() );
+        }
+        theMainFrm.txtClipboard.append("Prime["+localOrdinal+"]== "+prime);        
     }//GEN-LAST:event_btnSubmitMouseClicked
 
     private void btnSubmitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMousePressed
@@ -151,11 +168,12 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        String theOrdinalStr = null;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmOrdinalAcquirer f = new frmOrdinalAcquirer();
+                frmJprime frmMain = new frmJprime();
+                frmOrdinalAcquirer f = new frmOrdinalAcquirer( theOrdinalStr, frmMain);
                 f.setVisible(true);
             }
         });

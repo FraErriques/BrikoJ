@@ -19,6 +19,7 @@ public class frmJprime extends javax.swing.JFrame {
     Connection con;
     Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
     Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
+    public String theOrdinalStr = null;
 
     
     /**
@@ -250,8 +251,8 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DB_AvailableThresholdActionPerformed
 
     private void mnuItem_Frechet_ReadSingleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingleMouseReleased
-        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer();
-        frmAcquirer.show();
+        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer( this.theOrdinalStr, this);
+        frmAcquirer.setVisible(true);
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingleMouseReleased
 
     private void mnuItem_DBfrechet_enrichMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrichMouseReleased
@@ -274,23 +275,23 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     private void mnuItem_Frechet_ReadSingle1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingle1MouseReleased
-        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer();
+        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this.theOrdinalStr, this);
         theOrdinalAcquirer.setTitle("supply the Ordinal for the required Prime");
         theOrdinalAcquirer.setAlwaysOnTop(true);
         theOrdinalAcquirer.setVisible(true);
-        // on-reEntry-----------------------------
-        int i = 2+4;
-        long localOrdinal = theOrdinalAcquirer.theOrdinalL;
-        long prime = -1;
-        try
-        {
-            prime = usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
-        }
-        catch( Exception ex)
-        {
-            this.txtClipboard.append("SQL Exception.");
-        }
-        this.txtClipboard.append("Prime["+localOrdinal+"]== "+prime);
+//        // on-reEntry-----------------------------
+//        int i = 2+4;
+//        long localOrdinal = theOrdinalAcquirer.theOrdinalL;
+//        long prime = -1;
+//        try
+//        {
+//            prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
+//        }
+//        catch( Exception ex)
+//        {
+//            this.txtClipboard.append(ex.getMessage() );
+//        }
+//        this.txtClipboard.append("Prime["+localOrdinal+"]== "+prime);
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingle1MouseReleased
 
     private void mnuItem_DBfrechet_enrich1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrich1MouseReleased
