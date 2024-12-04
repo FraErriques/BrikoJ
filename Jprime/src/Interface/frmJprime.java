@@ -19,8 +19,10 @@ public class frmJprime extends javax.swing.JFrame {
     Connection con;
     Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
     Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
-    public String theOrdinalStr = null;
-    public long theOrdinalLong = -1L;
+    public String theOrdinalStrLow = null;
+    public long theOrdinalLongLow = -1L;
+    public String theOrdinalStrHigh = null;
+    public long theOrdinalLongHigh = -1L;
 
     
     /**
@@ -343,10 +345,14 @@ public class frmJprime extends javax.swing.JFrame {
         theOrdinalAcquirer.setTitle("supply the Ordinal for the lower Prime");
         theOrdinalAcquirer.setAlwaysOnTop(true);
         theOrdinalAcquirer.setVisible(true);
+        this.theOrdinalLongLow = theOrdinalAcquirer.ordinalReader();
         //
         theOrdinalAcquirer.setTitle("supply the Ordinal for the upper Prime");
         theOrdinalAcquirer.setAlwaysOnTop(true);
         theOrdinalAcquirer.setVisible(true);        
+        this.theOrdinalLongHigh = theOrdinalAcquirer.ordinalReader();
+        //
+        
     }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
 
     /**

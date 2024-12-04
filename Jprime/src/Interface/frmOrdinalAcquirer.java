@@ -23,8 +23,6 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         initComponents();
         //
         this.theMainFrm = theMainFrm;
-        this.theOrdinalStr = this.theMainFrm.theOrdinalStr;
-        this.theOrdinalL =  this.theMainFrm.theOrdinalLong = -1L;// init to invalid
     }// Ctor
 
     /**
@@ -108,11 +106,29 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         this.txtOrdinal.setText("");
     }//GEN-LAST:event_txtOrdinalMouseClicked
 
-    private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
-        this.theOrdinalStr = this.txtOrdinal.getText();        
+    public long ordinalReader()
+    {
+        long localOrdinal = -1;// init to invalid.
         try
         {
-            this.theOrdinalL = Long.parseLong(this.theOrdinalStr);
+            localOrdinal = Long.parseLong( this.txtOrdinal.getText() );
+        }
+        catch( NumberFormatException ex)
+        {// this way theOrdinalL stays to invalid value==-1;
+            // dbg this.txtOrdinal.setText("wrong integer");
+        }
+        this.setVisible(false);
+        // this.dispose();// destroy. NOT before 
+        // on-reEntry-----------------------------
+        return localOrdinal;
+    }// public long ordinalReader()
+    
+    
+    private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
+        this.theMainFrm.theOrdinalStrLow = this.txtOrdinal.getText();        
+        try
+        {
+            this.theMainFrm.theOrdinalLongLow = Long.parseLong( this.theMainFrm.theOrdinalStrLow);
         }
         catch( NumberFormatException ex)
         {// this way theOrdinalL stays to invalid value==-1;
@@ -125,13 +141,14 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
         long prime = -1;
         try
         {
-            prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
+            prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(
+                        this.theMainFrm.theOrdinalLongLow, this.theMainFrm.theOrdinalLongLow);
         }
         catch( Exception ex)
         {
           theMainFrm.txtClipboard.append(ex.getMessage() );
         }
-        theMainFrm.txtClipboard.append("Prime["+localOrdinal+"]== "+prime+"\n");
+        theMainFrm.txtClipboard.append("Prime["+this.theMainFrm.theOrdinalLongLow+"]== "+prime+"\n");
     }//GEN-LAST:event_btnSubmitMouseClicked
 
     private void btnSubmitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMousePressed
