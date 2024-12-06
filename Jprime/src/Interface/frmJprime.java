@@ -254,7 +254,7 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DB_AvailableThresholdActionPerformed
 
     private void mnuItem_Frechet_ReadSingleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingleMouseReleased
-        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer( this);
+        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer( this, false);
         frmAcquirer.setVisible(true);
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingleMouseReleased
 
@@ -278,7 +278,7 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     private void mnuItem_Frechet_ReadSingle1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingle1MouseReleased
-        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this);
+        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this, false);
         theOrdinalAcquirer.setTitle("supply the Ordinal for the required Prime");
         theOrdinalAcquirer.setAlwaysOnTop(true);
         theOrdinalAcquirer.setVisible(true);
@@ -340,19 +340,21 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnu_DBITFORS_AvailThreshMouseReleased
 
     private void mnu_Item_DBITFORS_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
-        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this);
         //
-        theOrdinalAcquirer.setTitle("supply the Ordinal for the lower Prime");
-        theOrdinalAcquirer.setAlwaysOnTop(true);
-        theOrdinalAcquirer.setVisible(true);
-        this.theOrdinalLongLow = theOrdinalAcquirer.ordinalReader();
+        frmOrdinalAcquirer ordinalLower = new frmOrdinalAcquirer( this, false);
+        ordinalLower.setTitle("supply the Ordinal for the LOWER Prime");
+        ordinalLower.setAlwaysOnTop(true);
+        ordinalLower.setVisible(true);
+        // on re-entry:
+        long test = this.theOrdinalLongLow;// dbg
+        ordinalLower.dispose();
         //
-        theOrdinalAcquirer.setTitle("supply the Ordinal for the upper Prime");
-        theOrdinalAcquirer.setAlwaysOnTop(true);
-        theOrdinalAcquirer.setVisible(true);        
-        this.theOrdinalLongHigh = theOrdinalAcquirer.ordinalReader();
+        frmOrdinalAcquirer ordinalUpper = new frmOrdinalAcquirer( this, true);        
+        ordinalUpper.setTitle("supply the Ordinal for the UPPER Prime");
+        ordinalUpper.setAlwaysOnTop(true);
+        ordinalUpper.setVisible(true);        
+        test = this.theOrdinalLongHigh;// dbg
         //
-        
     }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
 
     /**

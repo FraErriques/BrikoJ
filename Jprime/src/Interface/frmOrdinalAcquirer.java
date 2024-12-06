@@ -12,6 +12,7 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
     public long theOrdinalL;
     public String theOrdinalStr = null;
     public frmJprime theMainFrm = null;
+    public boolean isUpper = false;
 
     // Ctor default
     public frmOrdinalAcquirer( ) {
@@ -19,10 +20,12 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
     }// Ctor default
     
     // Ctor
-    public frmOrdinalAcquirer(frmJprime theMainFrm) {
+    public frmOrdinalAcquirer(frmJprime theMainFrm, boolean isUpper)// last parameter is a flag for the upper bound read. 
+    {
         initComponents();
         //
         this.theMainFrm = theMainFrm;
+        this.isUpper = isUpper;
     }// Ctor
 
     /**
