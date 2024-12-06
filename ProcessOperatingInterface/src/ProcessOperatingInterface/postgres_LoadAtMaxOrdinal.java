@@ -6,8 +6,7 @@ package ProcessOperatingInterface;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -27,7 +26,7 @@ public class postgres_LoadAtMaxOrdinal
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(postgres_LoadAtMaxOrdinal.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_() exception: "+ex.getMessage());
             return null;
         }
         //        

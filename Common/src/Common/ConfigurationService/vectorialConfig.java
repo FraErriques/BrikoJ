@@ -140,7 +140,7 @@ public class vectorialConfig extends KeyTokenRecognizer
         double outDoubleVec[] = null;
         if( this.keyVectorMap.containsKey( key) )
         {
-            associated_value = this.keyVectorMap.get( key);
+            associated_value = (ArrayList<String>)this.keyVectorMap.get( key);
             if( null != associated_value)
             {
                 associated_array = (ArrayList<String>)associated_value;

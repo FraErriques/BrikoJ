@@ -19,16 +19,17 @@ import java.util.ArrayList;
 public class Postgres_PrimeData_LOAD_MULTI_ 
 {
  
-    public static void Postgres_PrimeData_LOAD_MULTI_SERVICE_ (
-        long from
+    public static ArrayList<Entity.Proxy.PrimedataRiga>  Postgres_PrimeData_LOAD_MULTI_SERVICE_ (
+        java.sql.Connection conn
+        ,long from
         ,long to
     ) throws SQLException 
-    {        
-        connectionProvider_postgreSql_Frechet pgFrechet = new connectionProvider_postgreSql_Frechet();
-        Connection con = pgFrechet.getConnection();
+    {
+        if(null==conn || ! conn.isValid(0)) 
+            {return null;}//else continue.
         //Call to postgresql function   
         String query="select * from primedata_LOAD_MULTI( "+" start_ordinal=>"+from +", end_ordinal=>"+to  +")";
-        CallableStatement ps=con.prepareCall(query);//<------------------------------------------------NB----------
+        CallableStatement ps=conn.prepareCall(query);//<------------------------------------------------NB----------
         //ps.setInt(1,5);  // it means we are setting value 5 at first index.  ??
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
         // prepare to fetch the DB-cursor into a Java-resultset.
@@ -45,13 +46,14 @@ public class Postgres_PrimeData_LOAD_MULTI_
             data.setPrime( tmp_prime);
             //
             listOf_Riga.add(data);// add the row in the ArrayList that will contain the resultset.
-            // 
             // dbg
             System.out.println( data.ord + "_____"+data.prime);
         }// cursor fetch
         //
         System.out.println("Total resultset="+listOf_Riga.size() );
-        pgFrechet.closeConnection();
+        // DON'T : the caller must close the sticky connection.  conn.close();
+        //
+        return listOf_Riga;
     }// LOAD_MULTI
 
 }// class
