@@ -125,10 +125,10 @@ public class frmOrdinalAcquirer extends javax.swing.JFrame {
     
     
     private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
-        this.theMainFrm.theOrdinalStrLow = this.txtOrdinal.getText();        
+        // read into the Father's form-fields.
         try
         {
-            this.theMainFrm.theOrdinalLongLow = Long.parseLong( this.theMainFrm.theOrdinalStrLow);
+            this.theMainFrm.theOrdinalLongLow = Long.parseLong( this.txtOrdinal.getText() );
         }
         catch( NumberFormatException ex)
         {// this way theOrdinalL stays to invalid value==-1;

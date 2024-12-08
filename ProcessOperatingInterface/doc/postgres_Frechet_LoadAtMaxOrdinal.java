@@ -4,10 +4,6 @@
  */
 package ProcessOperatingInterface;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author fra
@@ -17,15 +13,23 @@ public class postgres_Frechet_LoadAtMaxOrdinal
     public static Entity.Proxy.PrimedataRiga postgres_Frechet_LoadAtMaxOrdinal_SERVICE_()
     {
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
-        try 
+        Common.DBservice.connectionProvider_postgreSql_Frechet conFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+        java.sql.Connection con = null;
+        try
         {
+            con = (java.sql.Connection) conFrechet.getConnection();
             lastRecord = 
-                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_Frechet_SERVICE_();
+                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(
+                            con );
         } 
-        catch (SQLException ex) 
+        catch ( Exception ex) 
         {
-            Logger.getLogger(postgres_Frechet_LoadAtMaxOrdinal.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
             return null;
+        }
+        finally
+        {
+            conFrechet.closeConnection();
         }
         //        
         return ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0)));

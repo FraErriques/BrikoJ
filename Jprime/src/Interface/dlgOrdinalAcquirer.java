@@ -9,23 +9,23 @@ package Interface;
  * @author fra
  */
 public class dlgOrdinalAcquirer extends javax.swing.JDialog {
-    public long longOrdinalLow;
-    public long longOrdinalHigh;
+    public Interface.frmJprime theCaller;
     public boolean isUpper;
     
-    /**
-     * Creates new form dlgOrdinalAcquirer
-     */
+    
+    // Ctor default
     public dlgOrdinalAcquirer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
     
+    // Ctor custom : specify if the field "ordinal" has to be read in the "upper" variable xor int the "lower" one.
     public dlgOrdinalAcquirer(java.awt.Frame parent, boolean modal, boolean isUpper) {
-        super(parent, modal);
+        super(parent, modal);// Ctor of father, specifying the callerForm and the modal-attribute.
         initComponents();
         //
-        this.isUpper = isUpper;
+        this.isUpper = isUpper;// specify the role of the present instance.
+        this.theCaller = ((Interface.frmJprime)parent);
     }// Ctor custom
 
     /**
@@ -90,16 +90,21 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
         {
             if( this.isUpper)
             {
-                this.longOrdinalHigh = Long.parseLong( this.txtOrdinal.getText() );
+                this.theCaller.theOrdinalLongHigh = Long.parseLong( this.txtOrdinal.getText() );
             }
             else
             {
-                this.longOrdinalLow = Long.parseLong( this.txtOrdinal.getText() );
+                this.theCaller.theOrdinalLongLow = Long.parseLong( this.txtOrdinal.getText() );
             }
         }
         catch(Exception ex)
+        {// case of malformed integer:
+            this.txtOrdinal.setText("the \"ordinal\" integer is malformed: please correct it.");
+        }
+        finally
         {
-            
+            this.setVisible(false);
+            //this.dispose();// gc ---from caller
         }
     }//GEN-LAST:event_btnSubmitMouseReleased
 
@@ -149,4 +154,4 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
     private javax.swing.JButton btnSubmit;
     private javax.swing.JTextField txtOrdinal;
     // End of variables declaration//GEN-END:variables
-}
+}// class

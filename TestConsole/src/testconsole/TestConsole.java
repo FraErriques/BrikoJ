@@ -5,8 +5,7 @@ package testconsole;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import Common.DBservice.connectionProvider_postgreSql_ITFORS1011;
-import Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011;
+
 
 
 
@@ -19,18 +18,14 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS =
-                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-        Connection conn = connectorITFORS.getConnection();
+        Common.DBservice.connectionProvider_postgreSql_Frechet connectorFrechet =
+                new Common.DBservice.connectionProvider_postgreSql_Frechet();
+        Connection conn = connectorFrechet.getConnection();
         //
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
         try 
         {
-            //-----
-            long localOrdinal = 3;
-            long prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
-            //----
             resultset = 
                     Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(conn, 1, 3);
 
@@ -42,9 +37,9 @@ public class TestConsole
             System.out.println(ex.getMessage());
         }
         //
+        if(null==resultset){return;}//else continue.
         for(int c=0; c<resultset.size(); c++)
         {
-            if(null==resultset){break;}//else continue.
             // resultset.get(c) eccess ArrayList element
             System.out.println( 
                     ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+

@@ -58,6 +58,9 @@
                 <Property name="text" type="java.lang.String" value="Available Threshold"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnu_Item_DB_Frechet_AvailableThreshMouseReleased"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItem_Frechet_ReadSingle">
               <Properties>
@@ -71,6 +74,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Read Range"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnu_Item_DBfrechet_ReadRangeMouseReleased"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_enrich">
               <Properties>

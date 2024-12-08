@@ -6,6 +6,7 @@ package Interface;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,14 +15,15 @@ import java.util.logging.Logger;
  * @author admin
  */
 public class frmJprime extends javax.swing.JFrame {
-    private Thread t;
-    Connection con;
+    //----data member--------
+    private Thread t;// calculation thread for db-enrichment.
+    // connection provider instances, to open and close the sticky connection, which is a local variable.
     Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
     Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
-    public String theOrdinalStrLow = null;
-    public long theOrdinalLongLow = -1L;
-    public String theOrdinalStrHigh = null;
+    public long theOrdinalLongLow = -1L;// init to invalid.
     public long theOrdinalLongHigh = -1L;
+//    public String theOrdinalStrLow = null;
+//    public String theOrdinalStrHigh = null;
 
     
     /**
@@ -30,8 +32,6 @@ public class frmJprime extends javax.swing.JFrame {
     public frmJprime() {
         initComponents();
         this.t = null;
-        //
-        this.mnu_Item_DBITFORS_ReadRangeMouseReleased(null);
     }
 
     /**
@@ -111,6 +111,11 @@ public class frmJprime extends javax.swing.JFrame {
 
         mnu_Item_DB_Frechet_AvailableThresh.setText("Available Threshold");
         mnu_Item_DB_Frechet_AvailableThresh.setToolTipText("");
+        mnu_Item_DB_Frechet_AvailableThresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnu_Item_DB_Frechet_AvailableThreshMouseReleased(evt);
+            }
+        });
         mnuStrip_DB_Frechet.add(mnu_Item_DB_Frechet_AvailableThresh);
 
         mnuItem_Frechet_ReadSingle.setText("Read Single");
@@ -122,6 +127,11 @@ public class frmJprime extends javax.swing.JFrame {
         mnuStrip_DB_Frechet.add(mnuItem_Frechet_ReadSingle);
 
         mnu_Item_DBfrechet_ReadRange.setText("Read Range");
+        mnu_Item_DBfrechet_ReadRange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnu_Item_DBfrechet_ReadRangeMouseReleased(evt);
+            }
+        });
         mnuStrip_DB_Frechet.add(mnu_Item_DBfrechet_ReadRange);
 
         mnuItem_DBfrechet_enrich.setText("Enrich DB");
@@ -218,7 +228,7 @@ public class frmJprime extends javax.swing.JFrame {
 
     private void mnuItem_enrichDBMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_enrichDBMouseReleased
         this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-        this.con = pgFrechet.getConnection();    
+        Connection con = pgFrechet.getConnection();    
         DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =
                 new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
 
@@ -243,7 +253,7 @@ public class frmJprime extends javax.swing.JFrame {
 
     private void mnuItem_DB_AvailableThresholdMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdMouseReleased
         this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-        this.con = pgFrechet.getConnection();    
+        Connection con = pgFrechet.getConnection();    
         //
         Entity.Proxy.PrimedataRiga res = 
         ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_(txtClipboard, con);
@@ -255,13 +265,43 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DB_AvailableThresholdActionPerformed
 
     private void mnuItem_Frechet_ReadSingleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingleMouseReleased
-        Interface.frmOrdinalAcquirer frmAcquirer = new Interface.frmOrdinalAcquirer( this);
-        frmAcquirer.setVisible(true);
+            // case : Lower
+            dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);
+            try
+            {
+                dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
+                dlgLow.setAlwaysOnTop(true);
+                dlgLow.setVisible(true);
+                //------------on re-entry-------thread join from modal form-------------
+                dlgLow.dispose();//---gc------
+                //---READ-SINGLE: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongLow);---
+                Common.DBservice.connectionProvider_postgreSql_Frechet connFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+                ArrayList<Entity.Proxy.PrimedataRiga> resultSet =
+                        Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(connFrechet.getConnection(),
+                                this.theOrdinalLongLow,  this.theOrdinalLongLow );
+                if( resultSet.isEmpty() || 1!=resultSet.size())
+                {
+                    throw new Exception("the resultset is supposed to have cardinality==+1 in this case.");
+                }
+                //             
+                System.out.println( "\n"+resultSet.get(0).getOrdinal() + "____"+resultSet.get(0).getPrime() );
+                this.txtClipboard.append( "\n"+resultSet.get(0).getOrdinal() + "____"+resultSet.get(0).getPrime()+ "\n" );
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(frmJprime.class.getName()).log(Level.SEVERE, null, ex);
+                this.txtClipboard.append( ex.getMessage()+"\n" );
+                System.out.println(ex.getMessage() );
+            }
+            finally
+            {
+                dlgLow = null;//---gc------
+            }
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingleMouseReleased
 
     private void mnuItem_DBfrechet_enrichMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrichMouseReleased
         this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-        this.con = pgFrechet.getConnection();    
+        Connection con = pgFrechet.getConnection();    
         DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =
                 new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
 
@@ -273,34 +313,74 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_DBfrechet_enrichMouseReleased
 
     private void mnuItem_DBfrechet_stopEnrichingMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
-        this.t.interrupt();
-        this.pgFrechet.closeConnection();
-        this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
+        if(null != this.t )    
+        {
+            if( this.t.isAlive())
+            {
+                this.t.interrupt();
+                this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
+            }//
+            else
+            {
+                this.txtClipboard.append("\n thread nr."+ this.t.getId() +" is already dead." );
+            }
+        }// 
+        else
+        {
+            this.txtClipboard.append("\n calculation thread is already NULL." );
+        } 
+        if( null != this.pgFrechet)
+        {
+            this.pgFrechet.closeConnection();
+        }
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     private void mnuItem_Frechet_ReadSingle1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_Frechet_ReadSingle1MouseReleased
-        frmOrdinalAcquirer theOrdinalAcquirer = new frmOrdinalAcquirer( this);
-        theOrdinalAcquirer.setTitle("supply the Ordinal for the required Prime");
-        theOrdinalAcquirer.setAlwaysOnTop(true);
-        theOrdinalAcquirer.setVisible(true);
-//        // on-reEntry-----------------------------
-//        int i = 2+4;
-//        long localOrdinal = theOrdinalAcquirer.theOrdinalL;
-//        long prime = -1;
-//        try
-//        {
-//            prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
-//        }
-//        catch( Exception ex)
-//        {
-//            this.txtClipboard.append(ex.getMessage() );
-//        }
-//        this.txtClipboard.append("Prime["+localOrdinal+"]== "+prime);
+            // an instance specific to each of the cases: {lower,upper}.
+            dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);
+            try
+            {
+                // case : Lower
+                dlgLow.setTitle("supply the Ordinal for the required Prime");
+                dlgLow.setAlwaysOnTop(true);
+                dlgLow.setVisible(true);
+                //------------on re-entry-------thread join from modal form-------------
+                dlgLow.dispose();//---gc------
+                //---when here, we should have both boundaries, which in this case are {low,low}.
+                //---READ-SINGLE: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongLow);---
+                Common.DBservice.connectionProvider_postgreSql_Frechet connFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+                ArrayList<Entity.Proxy.PrimedataRiga> resultSet =
+                        Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(connFrechet.getConnection(),
+                                this.theOrdinalLongLow,  this.theOrdinalLongLow ); // (low,low)
+                if( resultSet.isEmpty() || 1!=resultSet.size()  )// one and only one record required.
+                {
+                    throw new Exception("the resultset is supposed to have cardinality>0.");
+                }
+                //
+                System.out.println( "\n\n" );
+                this.txtClipboard.append( "\n\n" );
+//                for(int c=0; c<resultSet.size(); c++)
+//                {
+//                    //System.out.println( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+//                    //this.txtClipboard.append( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime()+ "\n" );
+//                }
+                this.txtClipboard.append("Prime["+resultSet.get(0).getOrdinal()+"]== "+resultSet.get(0).getPrime());
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(frmJprime.class.getName()).log(Level.SEVERE, null, ex);
+                this.txtClipboard.append( ex.getMessage()+"\n" );
+                System.out.println(ex.getMessage() );
+            }
+            finally
+            {
+                dlgLow = null;//---gc------
+            }
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingle1MouseReleased
 
     private void mnuItem_DBfrechet_enrich1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrich1MouseReleased
         this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-        this.con = pgFrechet.getConnection();    
+        Connection con = pgFrechet.getConnection();    
         DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =
                 new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
 
@@ -362,6 +442,87 @@ public class frmJprime extends javax.swing.JFrame {
 //        theOrdinalAcquirerUpper.dispose();
 //        theOrdinalAcquirerUpper = null;
     }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
+
+    private void mnu_Item_DBfrechet_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBfrechet_ReadRangeMouseReleased
+            // an instance specific to each of the cases: {lower,upper}.
+            dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);
+            dlgOrdinalAcquirer dlgHigh = new dlgOrdinalAcquirer(this,true, true);
+            try
+            {
+                // case : Lower
+                dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
+                dlgLow.setAlwaysOnTop(true);
+                dlgLow.setVisible(true);
+                //------------on re-entry-------thread join from modal form-------------
+                dlgLow.dispose();//---gc------
+                // case : Upper
+                dlgHigh.setTitle("supply the Ordinal for the UPPER Prime");
+                dlgHigh.setAlwaysOnTop(true);
+                dlgHigh.setVisible(true);
+                //------------on re-entry-------thread join from modal form-------------
+                dlgHigh.dispose();//---gc------                
+                //---when here, we should have both boundaries {low,up}.
+                //
+                //---READ-MULTI: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongHigh);---
+                Common.DBservice.connectionProvider_postgreSql_Frechet connFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+                ArrayList<Entity.Proxy.PrimedataRiga> resultSet =
+                        Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(connFrechet.getConnection(),
+                                this.theOrdinalLongLow,  this.theOrdinalLongHigh ); // (low,high)
+                if( resultSet.isEmpty() )// no check for single-record, on multi-case. was... || 1!=resultSet.size()
+                {
+                    throw new Exception("the resultset is supposed to have cardinality>0.");
+                }
+                //
+                System.out.println( "\n\n" );
+                this.txtClipboard.append( "\n\n" );
+                for(int c=0; c<resultSet.size(); c++)
+                {
+                    System.out.println( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+                    this.txtClipboard.append( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime()+ "\n" );
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.getLogger(frmJprime.class.getName()).log(Level.SEVERE, null, ex);
+                this.txtClipboard.append( ex.getMessage()+"\n" );
+                System.out.println(ex.getMessage() );
+            }
+            finally
+            {
+                dlgLow = null;//---gc------
+                dlgHigh = null;//---gc------
+            }
+    }//GEN-LAST:event_mnu_Item_DBfrechet_ReadRangeMouseReleased
+
+    private void mnu_Item_DB_Frechet_AvailableThreshMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DB_Frechet_AvailableThreshMouseReleased
+        // available threshold on ITFORS1011
+        this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+        Connection connLocal = this.pgFrechet.getConnection();
+        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultSet = null;
+        try 
+        {
+            resultSet =
+                Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(connLocal);
+            this.pgFrechet.closeConnection();// throws
+        } 
+        catch ( Exception ex) 
+        {
+            System.out.println(ex.getMessage() );
+        }
+        finally
+        {
+            connLocal = null;// gc.
+        }
+        if(null==resultSet || resultSet.isEmpty()) 
+        {
+            return;
+        }
+        else
+        {
+            Entity.Proxy.PrimedataRiga lastRow = resultSet.get(0);
+            this.txtClipboard.append("\n last Ordinal= "+ lastRow.getOrdinal() +" \t last Prime= " +lastRow.getPrime() );
+        }//else
+    }//GEN-LAST:event_mnu_Item_DB_Frechet_AvailableThreshMouseReleased
 
     /**
      * @param args the command line arguments
