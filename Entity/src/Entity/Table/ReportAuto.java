@@ -132,12 +132,12 @@ public class ReportAuto
     }// Ctor
     
     public void Postgres_ProxyWrapper_(
-        Common.DBservice.PostgreSql_ITFORS1011_ postgreSql    
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 postgreSql
     )
     {
         Entity.Proxy.PostgreSql_usp_genericaautovettura_INSERT_.PostgreSql_usp_genericaautovettura_INSERT_SERVICE_
             (
-                postgreSql.connection,
+                postgreSql.getConnection() ,
                 // [id] IDENTITY
                 this.targa_autovettura,
                 this.registration_date,

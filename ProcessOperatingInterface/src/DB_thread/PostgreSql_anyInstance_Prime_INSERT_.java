@@ -14,13 +14,11 @@ import java.sql.Connection;
  */
 public class PostgreSql_anyInstance_Prime_INSERT_ implements Runnable
 {
-    public javax.swing.JTextArea local_txtClipboard;
     Connection con;
     
     //Ctor
     public PostgreSql_anyInstance_Prime_INSERT_(javax.swing.JTextArea txtClipboard, Connection con)
     {
-        this.local_txtClipboard = txtClipboard;
         this.con = con;
     }//Ctor
     
@@ -42,20 +40,35 @@ public class PostgreSql_anyInstance_Prime_INSERT_ implements Runnable
     @Override
     public void run()
     {
-        //do something
-//        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
-//        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
-//        this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
-//        //
-//        System.out.println("from inside a Forked Thread" );
-//        System.out.println("current Thread : " + Thread.currentThread().getId() );
-//        System.out.println( );
-
-        //
-        for(long c=102; c<3000; c++)
+        try 
         {
-            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(con, 101);
-        }        
-    }// run    
+            //do something
+            //        this.local_txtClipboard.append("\n\n from inside a Forked Thread" );
+            //        this.local_txtClipboard.append("\n current Thread : " + Thread.currentThread().getId() );
+            //        this.local_txtClipboard.append("\n Thread.currentThread().isAlive()=="+ Thread.currentThread().isAlive()+"\n\n" );
+            //        //
+            //        System.out.println("from inside a Forked Thread" );
+            //        System.out.println("current Thread : " + Thread.currentThread().getId() );
+            //        System.out.println( );
+            if( null== con || !con.isValid(0) )
+            {
+                return;// on invalid connection
+            }// else continue.
+            //
+            for(long c=1; c<3000; c++)
+            {
+                Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(con, c);
+            }
+            con.close();// throws.
+        }// try
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getMessage() );
+        }// catch
+        finally
+        {
+            con = null;// gc.
+        }// finally
+    } // run : end calculation thread.
     
 }// class

@@ -42,9 +42,9 @@ public class TestConsole
             System.out.println(ex.getMessage());
         }
         //
+        if(null==resultset){return;}//else continue.
         for(int c=0; c<resultset.size(); c++)
         {
-            if(null==resultset){break;}//else continue.
             // resultset.get(c) eccess ArrayList element
             System.out.println( 
                     ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+

@@ -4,7 +4,6 @@
  */
 package Common.DBservice;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
@@ -14,7 +13,7 @@ import java.sql.DriverManager;
 public class connectionProvider_postgreSql_Frechet 
 {
     // Data
-    private Connection connection=null;
+    private java.sql.Connection connection=null;
     // config files:
     // in /var/lib/pgsql/data
     // file postgresql.conf
@@ -51,7 +50,7 @@ public class connectionProvider_postgreSql_Frechet
     }// Ctor    
     
     
-    public Connection getConnection()
+    public java.sql.Connection getConnection()
     {
         return this.connection;
     }// getConnection()
