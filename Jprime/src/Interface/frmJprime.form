@@ -118,9 +118,6 @@
                 <Property name="text" type="java.lang.String" value="stop enriching"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
-              <Events>
-                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBfrechet_stopEnriching1MouseReleased"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

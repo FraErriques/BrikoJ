@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import Common.DBservice.connectionProvider_postgreSql_Frechet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -168,11 +169,6 @@ public class frmJprime extends javax.swing.JFrame {
 
         mnuItem_DBfrechet_stopEnriching1.setText("stop enriching");
         mnuItem_DBfrechet_stopEnriching1.setToolTipText("");
-        mnuItem_DBfrechet_stopEnriching1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                mnuItem_DBfrechet_stopEnriching1MouseReleased(evt);
-            }
-        });
         mnuStrip_DB_ITFORS.add(mnuItem_DBfrechet_stopEnriching1);
 
         mnuStripTop.add(mnuStrip_DB_ITFORS);
@@ -273,22 +269,42 @@ public class frmJprime extends javax.swing.JFrame {
         {
             if( this.t.isAlive())
             {
-                this.t.interrupt();
-                this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
+                if( null != this.pgFrechet)
+                {
+                    try 
+                    {
+                        this.t.wait();
+                        if( this.pgFrechet.getConnection().isValid(0))
+                        {
+                            this.pgFrechet.getConnection().notify();
+                        }// else connection is invalid.
+                    } catch (Exception ex)
+                    {
+                        System.out.println(ex.getMessage() );
+                    }
+                    finally
+                    {
+                        this.t.interrupt();
+                        this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" isAlive at the stop-request time___" +this.t.isAlive() );
+                        this.t = null;//gc
+                    }
+                }// else the sticky connection has already been invalidated.
+                this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" isAlive but connection invalidated, at the stop-request time___" +this.t.isAlive() );
             }//
             else
             {
-                this.txtClipboard.append("\n thread nr."+ this.t.getId() +" is already dead." );
+                this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" is already dead." );
             }
         }// 
         else
         {
             this.txtClipboard.append("\n calculation thread is already NULL." );
         } 
-        if( null != this.pgFrechet)
-        {
-            this.pgFrechet.closeConnection();
-        }
+        //--- NO: thread-stop must not imply DB-socket-closure.
+        //        if( null != this.pgFrechet)
+        //        {
+        //            this.pgFrechet.closeConnection();
+        //        }
     }//GEN-LAST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
 
     private void mnuItem_ITFORS1011_ReadSingleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_ITFORS1011_ReadSingleMouseReleased
@@ -345,12 +361,6 @@ public class frmJprime extends javax.swing.JFrame {
             t.start();// thread start; the interrupt() will arrive either from menu or for job completion.
         }// synchro
     }//GEN-LAST:event_mnuItem_DBITFORS_enrichMouseReleased
-
-    private void mnuItem_DBfrechet_stopEnriching1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_stopEnriching1MouseReleased
-        this.t.interrupt();
-        this.pgFrechet.closeConnection();
-        this.txtClipboard.append("\n thread nr."+ this.t.getId() +" isAlive==" +this.t.isAlive() );
-    }//GEN-LAST:event_mnuItem_DBfrechet_stopEnriching1MouseReleased
 
     private void mnu_DBITFORS_AvailThreshMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_DBITFORS_AvailThreshMouseReleased
         // available threshold on ITFORS1011
@@ -480,15 +490,15 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnu_Item_DBfrechet_ReadRangeMouseReleased
 
     private void mnu_Item_DB_Frechet_AvailableThreshMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DB_Frechet_AvailableThreshMouseReleased
-        // available threshold on ITFORS1011
-        this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-        Connection connLocal = this.pgFrechet.getConnection();
+        // available threshold on Frechet : NO sticky connection.
+        Common.DBservice.connectionProvider_postgreSql_Frechet localFrechetConnProvider = new connectionProvider_postgreSql_Frechet();
+        Connection connLocal = localFrechetConnProvider.getConnection();
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultSet = null;
         try 
         {
             resultSet =
                 Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(connLocal);
-            this.pgFrechet.closeConnection();// throws
+            localFrechetConnProvider.closeConnection();// no sticky
         } 
         catch ( Exception ex) 
         {
