@@ -2,20 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="BrikoJ">
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/mySql_Template_2021Dez31_W02__1.sql</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/connectionProvider_postgreSql_ITFORS1011.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/connectionProvider_postgreSql_Frechet.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/MySql_1.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/mssql_Template_1.sql</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/proc__1.txt</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/PostgreSql_ZetaDump__1.txt</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/reportAuto_GE135ZJ__1.txt</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/Delta_Numerics_2022%23Jan%2305__1.txt</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql_ITFORS1011_.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/doc/table_genericaautovettura_PostgreSql__1.txt</file>
-        </group>
+        <group name="BrikoJ"/>
     </open-files>
 </project-private>
