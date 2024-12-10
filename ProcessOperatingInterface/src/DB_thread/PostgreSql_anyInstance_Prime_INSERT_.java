@@ -55,11 +55,12 @@ public class PostgreSql_anyInstance_Prime_INSERT_ implements Runnable
                 return;// on invalid connection
             }// else continue.
             //
-            for(long c=1; c<3000; c++)
+            long c=0;
+            while ( ! Thread.currentThread().isInterrupted() )
             {
-                Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(con, c);
-            }
-            con.close();// throws.
+                Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(con, c++);   
+            }// while (!Thread.currentThread().isInterrupted())
+            // NO: the sicky connection ha to be re-usable :con.close();// throws.
         }// try
         catch (Exception ex) 
         {
@@ -67,7 +68,7 @@ public class PostgreSql_anyInstance_Prime_INSERT_ implements Runnable
         }// catch
         finally
         {
-            con = null;// gc.
+            // NO: the sicky connection ha to be re-usable : con = null;// gc.
         }// finally
     } // run : end calculation thread.
     
