@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011 {
     
  
-    public static void usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_ (
+    public static long usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_ (
         long from
         ,long to
     ) throws SQLException 
@@ -36,10 +36,10 @@ public class usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011 {
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
 
         ArrayList<Entity.Proxy.PrimedataRiga> listOf_Riga = new ArrayList<Entity.Proxy.PrimedataRiga>();
-
+        Entity.Proxy.PrimedataRiga data = null;
         while( rs.next() )// fetch the DB-cursor.
         {
-            Entity.Proxy.PrimedataRiga data = new Entity.Proxy.PrimedataRiga();// a record(i.e. class) for each table-row.
+            data = new Entity.Proxy.PrimedataRiga();// a record(i.e. class) for each table-row.
             //
             long tmp_ordinal = rs.getLong("ordinal");// get db field by column name, specifying the data type.
             data.setOrdinal( tmp_ordinal);
@@ -52,8 +52,9 @@ public class usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011 {
             // dbg
             System.out.println( data.ord + "_____"+data.prime);
         }
-        System.out.println(" Resultset row cardinality == "+listOf_Riga.size());
+        // dbg System.out.println(" Resultset row cardinality == "+listOf_Riga.size());
         pgITFORS.closeConnection();
+        return data.prime;
     }// LOAD_MULTI    
     
 }// class

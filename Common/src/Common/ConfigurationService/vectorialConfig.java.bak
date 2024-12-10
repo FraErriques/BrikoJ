@@ -76,7 +76,8 @@ public class vectorialConfig extends KeyTokenRecognizer
             associated_value = (ArrayList<String>)(this.keyVectorMap.get( key));
             if( null != associated_value)
             {
-                associated_array = (ArrayList<String>)associated_value;
+                //associated_array = (ArrayList<String>)associated_value;
+                associated_array = (ArrayList<String>) associated_value;
                 outVec = new String[ associated_array.size()];
                 associated_array.toArray(outVec);// outVec here is a reference, which works as an output param.
             }
@@ -99,7 +100,7 @@ public class vectorialConfig extends KeyTokenRecognizer
     }//---end---- querying method for ALL keys -----------------------------------
         
  
-    //---- querying method for a single vector-value, associated with the required key---------------------
+        //---- querying method for a single vector-value, associated with the required key---------------------
     @SuppressWarnings("unchecked")
     public int[] tryGetIntVectorValuesOnKey( String key) throws Exception
     {
