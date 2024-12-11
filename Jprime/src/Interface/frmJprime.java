@@ -61,7 +61,7 @@ public class frmJprime extends javax.swing.JFrame {
         mnuItem_ITFORS1011_ReadSingle = new javax.swing.JMenuItem();
         mnu_Item_DBITFORS_ReadRange = new javax.swing.JMenuItem();
         mnuItem_DBITFORS_enrich = new javax.swing.JMenuItem();
-        mnuItem_DBfrechet_stopEnriching1 = new javax.swing.JMenuItem();
+        mnuItem_DBITFORS_stopEnriching = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,9 +167,14 @@ public class frmJprime extends javax.swing.JFrame {
         });
         mnuStrip_DB_ITFORS.add(mnuItem_DBITFORS_enrich);
 
-        mnuItem_DBfrechet_stopEnriching1.setText("stop enriching");
-        mnuItem_DBfrechet_stopEnriching1.setToolTipText("");
-        mnuStrip_DB_ITFORS.add(mnuItem_DBfrechet_stopEnriching1);
+        mnuItem_DBITFORS_stopEnriching.setText("stop enriching");
+        mnuItem_DBITFORS_stopEnriching.setToolTipText("");
+        mnuItem_DBITFORS_stopEnriching.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                mnuItem_DBITFORS_stopEnrichingMouseReleased(evt);
+            }
+        });
+        mnuStrip_DB_ITFORS.add(mnuItem_DBITFORS_stopEnriching);
 
         mnuStripTop.add(mnuStrip_DB_ITFORS);
 
@@ -519,6 +524,49 @@ public class frmJprime extends javax.swing.JFrame {
         }//else
     }//GEN-LAST:event_mnu_Item_DB_Frechet_AvailableThreshMouseReleased
 
+    private void mnuItem_DBITFORS_stopEnrichingMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBITFORS_stopEnrichingMouseReleased
+        if(null != this.t )    
+        {
+            if( this.t.isAlive())
+            {
+                if( null != this.pgITFORS1011)
+                {
+                    try 
+                    {
+                        this.t.wait();
+                        if( this.pgITFORS1011.getConnection().isValid(0))
+                        {
+                            this.pgITFORS1011.getConnection().notify();
+                        }// else connection is invalid.
+                    } catch (Exception ex)
+                    {
+                        System.out.println(ex.getMessage() );
+                    }
+                    finally
+                    {
+                        this.t.interrupt();
+                        this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" isAlive at the stop-request time___" +this.t.isAlive() );
+                        this.t = null;//gc
+                    }
+                }// else the sticky connection has already been invalidated.
+                this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" isAlive but connection invalidated, at the stop-request time___" +this.t.isAlive() );
+            }//
+            else
+            {
+                this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" is already dead." );
+            }
+        }// 
+        else
+        {
+            this.txtClipboard.append("\n calculation thread is already NULL." );
+        } 
+        //--- NO: thread-stop must not imply DB-socket-closure.
+        //        if( null != this.pgITFORS1011)
+        //        {
+        //            this.pgITFORS1011.closeConnection();
+        //        }
+    }//GEN-LAST:event_mnuItem_DBITFORS_stopEnrichingMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -557,9 +605,9 @@ public class frmJprime extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem mnuItem_DBITFORS_enrich;
+    private javax.swing.JMenuItem mnuItem_DBITFORS_stopEnriching;
     private javax.swing.JMenuItem mnuItem_DBfrechet_enrich;
     private javax.swing.JMenuItem mnuItem_DBfrechet_stopEnriching;
-    private javax.swing.JMenuItem mnuItem_DBfrechet_stopEnriching1;
     private javax.swing.JMenuItem mnuItem_Frechet_ReadSingle;
     private javax.swing.JMenuItem mnuItem_ITFORS1011_ReadSingle;
     private javax.swing.JMenuItem mnuItem_exit;

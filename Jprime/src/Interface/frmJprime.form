@@ -113,11 +113,14 @@
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBITFORS_enrichMouseReleased"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBfrechet_stopEnriching1">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuItem_DBITFORS_stopEnriching">
               <Properties>
                 <Property name="text" type="java.lang.String" value="stop enriching"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuItem_DBITFORS_stopEnrichingMouseReleased"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
