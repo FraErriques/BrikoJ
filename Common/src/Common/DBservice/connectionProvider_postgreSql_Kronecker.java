@@ -33,21 +33,21 @@ public class connectionProvider_postgreSql_Kronecker
     
     
     // Ctor
-    public connectionProvider_postgreSql_Kronecker()
+    public connectionProvider_postgreSql_Kronecker() throws Exception
     {
         try
         {
             Class.forName("org.postgresql.Driver");
             //
             connection = DriverManager.getConnection("jdbc:postgresql://Kronecker:5432/numerics", "postgres", "Riemann0");
+            System.out.println(" Connection to database opened successfully");
         }
         catch( Exception e)
         {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
+            System.out.println(e.getMessage());
+            // NO, stay in the app  : System.exit(0);
+            throw e;
         }
-        System.out.println(" Connection to database opened successfully");         
     }// Ctor    
     
     

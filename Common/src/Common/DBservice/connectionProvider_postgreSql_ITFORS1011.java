@@ -33,21 +33,21 @@ public class connectionProvider_postgreSql_ITFORS1011
     
     
     // Ctor
-    public connectionProvider_postgreSql_ITFORS1011()
+    public connectionProvider_postgreSql_ITFORS1011() throws Exception
     {
         try
         {
             Class.forName("org.postgresql.Driver");
             //
             connection = DriverManager.getConnection("jdbc:postgresql://ITFORS1011:5432/Numerics", "postgres", "Riemann0");
+            System.out.println(" Connection to database opened successfully");
         }
         catch( Exception e)
         {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
+            System.out.println(e.getMessage());
+            // NO, stay in the app  : System.exit(0);
+            throw e;
         }
-        System.out.println(" Connection to database opened successfully");         
     }// Ctor    
     
     
