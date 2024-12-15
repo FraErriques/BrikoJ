@@ -68,16 +68,14 @@ public class connectionProvider_postgreSql_Kronecker
                 if( connection.isValid(0))
                 {
                     connection.close();
-                }
-            }
+                }// else connection already closed
+            }// else connection already null
+            System.out.println(" Connection to database closed successfully");            
         }
         catch( Exception e)
         {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }        
-        System.out.println(" Connection to database closed successfully");        
+            System.err.println( "\n "+e.getMessage() );
+        }
     }// like Dtor
 
   

@@ -357,7 +357,6 @@ public class frmJprime extends javax.swing.JFrame {
         // if we get here : conn is valid.
         // case : Lower
         dlgLow = new dlgOrdinalAcquirer(this,true,false);
-
         dlgLow.setTitle("supply the Ordinal for the required Prime");
         dlgLow.setAlwaysOnTop(true);
         dlgLow.setVisible(true);
@@ -384,6 +383,8 @@ public class frmJprime extends javax.swing.JFrame {
         finally
         {
             dlgLow = null;//---gc------
+            volatileConnITFORS1011.closeConnection();
+            volatileConnITFORS1011 = null;// gc
         }
     }//GEN-LAST:event_mnuItem_ITFORS1011_ReadSingleMouseReleased
 
@@ -446,57 +447,83 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnu_DBITFORS_AvailThreshMouseReleased
 
     private void mnu_Item_DBITFORS_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
-            // an instance specific to each of the cases: {lower,upper}.
-            dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);
-            dlgOrdinalAcquirer dlgHigh = new dlgOrdinalAcquirer(this,true, true);
-            try
+        // an instance specific to each of the cases: {lower,upper}.
+        dlgOrdinalAcquirer dlgLow = null;
+        dlgOrdinalAcquirer dlgHigh = null;
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 volatileConnITFORS1011 = null;
+        java.sql.Connection connITFORS = null;
+        try
+        {
+            volatileConnITFORS1011 = 
+                    new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+            connITFORS = volatileConnITFORS1011.getConnection();
+            if(null==connITFORS || !connITFORS.isValid(0) )
             {
-                // case : Lower
-                dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
-                dlgLow.setAlwaysOnTop(true);
-                dlgLow.setVisible(true);
-                //------------on re-entry-------thread join from modal form-------------
-                dlgLow.dispose();//---gc------
-                // case : Upper
-                dlgHigh.setTitle("supply the Ordinal for the UPPER Prime");
-                dlgHigh.setAlwaysOnTop(true);
-                dlgHigh.setVisible(true);
-                //------------on re-entry-------thread join from modal form-------------
-                dlgHigh.dispose();//---gc------                
-                //---when here, we should have both boundaries {low,up}.
-                //
-                //---READ-MULTI: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongHigh);---
-                Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-                ArrayList<Entity.Proxy.PrimedataRiga> resultSet =
-                        Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
-                                connITFORS.getConnection()
-                                , this.theOrdinalLongLow
-                                , this.theOrdinalLongHigh ); // (low,high)
-                if( resultSet.isEmpty() )// no check for single-record, on multi-case. was... || 1!=resultSet.size()
-                {
-                    throw new Exception("\n\n The resultset is supposed to have cardinality>0. \n");
-                }
-                //
-                System.out.println( "\n" );
-                this.txtClipboard.append( "\n" );
-                for(int c=0; c<resultSet.size(); c++)
-                {
-                    System.out.println("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
-                    this.txtClipboard.append("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
-                }
+                throw new Exception("no valid db connection.\n");
             }
-            catch (Exception ex)
+        }
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getMessage() );
+            this.txtClipboard.append( ex.getMessage()+"\n" );
+            this.txtClipboard.append( " no valid db connection \n" );
+            return;// cannot continue.
+        }
+        // if we get here : conn is valid.
+        ArrayList<Entity.Proxy.PrimedataRiga> resultSet = null;
+        // case : Lower
+        dlgLow = new dlgOrdinalAcquirer(this,true, false);
+        dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
+        dlgLow.setAlwaysOnTop(true);
+        dlgLow.setVisible(true);
+        //------------on re-entry-------thread join from modal form-------------
+        dlgLow.dispose();//---gc------
+        // case : Upper
+        dlgHigh = new dlgOrdinalAcquirer(this,true,true);
+        dlgHigh.setTitle("supply the Ordinal for the UPPER Prime");
+        dlgHigh.setAlwaysOnTop(true);
+        dlgHigh.setVisible(true);
+        //------------on re-entry-------thread join from modal form-------------
+        dlgHigh.dispose();//---gc------                
+        //---when here, we should have both boundaries {low,up}.
+        try
+        {
+            //---READ-MULTI: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongHigh);---
+            Common.DBservice.connectionProvider_postgreSql_ITFORS1011 volatileITFORS = 
+                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+            resultSet =
+                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+                            volatileITFORS.getConnection()
+                            , this.theOrdinalLongLow
+                            , this.theOrdinalLongHigh ); // (low,high)
+            if( resultSet.isEmpty() )// no check for single-record, on multi-case. was... || 1!=resultSet.size()
             {
-                this.txtClipboard.append( ex.getMessage()+"\n" );
-                System.out.println(ex.getMessage() );
+                throw new Exception("\n\n The resultset is supposed to have cardinality>0. \n");
             }
-            finally
-            {
-                dlgLow = null;//---gc------
-                dlgHigh = null;//---gc------
-            }
+        }
+        catch( Exception ex)
+        {
+            System.out.println("\n " + ex.getMessage() );
+            this.txtClipboard.append( ex.getMessage()+"\n" );
+        }
+        finally
+        {
+            dlgLow = null;//---gc------
+            dlgHigh = null;//---gc------
+            volatileConnITFORS1011.closeConnection();
+        }
+        //
+        System.out.println( "\n" );
+        this.txtClipboard.append( "\n" );
+        for(int c=0; c<resultSet.size(); c++)
+        {
+            System.out.println("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+            this.txtClipboard.append("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+        }
     }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
 
+    
+    
     private void mnu_Item_DBfrechet_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBfrechet_ReadRangeMouseReleased
             // an instance specific to each of the cases: {lower,upper}.
             dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);

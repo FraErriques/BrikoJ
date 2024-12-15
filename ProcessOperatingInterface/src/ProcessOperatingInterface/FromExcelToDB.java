@@ -81,11 +81,12 @@ public class FromExcelToDB
     public static boolean ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
             String textDumpFullpath,
             String targaAutovettura
-    )
+    ) throws Exception
     {
         boolean res = false;
         //connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 postgreSql = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 postgreSql = 
+                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
         //----follows the sequence to be used:
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         ArrayList<ArrayList<String>> stringMatrix = fm.laboratory(textDumpFullpath);
