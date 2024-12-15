@@ -20,7 +20,7 @@ public class usp_PrimeData_LOAD_MULTI_Postgres_Frechet
     public static java.util.ArrayList<Entity.Proxy.PrimedataRiga>  usp_PrimeData_LOAD_MULTI_Postgres_Frechet_SERVICE_ (
         long from
         ,long to
-    ) throws SQLException 
+    ) throws Exception 
     {
         Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
         Connection con = pgFrechet.getConnection();

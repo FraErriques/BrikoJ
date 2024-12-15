@@ -16,7 +16,7 @@ public class postgres_Frechet_primedata_LOAD_MULTI_
 {
     public static java.util.ArrayList<Entity.Proxy.PrimedataRiga> postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(
         long from
-        ,long to    )
+        ,long to    ) throws Exception
     {    
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
         try 

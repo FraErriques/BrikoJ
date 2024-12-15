@@ -78,7 +78,7 @@ public class FromExcelToDB
     public static boolean ReportAuto_fromTABseparatedTxtDumpTo_PostgreSql_SERVICE(
             String textDumpFullpath,
             String targaAutovettura
-    )
+    ) throws Exception
     {
         boolean res = false;
         //connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.

@@ -32,21 +32,21 @@ public class connectionProvider_postgreSql_Frechet
     
     
     // Ctor
-    public connectionProvider_postgreSql_Frechet()
+    public connectionProvider_postgreSql_Frechet() throws Exception
     {
         try
         {
             Class.forName("org.postgresql.Driver");
             //
             connection = DriverManager.getConnection("jdbc:postgresql://Frechet:5432/numerics", "postgres", "Riemann0");
+            System.out.println(" Connection to database opened successfully");
         }
         catch( Exception e)
         {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
+            System.out.println(e.getMessage());
+            // NO, stay in the app  : System.exit(0);
+            throw e;
         }
-        System.out.println(" Connection to database opened successfully");         
     }// Ctor    
     
     
@@ -67,16 +67,14 @@ public class connectionProvider_postgreSql_Frechet
                 if( connection.isValid(0))
                 {
                     connection.close();
-                }
-            }
+                }// isClosed
+            }// null==conn
+            System.out.println(" Connection to database closed successfully"); 
         }
         catch( Exception e)
         {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }        
-        System.out.println(" Connection to database closed successfully");        
+            System.out.println( "\n "+e.getMessage());
+        }
     }// like Dtor
 
   

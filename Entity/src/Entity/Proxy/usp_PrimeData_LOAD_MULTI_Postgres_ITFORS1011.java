@@ -23,7 +23,7 @@ public class usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011 {
     public static long usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_ (
         long from
         ,long to
-    ) throws SQLException 
+    ) throws Exception 
     {
         
         Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();        

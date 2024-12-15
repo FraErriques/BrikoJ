@@ -5,8 +5,7 @@ package testconsole;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import Common.DBservice.connectionProvider_postgreSql_ITFORS1011;
-import Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011;
+
 
 
 
@@ -27,14 +26,18 @@ public class TestConsole
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
         try 
         {
-            //-----
             long localOrdinal = 3;
-            long prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
+            
+            resultset = Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+                    conn
+                    ,localOrdinal,localOrdinal);// read single
             //----
             resultset = 
-                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(conn, 1, 3);
+                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+                            conn
+                            , 1, 3);// read range
 
-            lastRecord = 
+            lastRecord = // LOAD_atMaxOrdinal
                     Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(conn);
         }// try
         catch (SQLException ex) 
