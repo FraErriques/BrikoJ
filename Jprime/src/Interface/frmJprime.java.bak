@@ -195,16 +195,6 @@ public class frmJprime extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuItem_exitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_exitMouseReleased
-        if(null!=this.pgFrechet)
-        {
-            this.pgFrechet.closeConnection();
-            this.pgFrechet = null;       
-        }
-        if(null!=this.pgITFORS1011 )
-        {
-            this.pgITFORS1011.closeConnection();
-            this.pgITFORS1011 = null;       
-        }        
         System.exit(0);// normal exit
     }//GEN-LAST:event_mnuItem_exitMouseReleased
 
@@ -394,8 +384,6 @@ public class frmJprime extends javax.swing.JFrame {
         finally
         {
             dlgLow = null;//---gc------
-            volatileConnITFORS1011.closeConnection();
-            volatileConnITFORS1011 = null;// gc
         }
     }//GEN-LAST:event_mnuItem_ITFORS1011_ReadSingleMouseReleased
 
