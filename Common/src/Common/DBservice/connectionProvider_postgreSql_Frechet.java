@@ -67,13 +67,13 @@ public class connectionProvider_postgreSql_Frechet
                 if( connection.isValid(0))
                 {
                     connection.close();
-                }// else connection already closed
-            }// else connection already null
-            System.out.println(" Connection to database closed successfully");            
+                }// isClosed
+            }// null==conn
+            System.out.println(" Connection to database closed successfully"); 
         }
         catch( Exception e)
         {
-            System.err.println( "\n "+e.getMessage() );
+            System.out.println( "\n "+e.getMessage());
         }
     }// like Dtor
 

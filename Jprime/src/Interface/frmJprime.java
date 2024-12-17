@@ -5,7 +5,10 @@
 package Interface;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +20,7 @@ public class frmJprime extends javax.swing.JFrame {
     // connection provider instances, to open and close the sticky connection, which is a local variable.
     Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
     Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
+    private static java.sql.Connection stickyConnection = null;// for the calculation thread.
     public long theOrdinalLongLow = -1L;// init to invalid.
     public long theOrdinalLongHigh = -1L;
 
@@ -195,6 +199,16 @@ public class frmJprime extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuItem_exitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_exitMouseReleased
+        if(null!=this.pgFrechet)
+        {
+            this.pgFrechet.closeConnection();
+            this.pgFrechet = null;       
+        }
+        if(null!=this.pgITFORS1011 )
+        {
+            this.pgITFORS1011.closeConnection();
+            this.pgITFORS1011 = null;       
+        }        
         System.exit(0);// normal exit
     }//GEN-LAST:event_mnuItem_exitMouseReleased
 
@@ -257,34 +271,46 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_Frechet_ReadSingleMouseReleased
 
     private void mnuItem_DBfrechet_enrichMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_enrichMouseReleased
-        Connection con = null;
-        if(null==this.pgFrechet)
+        try 
         {
-            try 
+            if(null==this.pgFrechet || null==stickyConnection || !stickyConnection.isValid(0) ) 
             {
-                this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-                con = pgFrechet.getConnection();    
-                if(null==con || !con.isValid(0) )
+                try
                 {
-                    throw new Exception("no valid db connection.\n");
+                    if(null==this.pgFrechet)
+                    {
+                        this.pgFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
+                    }
+                    if(null==stickyConnection || !stickyConnection.isValid(0))
+                    {
+                        stickyConnection = pgFrechet.getConnection();
+                    }
+                    if(null==stickyConnection || !stickyConnection.isValid(0))
+                    {
+                        throw new Exception("no valid db connection.\n");
+                    }
                 }
-            }
-            catch (Exception ex) 
-            {
-                System.out.println(ex.getMessage() );
-                this.txtClipboard.append( ex.getMessage()+"\n" );
-                this.txtClipboard.append( " no valid db connection \n" );
-                return;// cannot continue.
-            }
-        }// else sticky connection already on:
+                catch (Exception ex)
+                {
+                    System.out.println(ex.getMessage() );    
+                    this.txtClipboard.append( ex.getMessage()+"\n" );
+                    this.txtClipboard.append( " no valid db connection \n" );
+                    return;// cannot continue.
+                }
+            }// else sticky connection already on:
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(frmJprime.class.getName()).log(Level.SEVERE, null, ex);
+        }
         // if we get here : conn is valid.
         DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =//instance of the worker thread.
-                new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
+                new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, stickyConnection);
         this.t = new Thread( postgresPrimedata, "Frechet_prime_insert" );// Fork
-        synchronized (t)
+        synchronized (t) 
         {
             t.start();// thread start; the interrupt() will arrive either from menu or for job completion.
-        }// synchro
+        }// synchro        
     }//GEN-LAST:event_mnuItem_DBfrechet_enrichMouseReleased
 
     private void mnuItem_DBfrechet_stopEnrichingMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBfrechet_stopEnrichingMouseReleased
@@ -301,7 +327,8 @@ public class frmJprime extends javax.swing.JFrame {
                         {
                             this.pgFrechet.getConnection().notify();
                         }// else connection is invalid.
-                    } catch (Exception ex)
+                    } 
+                    catch (Exception ex)
                     {
                         System.out.println(ex.getMessage() );
                         this.txtClipboard.append( ex.getMessage()+"\n" );
@@ -313,11 +340,11 @@ public class frmJprime extends javax.swing.JFrame {
                         this.t = null;//gc
                     }
                 }// else the sticky connection has already been invalidated.
-                this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" isAlive but connection invalidated, at the stop-request time___" +this.t.isAlive() );
+                this.txtClipboard.append("\n  calculation thread  isAlive but connection invalidated, at the stop-request time___"  );
             }//
             else
             {
-                this.txtClipboard.append("\n thread nr. "+ this.t.getId() +" is already dead." );
+                this.txtClipboard.append("\n calculation thread  is already dead." );
             }
         }// 
         else
@@ -352,8 +379,7 @@ public class frmJprime extends javax.swing.JFrame {
             this.txtClipboard.append( ex.getMessage()+"\n" );
             this.txtClipboard.append( " no valid db connection \n" );
             return;// cannot continue.
-        }            
-        // else sticky connection already on:
+        }
         // if we get here : conn is valid.
         // case : Lower
         dlgLow = new dlgOrdinalAcquirer(this,true,false);
@@ -437,6 +463,8 @@ public class frmJprime extends javax.swing.JFrame {
         {
             System.out.println(ex.getMessage() );
             this.txtClipboard.append( ex.getMessage()+"\n" );
+            this.txtClipboard.append( " no valid db connection \n" );
+            return;// cannot continue.
         }
         if(null==resultSet || resultSet.isEmpty()) {return;}
         else
@@ -447,17 +475,89 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnu_DBITFORS_AvailThreshMouseReleased
 
     private void mnu_Item_DBITFORS_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
+            // an instance specific to each of the cases: {lower,upper}.
+            dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);
+            dlgOrdinalAcquirer dlgHigh = new dlgOrdinalAcquirer(this,true, true);
+            Common.DBservice.connectionProvider_postgreSql_ITFORS1011 volatileConnITFORS1011 = null;
+            Connection connITFORS = null;
+            try
+            {
+                volatileConnITFORS1011 = 
+                        new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+                connITFORS = volatileConnITFORS1011.getConnection();
+                if(null==connITFORS || !connITFORS.isValid(0) )
+                {
+                    throw new Exception("no valid db connection.\n");
+                }
+            }
+            catch (Exception ex) 
+            {
+                System.out.println(ex.getMessage() );
+                this.txtClipboard.append( ex.getMessage()+"\n" );
+                this.txtClipboard.append( " no valid db connection \n" );
+                return;// cannot continue.
+            }            
+            // if we get here : conn is valid.            
+            // case : Lower
+            dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
+            dlgLow.setAlwaysOnTop(true);
+            dlgLow.setVisible(true);
+            //------------on re-entry-------thread join from modal form-------------
+            dlgLow.dispose();//---gc------
+            // case : Upper
+            dlgHigh.setTitle("supply the Ordinal for the UPPER Prime");
+            dlgHigh.setAlwaysOnTop(true);
+            dlgHigh.setVisible(true);
+            //------------on re-entry-------thread join from modal form-------------
+            dlgHigh.dispose();//---gc------                
+            //---when here, we should have both boundaries {low,up}.
+            ArrayList<Entity.Proxy.PrimedataRiga> resultSet = null;
+            try
+            {
+                //---READ-MULTI: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongHigh);---
+                resultSet =
+                        Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+                                connITFORS 
+                                , this.theOrdinalLongLow
+                                , this.theOrdinalLongHigh ); // (low,high)
+                if( resultSet.isEmpty() )// no check for single-record, on multi-case. was... || 1!=resultSet.size()
+                {
+                    throw new Exception("\n\n The resultset is supposed to have cardinality>0. \n");
+                }            
+                //
+                System.out.println( "\n" );
+                this.txtClipboard.append( "\n" );
+                for(int c=0; c<resultSet.size(); c++)
+                {
+                    System.out.println("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+                    this.txtClipboard.append("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+                }
+            }
+            catch (Exception ex)
+            {
+                this.txtClipboard.append( ex.getMessage()+"\n" );
+                System.out.println(ex.getMessage() );
+            }
+            finally
+            {
+                dlgLow = null;//---gc------
+                dlgHigh = null;//---gc------
+                volatileConnITFORS1011.closeConnection();
+                volatileConnITFORS1011 = null;//gc
+            }
+    }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
+
+    private void mnu_Item_DBfrechet_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {                                                           
         // an instance specific to each of the cases: {lower,upper}.
-        dlgOrdinalAcquirer dlgLow = null;
-        dlgOrdinalAcquirer dlgHigh = null;
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 volatileConnITFORS1011 = null;
-        java.sql.Connection connITFORS = null;
+        Common.DBservice.connectionProvider_postgreSql_Frechet volatileConnFrechet = null;
+        java.sql.Connection connFrechet = null;            
+        //
         try
         {
-            volatileConnITFORS1011 = 
-                    new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-            connITFORS = volatileConnITFORS1011.getConnection();
-            if(null==connITFORS || !connITFORS.isValid(0) )
+            volatileConnFrechet = 
+                    new Common.DBservice.connectionProvider_postgreSql_Frechet();
+            connFrechet = volatileConnFrechet.getConnection();
+            if(null==connFrechet || !connFrechet.isValid(0) )
             {
                 throw new Exception("no valid db connection.\n");
             }
@@ -470,16 +570,15 @@ public class frmJprime extends javax.swing.JFrame {
             return;// cannot continue.
         }
         // if we get here : conn is valid.
-        ArrayList<Entity.Proxy.PrimedataRiga> resultSet = null;
         // case : Lower
-        dlgLow = new dlgOrdinalAcquirer(this,true, false);
+        dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);        
         dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
         dlgLow.setAlwaysOnTop(true);
         dlgLow.setVisible(true);
         //------------on re-entry-------thread join from modal form-------------
         dlgLow.dispose();//---gc------
         // case : Upper
-        dlgHigh = new dlgOrdinalAcquirer(this,true,true);
+        dlgOrdinalAcquirer dlgHigh = new dlgOrdinalAcquirer(this,true, true);        
         dlgHigh.setTitle("supply the Ordinal for the UPPER Prime");
         dlgHigh.setAlwaysOnTop(true);
         dlgHigh.setVisible(true);
@@ -488,91 +587,37 @@ public class frmJprime extends javax.swing.JFrame {
         //---when here, we should have both boundaries {low,up}.
         try
         {
-            //---READ-MULTI: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongHigh);---
-            Common.DBservice.connectionProvider_postgreSql_ITFORS1011 volatileITFORS = 
-                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-            resultSet =
+            ArrayList<Entity.Proxy.PrimedataRiga> resultSet =
                     Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
-                            volatileITFORS.getConnection()
-                            , this.theOrdinalLongLow
-                            , this.theOrdinalLongHigh ); // (low,high)
+                            connFrechet,
+                            this.theOrdinalLongLow,  this.theOrdinalLongHigh ); // (low,high)
             if( resultSet.isEmpty() )// no check for single-record, on multi-case. was... || 1!=resultSet.size()
             {
-                throw new Exception("\n\n The resultset is supposed to have cardinality>0. \n");
+                throw new Exception("the resultset is supposed to have cardinality>0.");
+            }
+            //
+            System.out.println( "\n\n" );
+            this.txtClipboard.append( "\n\n" );
+            for(int c=0; c<resultSet.size(); c++)
+            {
+                System.out.println( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
+                this.txtClipboard.append( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime()+ "\n" );
             }
         }
-        catch( Exception ex)
+        catch (Exception ex)
         {
-            System.out.println("\n " + ex.getMessage() );
             this.txtClipboard.append( ex.getMessage()+"\n" );
+            System.out.println("\n " + ex.getMessage() );
         }
         finally
         {
             dlgLow = null;//---gc------
             dlgHigh = null;//---gc------
-            volatileConnITFORS1011.closeConnection();
+            volatileConnFrechet.closeConnection();
+            volatileConnFrechet = null;
         }
-        //
-        System.out.println( "\n" );
-        this.txtClipboard.append( "\n" );
-        for(int c=0; c<resultSet.size(); c++)
-        {
-            System.out.println("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
-            this.txtClipboard.append("\n"+ resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
-        }
-    }//GEN-LAST:event_mnu_Item_DBITFORS_ReadRangeMouseReleased
+    }
 
-    
-    
-    private void mnu_Item_DBfrechet_ReadRangeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DBfrechet_ReadRangeMouseReleased
-            // an instance specific to each of the cases: {lower,upper}.
-            dlgOrdinalAcquirer dlgLow = new dlgOrdinalAcquirer(this,true,false);
-            dlgOrdinalAcquirer dlgHigh = new dlgOrdinalAcquirer(this,true, true);
-            try
-            {
-                // case : Lower
-                dlgLow.setTitle("supply the Ordinal for the LOWER Prime");
-                dlgLow.setAlwaysOnTop(true);
-                dlgLow.setVisible(true);
-                //------------on re-entry-------thread join from modal form-------------
-                dlgLow.dispose();//---gc------
-                // case : Upper
-                dlgHigh.setTitle("supply the Ordinal for the UPPER Prime");
-                dlgHigh.setAlwaysOnTop(true);
-                dlgHigh.setVisible(true);
-                //------------on re-entry-------thread join from modal form-------------
-                dlgHigh.dispose();//---gc------                
-                //---when here, we should have both boundaries {low,up}.
-                //
-                //---READ-MULTI: i.e. Postgres_PrimeData_LOAD_MULTI_SERVICE_(theOrdinalLongLow,theOrdinalLongHigh);---
-                Common.DBservice.connectionProvider_postgreSql_Frechet connFrechet = new Common.DBservice.connectionProvider_postgreSql_Frechet();
-                ArrayList<Entity.Proxy.PrimedataRiga> resultSet =
-                        Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(connFrechet.getConnection(),
-                                this.theOrdinalLongLow,  this.theOrdinalLongHigh ); // (low,high)
-                if( resultSet.isEmpty() )// no check for single-record, on multi-case. was... || 1!=resultSet.size()
-                {
-                    throw new Exception("the resultset is supposed to have cardinality>0.");
-                }
-                //
-                System.out.println( "\n\n" );
-                this.txtClipboard.append( "\n\n" );
-                for(int c=0; c<resultSet.size(); c++)
-                {
-                    System.out.println( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime() );
-                    this.txtClipboard.append( resultSet.get(c).getOrdinal() + "____"+resultSet.get(c).getPrime()+ "\n" );
-                }
-            }
-            catch (Exception ex)
-            {
-                this.txtClipboard.append( ex.getMessage()+"\n" );
-                System.out.println(ex.getMessage() );
-            }
-            finally
-            {
-                dlgLow = null;//---gc------
-                dlgHigh = null;//---gc------
-            }
-    }//GEN-LAST:event_mnu_Item_DBfrechet_ReadRangeMouseReleased
 
     private void mnu_Item_DB_Frechet_AvailableThreshMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_Item_DB_Frechet_AvailableThreshMouseReleased
         // available threshold on Frechet : NO sticky connection.
@@ -594,6 +639,8 @@ public class frmJprime extends javax.swing.JFrame {
         {
             System.out.println(ex.getMessage() );
             this.txtClipboard.append( ex.getMessage()+"\n" );
+            this.txtClipboard.append( " no valid db connection \n" );
+            return;// cannot continue.
         }
         finally
         {

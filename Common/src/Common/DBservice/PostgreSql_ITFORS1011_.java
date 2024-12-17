@@ -128,19 +128,15 @@ public class PostgreSql_ITFORS1011_
                 if( connection.isValid(0))
                 {
                     connection.close();
-                }
-            }
+                }// isClosed
+            }// null==conn
+            System.out.println(" Connection to database closed successfully"); 
         }
         catch( Exception e)
         {
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }        
-        System.out.println(" Connection to database closed successfully");
-    }// like Dtor    
+            System.out.println( "\n "+e.getMessage());
+        }
+    }// like Dtor
 
-    
-    
-    
+
 }// class
