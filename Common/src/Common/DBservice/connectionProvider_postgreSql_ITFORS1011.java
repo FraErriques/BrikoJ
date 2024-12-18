@@ -76,6 +76,10 @@ public class connectionProvider_postgreSql_ITFORS1011
         {
             System.out.println( "\n "+e.getMessage());
         }
+        finally
+        {
+            connection = null;//gc
+        }
     }// like Dtor
 
   
