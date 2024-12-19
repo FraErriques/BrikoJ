@@ -18,8 +18,8 @@ public class frmJprime extends javax.swing.JFrame {
     //----data member--------
     private Thread t;// calculation thread for db-enrichment.
     // connection provider instances, to open and close the sticky connection, which is a local variable.
-    Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
-    Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
+    private static Common.DBservice.connectionProvider_postgreSql_Frechet pgFrechet;
+    private static Common.DBservice.connectionProvider_postgreSql_ITFORS1011 pgITFORS1011;
     private static java.sql.Connection stickyConnection = null;// for the calculation thread.
     public long theOrdinalLongLow = -1L;// init to invalid.
     public long theOrdinalLongHigh = -1L;
@@ -217,8 +217,12 @@ public class frmJprime extends javax.swing.JFrame {
     private void mnuItem_DB_AvailableThresholdMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdMouseReleased
 
     }//GEN-LAST:event_mnuItem_DB_AvailableThresholdMouseReleased
+    // TODO add your handling code here:
+    // TODO add your handling code here:
+    // TODO add your handling code here:
 
  
+
 
 
 
@@ -415,29 +419,28 @@ public class frmJprime extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuItem_ITFORS1011_ReadSingleMouseReleased
 
     private void mnuItem_DBITFORS_enrichMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DBITFORS_enrichMouseReleased
-        Connection con = null;
-        if(null==this.pgITFORS1011)
+        try 
         {
-            try
+            if(null== frmJprime.pgITFORS1011 )
             {
-                this.pgITFORS1011 = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-                con = pgITFORS1011.getConnection();
-                if(null==con || !con.isValid(0) )
-                {
-                    throw new Exception("no valid db connection.\n");
-                }                
-            }
-            catch (Exception ex) 
+                frmJprime.pgITFORS1011 = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+            }// else already initialized.            
+            if( null==frmJprime.stickyConnection || !frmJprime.stickyConnection.isValid(0) )
             {
-                System.out.println(ex.getMessage() );
-                this.txtClipboard.append( ex.getMessage()+"\n" );
-                this.txtClipboard.append( " no valid db connection \n" );
-                return;// cannot continue.
-            }
-        }// else sticky connection already on:
+                frmJprime.stickyConnection = frmJprime.pgITFORS1011.getConnection();
+            }// else already initialized.
+        }
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getMessage() );
+            this.txtClipboard.append( ex.getMessage()+"\n" );
+            this.txtClipboard.append( " no valid db connection \n" );
+            return;// cannot continue.
+        }
+        // else sticky connection already on:
         // if we get here : conn is valid.
         DB_thread.PostgreSql_anyInstance_Prime_INSERT_ postgresPrimedata =//instance of the worker thread.
-                new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, con);
+                new DB_thread.PostgreSql_anyInstance_Prime_INSERT_(txtClipboard, frmJprime.stickyConnection);
         // Fork
         this.t = new Thread( postgresPrimedata, "ITFORS1011_prime_insert" );// Fork
         synchronized (t)
@@ -449,22 +452,35 @@ public class frmJprime extends javax.swing.JFrame {
     private void mnu_DBITFORS_AvailThreshMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnu_DBITFORS_AvailThreshMouseReleased
         // available threshold on ITFORS1011
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultSet = null;
-        try 
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 volatileConnITFORS1011 = null;
+        Connection connITFORS = null;
+        try
         {
-            this.pgITFORS1011 = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-            Connection connLocal = this.pgITFORS1011.getConnection();            
-            if(null != connLocal && connLocal.isValid(0) )
+            volatileConnITFORS1011 = 
+                    new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+            connITFORS = volatileConnITFORS1011.getConnection();
+            if(null==connITFORS || !connITFORS.isValid(0) )
+            {
+                throw new Exception("no valid db connection.\n");
+            }
+            if( null!=connITFORS && connITFORS.isValid(0) )
             {
                 resultSet =
-                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(connLocal);
+                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(
+                            connITFORS );
             }// else don't query.
-        } 
+        }
         catch (Exception ex) 
         {
             System.out.println(ex.getMessage() );
             this.txtClipboard.append( ex.getMessage()+"\n" );
             this.txtClipboard.append( " no valid db connection \n" );
             return;// cannot continue.
+        }
+        finally
+        {
+            volatileConnITFORS1011.closeConnection();
+            volatileConnITFORS1011 = null;
         }
         if(null==resultSet || resultSet.isEmpty()) {return;}
         else
@@ -648,7 +664,7 @@ public class frmJprime extends javax.swing.JFrame {
         }
         if(null==resultSet || resultSet.isEmpty()) 
         {
-            return;
+            this.txtClipboard.append("\n the table -primedata- is empty or the primary key has been desrupted, due to partial deletion. \n");
         }
         else
         {
