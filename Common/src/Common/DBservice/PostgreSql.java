@@ -12,7 +12,7 @@ import java.sql.Statement;
  *
  * @author fra
  */
-public class PostgreSql_
+public class PostgreSql
 {
     // Data
     public Connection connection=null;
@@ -37,7 +37,7 @@ public class PostgreSql_
     
     
     // Ctor
-    public PostgreSql_()
+    public PostgreSql()
     {
         try
         {

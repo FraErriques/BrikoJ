@@ -422,7 +422,7 @@ public class frmJprime extends javax.swing.JFrame {
             }// else already initialized.            
             if( null==frmJprime.stickyConnection || !frmJprime.stickyConnection.isValid(0) )
             {
-                frmJprime.stickyConnection = this.pgITFORS1011.getConnection();
+                frmJprime.stickyConnection = frmJprime.pgITFORS1011.getConnection();
             }// else already initialized.
         }
         catch (Exception ex) 
@@ -477,7 +477,10 @@ public class frmJprime extends javax.swing.JFrame {
             volatileConnITFORS1011.closeConnection();
             volatileConnITFORS1011 = null;
         }
-        if(null==resultSet || resultSet.isEmpty()) {return;}
+        if(null==resultSet || resultSet.isEmpty()) 
+        {
+            this.txtClipboard.append("\n the resultset is empty. \n" );
+        }
         else
         {
             Entity.Proxy.PrimedataRiga lastRow = resultSet.get(0);
@@ -659,7 +662,7 @@ public class frmJprime extends javax.swing.JFrame {
         }
         if(null==resultSet || resultSet.isEmpty()) 
         {
-            return;
+            this.txtClipboard.append("\n the table -primedata- is empty or the primary key has been desrupted, due to partial deletion. \n");
         }
         else
         {

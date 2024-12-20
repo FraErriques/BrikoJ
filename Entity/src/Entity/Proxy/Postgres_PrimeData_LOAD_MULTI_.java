@@ -4,9 +4,7 @@
  */
 package Entity.Proxy;
 
-import Common.DBservice.connectionProvider_postgreSql_Frechet;
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class Postgres_PrimeData_LOAD_MULTI_
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
         // prepare to fetch the DB-cursor into a Java-resultset.
         ArrayList<Entity.Proxy.PrimedataRiga> listOf_Riga = new ArrayList<Entity.Proxy.PrimedataRiga>();
-        //
+        int rowCount=0;
         while( rs.next() )// cursor fetch
         {
             Entity.Proxy.PrimedataRiga data = new Entity.Proxy.PrimedataRiga();// next row.
@@ -48,10 +46,15 @@ public class Postgres_PrimeData_LOAD_MULTI_
             listOf_Riga.add(data);// add the row in the ArrayList that will contain the resultset.
             // dbg
             System.out.println( data.ord + "_____"+data.prime);
+            rowCount++;
         }// cursor fetch
         //
         System.out.println("Total resultset="+listOf_Riga.size() );
         // DON'T : the caller must close the sticky connection.  conn.close();
+        if(0==rowCount)
+        {
+            listOf_Riga = null;// gc & signal the empty resultset.
+        }        
         //
         return listOf_Riga;
     }// LOAD_MULTI
