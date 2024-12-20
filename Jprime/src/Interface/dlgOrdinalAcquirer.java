@@ -17,6 +17,7 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
     public dlgOrdinalAcquirer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.getRootPane().setDefaultButton(btnSubmit);// TODO still not working
     }
     
     // Ctor custom : specify if the field "ordinal" has to be read in the "upper" variable xor int the "lower" one.
@@ -26,6 +27,7 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
         //
         this.isUpper = isUpper;// specify the role of the present instance.
         this.theCaller = ((Interface.frmJprime)parent);
+        this.getRootPane().setDefaultButton(btnSubmit);// TODO still not working
     }// Ctor custom
 
     /**
@@ -83,6 +85,7 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
 
     private void txtOrdinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdinalMouseClicked
         this.txtOrdinal.setText("");// clean up the txtBox onClick.
+        this.getRootPane().setDefaultButton(btnSubmit);// TODO still not working
     }//GEN-LAST:event_txtOrdinalMouseClicked
 
     private void btnSubmitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseReleased
