@@ -217,11 +217,6 @@ public class frmJprime extends javax.swing.JFrame {
     private void mnuItem_DB_AvailableThresholdMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItem_DB_AvailableThresholdMouseReleased
 
     }//GEN-LAST:event_mnuItem_DB_AvailableThresholdMouseReleased
-    // TODO add your handling code here:
-    // TODO add your handling code here:
-    // TODO add your handling code here:
-
- 
 
 
 
@@ -482,7 +477,10 @@ public class frmJprime extends javax.swing.JFrame {
             volatileConnITFORS1011.closeConnection();
             volatileConnITFORS1011 = null;
         }
-        if(null==resultSet || resultSet.isEmpty()) {return;}
+        if(null==resultSet || resultSet.isEmpty()) 
+        {
+            this.txtClipboard.append("\n the resultset is empty. \n" );
+        }
         else
         {
             Entity.Proxy.PrimedataRiga lastRow = resultSet.get(0);

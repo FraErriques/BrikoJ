@@ -38,7 +38,7 @@ public class ZetaDump extends TxtParser
     }// Ctor
     
     public void Postgres_ProxyWrapper_(
-        Common.DBservice.PostgreSql postgreSql    
+        Common.DBservice.PostgreSql postgreSql
     )
     {
         Entity.Proxy.PostgreSql_ZetaDump.usp_Numerics_ZetaDump(

@@ -4,6 +4,9 @@
  */
 package Interface;
 
+import javax.swing.InputMap;
+import javax.swing.KeyStroke;
+
 /**
  *
  * @author fra
@@ -17,6 +20,13 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
     public dlgOrdinalAcquirer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        //
+    InputMap im = this.btnSubmit.getInputMap();
+    im.put(KeyStroke.getKeyStroke("ENTER"), "pressed");
+    im.put(KeyStroke.getKeyStroke("released ENTER"), "released");
+    //
+//        JRootPane rootPane = SwingUtilities.getRootPane( this.btnSubmit);
+//        rootPane.getRootPane().setDefaultButton(btnSubmit);// TODO still not working
     }
     
     // Ctor custom : specify if the field "ordinal" has to be read in the "upper" variable xor int the "lower" one.
@@ -26,6 +36,13 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
         //
         this.isUpper = isUpper;// specify the role of the present instance.
         this.theCaller = ((Interface.frmJprime)parent);
+        //
+    InputMap im = this.btnSubmit.getInputMap();
+    im.put(KeyStroke.getKeyStroke("ENTER"), "pressed");
+    im.put(KeyStroke.getKeyStroke("released ENTER"), "released");
+    //
+//        JRootPane rootPane = SwingUtilities.getRootPane( this.btnSubmit);
+//        rootPane.getRootPane().setDefaultButton(btnSubmit);// TODO still not working
     }// Ctor custom
 
     /**
@@ -52,6 +69,9 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
         btnSubmit.setText("Submit");
         btnSubmit.setToolTipText("");
         btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnSubmitMouseReleased(evt);
             }
@@ -75,7 +95,7 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
                 .addComponent(txtOrdinal, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSubmit)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,6 +103,7 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
 
     private void txtOrdinalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdinalMouseClicked
         this.txtOrdinal.setText("");// clean up the txtBox onClick.
+        // this.txtOrdinal.getRootPane().setDefaultButton(btnSubmit);// TODO still not working
     }//GEN-LAST:event_txtOrdinalMouseClicked
 
     private void btnSubmitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseReleased
@@ -107,6 +128,10 @@ public class dlgOrdinalAcquirer extends javax.swing.JDialog {
             //this.dispose();// gc ---from caller
         }
     }//GEN-LAST:event_btnSubmitMouseReleased
+
+    private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
+        this.btnSubmitMouseReleased(evt);
+    }//GEN-LAST:event_btnSubmitMouseClicked
 
     /**
      * @param args the command line arguments
