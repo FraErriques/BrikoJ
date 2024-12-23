@@ -23,6 +23,9 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
+        
+        
+        
         X x = new X();
         Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
         try 

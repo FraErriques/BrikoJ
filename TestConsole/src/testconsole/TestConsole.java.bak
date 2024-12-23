@@ -5,8 +5,9 @@ package testconsole;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import Common.DBservice.connectionProvider_postgreSql_ITFORS1011;
-import Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 
@@ -14,27 +15,42 @@ import Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011;
 public class TestConsole
 {
 
-    
+    private static class X
+    {// static class is allowed in Java, only on nested classes.
+        
+    }
 
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS =
-                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        X x = new X();
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
+        try 
+        {
+            connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Connection conn = connectorITFORS.getConnection();
         //
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
         try 
         {
-            //-----
             long localOrdinal = 3;
-            long prime = Entity.Proxy.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011.usp_PrimeData_LOAD_MULTI_Postgres_ITFORS1011_SERVICE_(localOrdinal,localOrdinal);
+            
+            resultset = Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+                    conn
+                    ,localOrdinal,localOrdinal);// read single
             //----
             resultset = 
-                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(conn, 1, 3);
+                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+                            conn
+                            , 1, 3);// read range
 
-            lastRecord = 
+            lastRecord = // LOAD_atMaxOrdinal
                     Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(conn);
         }// try
         catch (SQLException ex) 
@@ -42,9 +58,9 @@ public class TestConsole
             System.out.println(ex.getMessage());
         }
         //
+        if(null==resultset){return;}//else continue.
         for(int c=0; c<resultset.size(); c++)
         {
-            if(null==resultset){break;}//else continue.
             // resultset.get(c) eccess ArrayList element
             System.out.println( 
                     ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+
