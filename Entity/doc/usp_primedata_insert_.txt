@@ -1,0 +1,18 @@
+-- PROCEDURE: public.usp_primedata_insert(bigint)
+
+-- DROP PROCEDURE IF EXISTS public.usp_primedata_insert(bigint);
+
+CREATE OR REPLACE PROCEDURE public.usp_primedata_insert(
+	IN par_prime bigint)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into PrimeData(
+    prime
+  ) values(
+par_prime );
+commit;
+end;
+$BODY$;
+ALTER PROCEDURE public.usp_primedata_insert(bigint)
+    OWNER TO postgres;
