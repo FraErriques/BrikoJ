@@ -5,6 +5,8 @@ package testconsole;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -13,13 +15,27 @@ import java.sql.SQLException;
 public class TestConsole
 {
 
-    
+    private static class X
+    {// static class is allowed in Java, only on nested classes.
+        
+    }
 
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS =
-                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        
+        
+        
+        X x = new X();
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
+        try 
+        {
+            connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Connection conn = connectorITFORS.getConnection();
         //
         java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;

@@ -5,7 +5,6 @@
 package Entity.Proxy;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_
     public static java.util.ArrayList<Entity.Proxy.PrimedataRiga>  usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_ (
             java.sql.Connection con   )   throws SQLException 
     {
-        if(null==con)
+        if(null==con || !con.isValid(0) )
         {
             return null;
         }// else continue.  
@@ -30,11 +29,11 @@ public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_
             return null;
         }// else continue.              
         //Call to postgresql function:
-        String query="select * from public.primedata_LOAD_AtMaxOrdinal()";
+        String query="select * from public.primedata_LOAD_AtMaxOrdinal();";
         CallableStatement ps = con.prepareCall(query);//<------------------------------------------------NB----------
-        //ps.setInt(1,5); ???? // it means we are setting value 5 at first index.
         ResultSet rs = ps.executeQuery();//<------------------------------------------------NB----------
         ArrayList<Entity.Proxy.PrimedataRiga> listOf_Riga = new ArrayList<Entity.Proxy.PrimedataRiga>();
+        int rowCount=0;
         while( rs.next() )// fetch the DB-cursor.
         {
             Entity.Proxy.PrimedataRiga data = new Entity.Proxy.PrimedataRiga();// a record(i.e. class) for each table-row.
@@ -49,8 +48,13 @@ public class usp_PrimeData_LOAD_atMaxOrdinal_Postgres_
             // 
             // dbg
             System.out.println( data.ord + "_____"+data.prime);
+            rowCount++;// accumulate on the row counter.
         }
         System.out.println(" Resultset row cardinality == "+listOf_Riga.size());
+        if(0==rowCount)
+        {
+            listOf_Riga = null;// gc & signal the empty resultset.
+        }
         // DON'T caller must do it : con.close();
         //
         return listOf_Riga;

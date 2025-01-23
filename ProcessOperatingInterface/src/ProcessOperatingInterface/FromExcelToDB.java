@@ -82,7 +82,8 @@ public class FromExcelToDB
     {
         boolean res = false;
         //connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 postgreSql = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 postgreSql = 
+                new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
         //----follows the sequence to be used:
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         ArrayList<ArrayList<String>> stringMatrix = fm.laboratory(textDumpFullpath);
@@ -141,7 +142,7 @@ public class FromExcelToDB
     {
         boolean res = false;
         //connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
-        Common.DBservice.PostgreSql_ postgreSql = new Common.DBservice.PostgreSql_();//connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
+        Common.DBservice.PostgreSql postgreSql = new Common.DBservice.PostgreSql();//connection string set on ITBZOW1422::PostgreSql::Numerics. Hard coded, by now.
         //----follows the sequence to be used:
         Common.FileSys.FileManipulation fm = new Common.FileSys.FileManipulation();
         ArrayList<ArrayList<String>> stringMatrix = fm.laboratory(textDumpFullpath);

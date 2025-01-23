@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Entity.Proxy;
 
 import java.sql.Statement;
@@ -39,8 +36,8 @@ public class PostgreSql_usp_PrimeData_INSERT_ {
         catch( Exception e)
         {
             e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
+            System.out.println("\n "+e.getMessage());
+            // NO: stay in app. System.exit(0);
         }        
     }// db Numerics usp_primedata_insert
 
