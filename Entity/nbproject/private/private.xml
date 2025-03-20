@@ -7,5 +7,10 @@
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.java</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/PostgreSql_usp_PrimeData_INSERT_.java</file>
         </group>
+        <group>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/Postgres_PrimeData_LOAD_MULTI_.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/PostgreSql_usp_PrimeData_INSERT_.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Entity/src/Entity/Proxy/usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.java</file>
+        </group>
     </open-files>
 </project-private>

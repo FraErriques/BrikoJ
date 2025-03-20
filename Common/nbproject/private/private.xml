@@ -8,5 +8,11 @@
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/scalarConfig.java</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/vectorialConfig.java</file>
         </group>
+        <group>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/Singleton/Singleton.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/KeyTokenRecognizer.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/scalarConfig.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/vectorialConfig.java</file>
+        </group>
     </open-files>
 </project-private>

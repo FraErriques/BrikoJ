@@ -3,10 +3,6 @@ package testconsole;
 
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 
@@ -23,64 +19,98 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
+        // X x = new X();
         
-        
-        
-        X x = new X();
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
+        Common.DBservice.MsSql connectorKronecker = null;
+        String connUrl = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
+//        String connUrl = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
+        boolean isValid_conn = false;
         try 
         {
-            connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+            connectorKronecker = new Common.DBservice.MsSql(connUrl);
+            isValid_conn = connectorKronecker.connection.isValid(0);// infinite timeout.
+            int i = 2+3;
         } 
+//        catch (ClassNotFoundException cnfex)
+//        {
+//            System.out.println(cnfex.getMessage());
+//        }
         catch (Exception ex) 
-        {
-            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Connection conn = connectorITFORS.getConnection();
-        //
-        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
-        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
-        try 
-        {
-            long localOrdinal = 3;
-            
-            resultset = Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
-                    conn
-                    ,localOrdinal,localOrdinal);// read single
-            //----
-            resultset = 
-                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
-                            conn
-                            , 1, 3);// read range
-
-            lastRecord = // LOAD_atMaxOrdinal
-                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(conn);
-        }// try
-        catch (SQLException ex) 
         {
             System.out.println(ex.getMessage());
         }
-        //
-        if(null==resultset){return;}//else continue.
-        for(int c=0; c<resultset.size(); c++)
+        if(isValid_conn)
         {
-            // resultset.get(c) eccess ArrayList element
-            System.out.println( 
-                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+
-                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getPrime()             );
-        }// fro
-        System.out.println( "Last Record : " +
-                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getOrdinal() +"__"+
-                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getPrime()             );
+            connectorKronecker.closeConnection();
+        }// else already closed.
+
+    }// main
+
+            
+    
+    
+}// end class TestConsole
+
         
-        //----- Process::
-        Entity.Proxy.PrimedataRiga processLastRecord = 
-                ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_(null, conn);
-        if(null==processLastRecord){return;}//else continue.
-        System.out.println( "Process:: Last Record : " +
-                processLastRecord.getOrdinal() +"__"+
-                processLastRecord.getPrime()             );        
-        //---process
+
+
+//
+///*  ------------------------------- cantina ------------------------------------------
+////
+//        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
+//        try 
+//        {
+//            connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+//        } 
+//        catch (Exception ex) 
+//        {
+//            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Connection conn = connectorITFORS.getConnection();
+//        //
+//        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
+//        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
+//        try 
+//        {
+//            long localOrdinal = 3;
+//            
+//            resultset = Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+//                    conn
+//                    ,localOrdinal,localOrdinal);// read single
+//            //----
+//            resultset = 
+//                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+//                            conn
+//                            , 1, 3);// read range
+//
+//            lastRecord = // LOAD_atMaxOrdinal
+//                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(conn);
+//        }// try
+//        catch (SQLException ex) 
+//        {
+//            System.out.println(ex.getMessage());
+//        }
+//        //
+//        if(null==resultset){return;}//else continue.
+//        for(int c=0; c<resultset.size(); c++)
+//        {
+//            // resultset.get(c) eccess ArrayList element
+//            System.out.println( 
+//                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+
+//                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getPrime()             );
+//        }// fro
+//        System.out.println( "Last Record : " +
+//                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getOrdinal() +"__"+
+//                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getPrime()             );
+//        
+//        //----- Process::
+//        Entity.Proxy.PrimedataRiga processLastRecord = 
+//                ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_(null, conn);
+//        if(null==processLastRecord){return;}//else continue.
+//        System.out.println( "Process:: Last Record : " +
+//                processLastRecord.getOrdinal() +"__"+
+//                processLastRecord.getPrime()             );        
+//        //---process
 //        java.util.ArrayList<Entity.Proxy.PrimedataRiga> oneRow =  
 //                ProcessOperatingInterface. .postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,5);
 //        java.util.ArrayList<Entity.Proxy.PrimedataRiga> multiRow =  
@@ -101,19 +131,6 @@ public class TestConsole
 //                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getOrdinal() +"__"+
 //                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getPrime()             );
 //        }           
-    }// main
-
-            
-    
-    
-}// end class TestConsole
-
-        
-
-
-//
-///*  ------------------------------- cantina ------------------------------------------
-////
 //        
 //        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
 //            new java.util.Hashtable< String, java.util.Stack<String> >();
