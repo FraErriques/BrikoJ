@@ -1,0 +1,36 @@
+-- Table: public.generica_autovettura
+
+-- DROP TABLE public.generica_autovettura;
+
+CREATE TABLE IF NOT EXISTS public.generica_autovettura
+(
+    autovettura_id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    targa_autovettura character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    registration_date date,
+    km real,
+    rifornimento_luogo character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    rifornimento_litri real,
+    costo_gasolio_euro_litro real,
+    spesa_gasolio_euro real,
+    accessori_descriz character varying(255) COLLATE pg_catalog."default",
+    accessori_euro real,
+    lavaggio_descr character varying(255) COLLATE pg_catalog."default",
+    lavaggio_euro real,
+    manutenzione_descr character varying(255) COLLATE pg_catalog."default",
+    data_ingresso_officina date,
+    data_uscita_officina date,
+    manutenzione_euro real,
+    altro_descriz character varying(255) COLLATE pg_catalog."default",
+    altro_euro real,
+    sinistro_descriz character varying(255) COLLATE pg_catalog."default",
+    conducente character varying(255) COLLATE pg_catalog."default",
+    riga_descriz character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    costo_totale_riga_euro real NOT NULL,
+    franchigia_assicurazione_euro real,
+    CONSTRAINT pk_dotazioni2022_genericaautovettura_ PRIMARY KEY (autovettura_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.generica_autovettura
+    OWNER to postgres;

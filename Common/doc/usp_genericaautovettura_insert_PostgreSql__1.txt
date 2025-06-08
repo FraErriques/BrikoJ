@@ -1,0 +1,82 @@
+-- PROCEDURE: public.usp_genericaautovettura_insert(character varying, date, real, character varying, real, real, real, character varying, real, character varying, real, character varying, date, date, real, character varying, real, character varying, character varying, character varying, real, real)
+
+-- DROP PROCEDURE public.usp_genericaautovettura_insert(character varying, date, real, character varying, real, real, real, character varying, real, character varying, real, character varying, date, date, real, character varying, real, character varying, character varying, character varying, real, real);
+
+CREATE OR REPLACE PROCEDURE public.usp_genericaautovettura_insert(
+	IN par_targa_autovettura character varying,
+	IN par_registration_date date,
+	IN par_km real,
+	IN par_rifornimento_luogo character varying,
+	IN par_rifornimento_litri real,
+	IN par_costo_gasolio_euro_litro real,
+	IN par_spesa_gasolio_euro real,
+	IN par_accessori_descriz character varying,
+	IN par_accessori_euro real,
+	IN par_lavaggio_descr character varying,
+	IN par_lavaggio_euro real,
+	IN par_manutenzione_descr character varying,
+	IN par_data_ingresso_officina date,
+	IN par_data_uscita_officina date,
+	IN par_manutenzione_euro real,
+	IN par_altro_descriz character varying,
+	IN par_altro_euro real,
+	IN par_sinistro_descriz character varying,
+	IN par_conducente character varying,
+	IN par_riga_descriz character varying,
+	IN par_costo_totale_riga_euro real,
+	IN par_franchigia_assicurazione_euro real)
+LANGUAGE 'plpgsql'
+AS $BODY$
+begin
+insert into generica_autovettura(
+	--@autovettura_id [int] IDENTITY(1,1) NOT NULL,
+targa_autovettura,
+registration_date ,
+km,
+rifornimento_luogo,
+rifornimento_litri ,
+costo_gasolio_euro_litro ,
+spesa_gasolio_euro ,
+accessori_descriz ,
+accessori_euro,
+lavaggio_descr,
+lavaggio_euro,
+manutenzione_descr,
+data_ingresso_officina,
+data_uscita_officina,
+manutenzione_euro,
+altro_descriz,
+altro_euro,
+sinistro_descriz,
+conducente,
+riga_descriz ,
+costo_totale_riga_euro ,
+franchigia_assicurazione_euro 
+									) values(
+--  id IDENTITY									
+par_targa_autovettura ,
+par_registration_date , 
+par_km,
+par_rifornimento_luogo,
+par_rifornimento_litri,
+par_costo_gasolio_euro_litro ,
+par_spesa_gasolio_euro ,
+par_accessori_descriz ,
+par_accessori_euro ,
+par_lavaggio_descr ,
+par_lavaggio_euro ,
+par_manutenzione_descr ,
+par_data_ingresso_officina ,
+par_data_uscita_officina ,
+par_manutenzione_euro ,
+par_altro_descriz ,
+par_altro_euro ,
+par_sinistro_descriz ,
+par_conducente ,
+par_riga_descriz ,
+par_costo_totale_riga_euro ,
+par_franchigia_assicurazione_euro 
+);
+commit;
+end;
+$BODY$;

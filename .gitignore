@@ -6,13 +6,21 @@ Debug/
 Release/
 build/
 dist/
+/Common/nbproject/private/
+/Entity/nbproject/private/
+/Jprime/nbproject/private/
+/NumericalAnalysis/nbproject/private/
+/ProcessOperatingInterface/nbproject/private/
+/TestConsole/nbproject/private/
+/TestGUI/nbproject/private/
+/zJprime/nbproject/private/
+
+
 
 #let's continue with file cathegories
 *.o
 *.a
 *.exe
 *.dll
-*.cbp
 *.class
-*.private.properties
 

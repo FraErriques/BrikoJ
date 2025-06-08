@@ -1,33 +1,9 @@
 
 package testconsole;
 
-import Common.EncryptStore.*;
-import Common.DBservice.*;
-import Common.FileSys.TokenReader;     
-import Common.ConfigurationService.*;
-import Common.MonteCarlo.*;        
-import Entity.Proxy.MsSqlServer_ZetaDump;
-import NumericalAnalysis.ComplexField.Complex;
-import ProcessOperatingInterface.*;
-import Common.Dictionary.*;
-//
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.lang.System;
-import java.sql.CallableStatement;
-import java.util.Set;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 
 
 
@@ -35,44 +11,39 @@ import java.io.InputStreamReader;
 public class TestConsole
 {
 
+    private static class X
+    {// static class is allowed in Java, only on nested classes.
+        
+    }
+
     /******************* EntryPoint ****************************/
-    
-    public static void rubrica_Parser(String[] args) throws IOException 
-    { 
-        File dir;
-        dir = new File(System.getProperty("user.dir"));
-        String absolutePath = dir.getAbsolutePath();
-        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
-    
-        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
-        String fullpath = "data/telExport_Excel_TAB_.txt";
-        ArrayList<String[]> tokenizedFile =
-            dictionary.txtStringMatrix(fullpath);
-        //dictionary.traverseDirect();
-        dictionary.mapListener();
-        dictionary.NodeGarbageCollection();
-        dictionary = null;// gc
-        //ready
-    }// rubrica_Parser
-    
-    // Entry Point
-    // test performed on Weierstrass on 2024.may.28
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
-        for( double c=+1.0; c<10; c+= +0.1)
+        // X x = new X();
+        
+        Common.DBservice.MsSql connectorKronecker = null;
+        String connUrl = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
+//        String connUrl = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
+        boolean isValid_conn = false;
+        try 
         {
-            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
-                    c,
-                    c+1,
-                    c+2,
-                    c+3,
-                    c+4,
-                    c+5 
-            );
-        }// for
-        //postgSql.insertionLoop_template();
-        postgSql.closeConnection();
+            connectorKronecker = new Common.DBservice.MsSql(connUrl);
+            isValid_conn = connectorKronecker.connection.isValid(0);// infinite timeout.
+            int i = 2+3;
+        } 
+//        catch (ClassNotFoundException cnfex)
+//        {
+//            System.out.println(cnfex.getMessage());
+//        }
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        if(isValid_conn)
+        {
+            connectorKronecker.closeConnection();
+        }// else already closed.
+
     }// main
 
             
@@ -85,7 +56,165 @@ public class TestConsole
 
 //
 ///*  ------------------------------- cantina ------------------------------------------
+////
+//        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
+//        try 
+//        {
+//            connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+//        } 
+//        catch (Exception ex) 
+//        {
+//            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Connection conn = connectorITFORS.getConnection();
+//        //
+//        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
+//        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
+//        try 
+//        {
+//            long localOrdinal = 3;
+//            
+//            resultset = Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+//                    conn
+//                    ,localOrdinal,localOrdinal);// read single
+//            //----
+//            resultset = 
+//                    Entity.Proxy.Postgres_PrimeData_LOAD_MULTI_.Postgres_PrimeData_LOAD_MULTI_SERVICE_(
+//                            conn
+//                            , 1, 3);// read range
 //
+//            lastRecord = // LOAD_atMaxOrdinal
+//                    Entity.Proxy.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_.usp_PrimeData_LOAD_atMaxOrdinal_Postgres_SERVICE_(conn);
+//        }// try
+//        catch (SQLException ex) 
+//        {
+//            System.out.println(ex.getMessage());
+//        }
+//        //
+//        if(null==resultset){return;}//else continue.
+//        for(int c=0; c<resultset.size(); c++)
+//        {
+//            // resultset.get(c) eccess ArrayList element
+//            System.out.println( 
+//                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getOrdinal() +"__"+
+//                    ((Entity.Proxy.PrimedataRiga)(resultset.get(c))).getPrime()             );
+//        }// fro
+//        System.out.println( "Last Record : " +
+//                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getOrdinal() +"__"+
+//                ((Entity.Proxy.PrimedataRiga)(lastRecord.get(0))).getPrime()             );
+//        
+//        //----- Process::
+//        Entity.Proxy.PrimedataRiga processLastRecord = 
+//                ProcessOperatingInterface.postgres_LoadAtMaxOrdinal.postgres_LoadAtMaxOrdinal_SERVICE_(null, conn);
+//        if(null==processLastRecord){return;}//else continue.
+//        System.out.println( "Process:: Last Record : " +
+//                processLastRecord.getOrdinal() +"__"+
+//                processLastRecord.getPrime()             );        
+//        //---process
+//        java.util.ArrayList<Entity.Proxy.PrimedataRiga> oneRow =  
+//                ProcessOperatingInterface. .postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,5);
+//        java.util.ArrayList<Entity.Proxy.PrimedataRiga> multiRow =  
+//                ProcessOperatingInterface.postgres_Frechet_primedata_LOAD_MULTI_.postgres_Frechet_primedata_LOAD_MULTI_SERVICE_(5,15);
+        //
+//        for(int c=0; c<multiRow.size(); c++)
+//        {
+//            // resultset.get(c) eccess ArrayList element
+//            System.out.println( 
+//                    ((Entity.Proxy.PrimedataRiga)(multiRow.get(c))).getOrdinal() +"__"+
+//                    ((Entity.Proxy.PrimedataRiga)(multiRow.get(c))).getPrime()             );
+//        }        
+//        //
+//        for(int c=0; c<oneRow.size(); c++)
+//        {
+//            // resultset.get(c) eccess ArrayList element
+//            System.out.println( 
+//                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getOrdinal() +"__"+
+//                    ((Entity.Proxy.PrimedataRiga)(oneRow.get(c))).getPrime()             );
+//        }           
+//        
+//        java.util.Hashtable< String, java.util.Stack<String> > threadLoggingStack =
+//            new java.util.Hashtable< String, java.util.Stack<String> >();
+//        
+//        for(int c=0; c<50; c++)
+//        {
+//            ThreadForker theForker = new ThreadForker();
+//            String threadName = Common.MonteCarlo.MonteCarloGenerator.UID();
+//            Thread t = new Thread( theForker, threadName );            
+//            threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            //
+//            t.start();// run asynchronously.
+//            //
+//            if( threadLoggingStack.containsKey( threadName) )
+//            {
+//                System.out.println("key representing thread named : "+threadName+" found.");
+//                long cardThreadStack = 0;
+//                cardThreadStack = Common.MonteCarlo.MonteCarloGenerator.nextInteger(1, 16);
+//                for(int d=0; d<cardThreadStack; d++)
+//                {
+//                    threadLoggingStack.get( threadName).addElement("stack level "+d+" on "+ threadName);
+//                }
+//            }
+//            else
+//            {
+//                System.out.println("key representing thread named : "+threadName+" NOT found.");
+//                threadLoggingStack.putIfAbsent( threadName, new java.util.Stack<String>() );
+//            }
+//            
+//        }// for 50 forks
+//        
+//        Set<String> theKeys = threadLoggingStack.keySet();
+//        Object[] theKeysArray = theKeys.toArray();
+//        for( int c=0; c<theKeysArray.length; c++)
+//        {
+//            System.out.println( (String)(theKeysArray[c]) );
+//            int cardCurThreadStack = threadLoggingStack.get( (String)(theKeysArray[c]) ).size();
+//            for( int d=0; d<cardCurThreadStack; d++)
+//            {
+//                System.out.println( threadLoggingStack.get( (String)(theKeysArray[c]) ).get(d) );
+//            }// for cardCurThreadStack
+//            System.out.println( );
+//        }// for each thread.        
+//        //
+//        // done        
+//        
+//        
+        //----
+//        Common.DBservice.PostgreSql postgSql = new Common.DBservice.PostgreSql();
+////        for( double c=+1.0; c<10; c+= +0.1)
+//        for( long P=1; P<10; P++)
+//        {
+//            Entity.Proxy.PostgreSql_usp_PrimeData_INSERT_.usp_PrimeData_INSERT_(postgSql.connection, P);
+////            Entity.Table.SomeEntity.usp_Numerics_ZetaDump(postgSql.connection,
+////                    c,
+////                    c+1,
+////                    c+2,
+////                    c+3,
+////                    c+4,
+////                    c+5 
+////            );
+//        }// for
+//        //postgSql.insertionLoop_template();
+//        postgSql.closeConnection();
+//    
+//    public static void rubrica_Parser(String[] args) throws IOException 
+//    { 
+//        File dir;
+//        dir = new File(System.getProperty("user.dir"));
+//        String absolutePath = dir.getAbsolutePath();
+//        System.out.println("\n\t The present working dir (pwd) is "+ absolutePath);
+//    
+//        Common.Dictionary.MapOperation dictionary = new Common.Dictionary.MapOperation();
+//        String fullpath = "data/telExport_Excel_TAB_.txt";
+//        ArrayList<String[]> tokenizedFile =
+//            dictionary.txtStringMatrix(fullpath);
+//        //dictionary.traverseDirect();
+//        dictionary.mapListener();
+//        dictionary.NodeGarbageCollection();
+//        dictionary = null;// gc
+//        //ready
+//    }// rubrica_Parser
+//    
+
         //--test file tokenization
 //        for( int row=0; row<tokenizedFile.size(); row++)
 //        {
