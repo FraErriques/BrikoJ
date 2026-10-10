@@ -21,14 +21,14 @@ public class TestConsole
     {
         // X x = new X();
         
-        Common.DBservice.MsSql connectorKronecker = null;
-        String connUrl = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
+        Common.DBservice.MsSql connectorFrechet = null;
+        String connUrl = "jdbc:sqlserver://Frechet;databaseName=PrimeData;user=sa;password=Riemann0";
 //        String connUrl = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
         boolean isValid_conn = false;
         try 
         {
-            connectorKronecker = new Common.DBservice.MsSql(connUrl);
-            isValid_conn = connectorKronecker.connection.isValid(0);// infinite timeout.
+            connectorFrechet = new Common.DBservice.MsSql(connUrl);
+            isValid_conn = connectorFrechet.connection.isValid(0);// infinite timeout.
             int i = 2+3;
         } 
 //        catch (ClassNotFoundException cnfex)
@@ -41,7 +41,7 @@ public class TestConsole
         }
         if(isValid_conn)
         {
-            connectorKronecker.closeConnection();
+            connectorFrechet.closeConnection();
         }// else already closed.
 
     }// main
