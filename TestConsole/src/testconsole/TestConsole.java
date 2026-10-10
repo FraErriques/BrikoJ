@@ -19,6 +19,7 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
+        // test from the Riemann new on 2026-October-10
         // X x = new X();
         
         Common.DBservice.MsSql connectorFrechet = null;
