@@ -26,6 +26,7 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
+
         //X x = new X();
 
         
@@ -71,10 +72,60 @@ public class TestConsole
         
 
 
+        // X x = new X();
+        
+        Common.DBservice.MsSql connectorKronecker = null;
+//        String connUrl = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
+        String connUrl = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
+        boolean isValid_conn = false;
+        try 
+        {
+            connectorKronecker = new Common.DBservice.MsSql(connUrl);
+            isValid_conn = connectorKronecker.connection.isValid(0);// infinite timeout.
+            int i = 2+3;
+        } 
+//        catch (ClassNotFoundException cnfex)
+//        {
+//            System.out.println(cnfex.getMessage());
+//        }
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        if(isValid_conn)
+        {
+            connectorKronecker.closeConnection();
+        }// else already closed.
+
+    }// main
+
+            
+    
+    
+}// end class TestConsole
+
+        
+
+
+
+
 //
 ///*  ------------------------------- cantina ------------------------------------------
 ////
+
 //
+
+//        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
+//        try 
+//        {
+//            connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
+//        } 
+//        catch (Exception ex) 
+//        {
+//            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Connection conn = connectorITFORS.getConnection();
+
 //        //
 //        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
 //        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
