@@ -4,12 +4,10 @@ package testconsole;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -22,67 +20,82 @@ public class TestConsole
     {// static class is allowed in Java, only on nested classes.
         
     }
+    
+    public static void loopSinkDb(Connection conn)
+    {
+       // SQL statements calling the PostgreSQL functions we ported
+        String createTableSql = "SELECT create_log_table(?)";
+        String traceSql = "SELECT trace(?, ?, ?, ?, ?, ?)";
+        // -- logging tools:
+        // Define your pattern for date-time : // Output looks like: 2026-10-20 13:15:00        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = LocalDateTime.now().format(formatter);
+        String logTableName = "mercurio";
+       
+ 
+
+            // 1. Call create_log_table() once
+            try (PreparedStatement pstmt = conn.prepareStatement(createTableSql)) {
+                pstmt.setString(1, logTableName);
+                pstmt.execute();
+                System.out.println("-> Checked/Created log table: " + logTableName);
+            }
+           catch (Throwable t) {
+                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
+                System.out.println("Something catastrophic happened: " + t.getMessage());
+            }            
+
+            for (int c=1; c<= 100; c++)
+            {
+            // 2. First call to trace()
+            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
+                pstmt.setString(1, logTableName);
+                pstmt.setString(2, LocalDateTime.now().format(formatter) );
+                pstmt.setString(3, "INF");
+                pstmt.setString(4, "1");
+                pstmt.setString(5, "Main");
+                pstmt.setString(6, "Application initialized successfully.");
+                pstmt.execute();
+                System.out.println("-> Inserted first trace log.");
+            }
+           catch (Throwable t) {
+                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
+                System.out.println("Something catastrophic happened: " + t.getMessage());
+            }            
+
+            // 3. Second call to trace()
+            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
+                pstmt.setString(1, logTableName);
+                pstmt.setString(2, LocalDateTime.now().format(formatter) );
+                pstmt.setString(3, "DBG");
+                pstmt.setString(4, "2");
+                pstmt.setString(5, "ConnectModule");
+                pstmt.setString(6, "Sub-system modules loaded and verified.");
+                pstmt.execute();
+                System.out.println("-> Inserted second trace log.");
+            }
+           catch (Throwable t) {
+                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
+                System.out.println("Something catastrophic happened: " + t.getMessage());
+            }            
+           
+            }// for        
+            
+
+    }// loopSinkDb
 
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
+        Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
 
-        //X x = new X();
-
-        
-        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
-        Common.DBservice.MsSql msSqlClient = null;
-        try 
-        {
-            @SuppressWarnings("deprecation")
-            Driver d = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-            //Driver d = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();  
-            String connectionUrl = "jdbc:sqlserver://ITFORS1011;instanceName=SUZE;encrypt=false;database=dotazioni;integratedSecurity=false;";
-            Connection con = d.connect(connectionUrl, new Properties());            
-            //----
-            java.sql.Connection mssqlconnection = null;
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            //String connectionUrl   = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
-            mssqlconnection = DriverManager.getConnection(connectionUrl);
-            //--------
-            msSqlClient = new Common.DBservice.MsSql( connectionUrl);
-            boolean isValidConnection = msSqlClient.connection.isValid(0);
-            msSqlClient.closeConnection();
-            //connectorITFORS = new Common.DBservice.connectionProvider_postgreSql_ITFORS1011();
-        }
-        catch( ClassNotFoundException cnf)
-        {
-            cnf.printStackTrace();
-            System.err.println(cnf.getClass().getName()+": "+cnf.getMessage());        
-        }        
-        catch (Exception ex) 
-        {
-            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Connection conn = connectorITFORS.getConnection();
-        
-
-    }// main
-
-            
-    
-    
-}// end class TestConsole
-
-        
-
-
-        // X x = new X();
-        
-        Common.DBservice.MsSql connectorKronecker = null;
-//        String connUrl = "jdbc:sqlserver://Kronecker;instanceName=Delta;databaseName=PrimeData;user=sa;password=Riemann0";
-        String connUrl = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
         boolean isValid_conn = false;
         try 
         {
-            connectorKronecker = new Common.DBservice.MsSql(connUrl);
-            isValid_conn = connectorKronecker.connection.isValid(0);// infinite timeout.
-            int i = 2+3;
+            _ITFORS1011 = new Common.DBservice.ConnectionProviderPostgreSqlITFORS1011();
+            isValid_conn = _ITFORS1011.getConnection().isValid(0);// infinite timeout.
+            int i = 2+3;//dbg step here
+            loopSinkDb( _ITFORS1011.getConnection());
         } 
 //        catch (ClassNotFoundException cnfex)
 //        {
@@ -94,7 +107,7 @@ public class TestConsole
         }
         if(isValid_conn)
         {
-            connectorKronecker.closeConnection();
+            _ITFORS1011.closeConnection();  
         }// else already closed.
 
     }// main
@@ -107,14 +120,16 @@ public class TestConsole
         
 
 
-
-
 //
 ///*  ------------------------------- cantina ------------------------------------------
+///
+///        // test from the Riemann new on 2026-October-10
+//        // X x = new X();
+//        
+//        Common.DBservice.MsSql connectorFrechet = null;
+//        String connUrl = "jdbc:sqlserver://Frechet;databaseName=PrimeData;user=sa;password=Riemann0";
+//        String connUrl = "jdbc:sqlserver://synerisprod.BBT.INT;instanceName=syneris;databaseName=syneris;user=cg_read;password=cg_read";
 ////
-
-//
-
 //        Common.DBservice.connectionProvider_postgreSql_ITFORS1011 connectorITFORS = null;
 //        try 
 //        {
@@ -125,7 +140,6 @@ public class TestConsole
 //            Logger.getLogger(TestConsole.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        Connection conn = connectorITFORS.getConnection();
-
 //        //
 //        java.util.ArrayList<Entity.Proxy.PrimedataRiga> resultset = null;
 //        java.util.ArrayList<Entity.Proxy.PrimedataRiga> lastRecord = null;
