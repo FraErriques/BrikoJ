@@ -1,0 +1,23 @@
+-- FUNCTION: public.primedata_load_multi(bigint, bigint)
+
+-- DROP FUNCTION IF EXISTS public.primedata_load_multi(bigint, bigint);
+
+CREATE OR REPLACE FUNCTION public.primedata_load_multi(
+	start_ordinal bigint,
+	end_ordinal bigint)
+    RETURNS SETOF primedata 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+  SELECT *
+  FROM public.primedata
+  where	
+  	ordinal >= start_ordinal
+	and ordinal <= end_ordinal;
+$BODY$;
+
+ALTER FUNCTION public.primedata_load_multi(bigint, bigint)
+    OWNER TO postgres;

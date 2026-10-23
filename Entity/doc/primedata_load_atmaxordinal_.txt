@@ -1,0 +1,19 @@
+-- FUNCTION: public.primedata_load_atmaxordinal()
+
+-- DROP FUNCTION IF EXISTS public.primedata_load_atmaxordinal();
+
+CREATE OR REPLACE FUNCTION public.primedata_load_atmaxordinal(
+	)
+    RETURNS SETOF primedata 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+  SELECT ordinal, prime FROM public.primedata
+  where ordinal=( select count(ordinal) from primedata);
+$BODY$;
+
+ALTER FUNCTION public.primedata_load_atmaxordinal()
+    OWNER TO postgres;

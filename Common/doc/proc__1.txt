@@ -1,0 +1,16 @@
+create or replace procedure usp_dump2021Dez30_INSERT (
+    Par_abscissa float,
+    Par_ordinate float
+)
+language plpgsql    
+as $$
+begin
+    insert into dump2021Dez30(
+    --id
+    abscissa,
+    ordinate   ) values(
+    Par_abscissa,
+    Par_ordinate );
+    commit;
+end;$$
+;

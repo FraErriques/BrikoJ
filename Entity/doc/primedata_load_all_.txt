@@ -1,0 +1,18 @@
+-- FUNCTION: public.primedata_load_all()
+
+-- DROP FUNCTION IF EXISTS public.primedata_load_all();
+
+CREATE OR REPLACE FUNCTION public.primedata_load_all(
+	)
+    RETURNS SETOF primedata 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+  SELECT * FROM public.primedata;-- no where
+$BODY$;
+
+ALTER FUNCTION public.primedata_load_all()
+    OWNER TO postgres;

@@ -87,17 +87,36 @@ public class MapOperation
     public boolean prune_recordLayout( String[] columns)
     {
         boolean res = false;// init to invalid
-        if(true)//NB add here the pruning criteria
+        try
         {
-            TheNode curRow = new TheNode( 
-                    columns[2], 
-                    columns[3],
-                    columns[5], 
-                    columns[6]            
-            );
-            this.dictionary.put(columns[2], curRow);
-            res = true;
-        }// else res stays false
+            if(columns.length >= 4)//NB add here the pruning criteria
+            {
+//                // DBG
+//                System.out.println("String array cardinality is "+columns.length);
+//                for(int c=0; c<columns.length; c++)
+//                {
+//                    System.out.println(columns[c]);
+//                }
+//                System.out.println("columns[2]=="+columns[2]);
+//                System.out.println("columns[3]=="+columns[3]);
+//                System.out.println("columns[5]=="+columns[5]);
+//                System.out.println("columns[6]=="+columns[6]);
+//                // DBG
+                TheNode curRow = new TheNode( 
+                        columns[2], 
+                        columns[3],
+                        columns[5], 
+                        columns[6]            
+                );
+                this.dictionary.put(columns[2], curRow);
+                res = true;
+            }// else skip inadequate row.
+        }// try
+        catch(Exception ex)
+        {
+            System.out.println("Exception raised while pruning. See: MapOperation::prune_recordLayout.");
+            System.out.println(ex.getMessage());
+        }// catch
         // ready
         return res;
     }// prune_recordLayout

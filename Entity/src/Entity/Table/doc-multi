@@ -1,0 +1,125 @@
+CREATE TABLE public.doc_multi (
+    id SERIAL PRIMARY KEY,
+    ref_job_id INT NOT NULL DEFAULT 0,
+    ref_autore_id INT NOT NULL,
+    ref_materia_id INT NOT NULL,
+    abstract TEXT NOT NULL,
+    sourceName VARCHAR(550) NOT NULL,
+    doc BYTEA NULL,
+    insertion_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_docMulti_autore 
+        FOREIGN KEY (ref_autore_id) 
+        REFERENCES public.autore (id),
+        
+    CONSTRAINT fk_docMulti_materia 
+        FOREIGN KEY (ref_materia_id) 
+        REFERENCES public.materia_LOOKUP (id)
+);
+
+SQL
+
+CREATE OR REPLACE PROCEDURE public.usp_docMulti_INSERT(
+    IN p_ref_job_id INT,
+    IN p_ref_autore_id INT,
+    IN p_ref_materia_id INT,
+    IN p_abstract TEXT,
+    IN p_sourceName VARCHAR(550),
+    IN p_doc BYTEA,
+    INOUT p_result INT -- Acts as both input and output parameter
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Check if ref_job_id is valid
+    IF p_ref_job_id < 0 THEN
+        RAISE EXCEPTION '---NB. @ref_job_id ----- must be specified and >=0. Zero on first_insert, positive on Append.'
+            USING ERRCODE = '22023'; -- Invalid parameter value
+    END IF;
+
+    -- Insert the record and capture the generated identity/serial id directly into p_result
+    INSERT INTO public.docMulti (
+        ref_job_id,
+        ref_autore_id,
+        ref_materia_id,
+        abstract,
+        sourceName,
+        doc
+    ) VALUES (
+        p_ref_job_id,
+        p_ref_autore_id,
+        p_ref_materia_id,
+        p_abstract,
+        p_sourceName,
+        p_doc
+    )
+    RETURNING id INTO p_result;
+
+    -- Explicit commit for the successful transaction block
+    COMMIT;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Rollback on any error and set result code to -1
+        ROLLBACK;
+        p_result := -1;
+        -- Optionally re-raise or suppress; here we assign -1 to match your CATCH behavior
+END;
+$$;
+
+SQL
+
+DO $$
+DECLARE
+    v_new_id INT := 0;
+BEGIN
+    CALL public.usp_docMulti_INSERT(
+        0,                        -- ref_job_id
+        1,                        -- ref_autore_id (must exist in autore table)
+        1,                        -- ref_materia_id (must exist in materia_LOOKUP table)
+        'This is the abstract text',
+        'source_file.dat',
+        NULL,                     -- doc binary data (BYTEA)
+        v_new_id                  -- output result variable
+    );
+    RAISE NOTICE 'Generated ID result: %', v_new_id;
+END $$;
+
+SQL
+
+CREATE OR REPLACE FUNCTION public.usp_docMulti_dataMining(p_id_last_phase INT)
+RETURNS SETOF INT
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_ref_job_id INT;
+BEGIN
+    v_ref_job_id := p_id_last_phase;
+    
+    -- Return the initial starting ID (matches your initial select @ref_job_id)
+    RETURN NEXT v_ref_job_id;
+    
+    -- Loop while ref_job_id is greater than 0
+    WHILE v_ref_job_id > 0 LOOP
+        -- Fetch the next ref_job_id in the chain for the current id
+        SELECT ref_job_id INTO v_ref_job_id 
+        FROM public.docMulti 
+        WHERE id = v_ref_job_id;
+        
+        -- If no matching record is found, exit safely
+        IF NOT FOUND THEN
+            EXIT;
+        END IF;
+        
+        -- Return the next chunk pointer in the sequence
+        RETURN NEXT v_ref_job_id;
+    END LOOP;
+    
+    RETURN;
+END;
+$$;
+
+-- Grant execution permissions
+GRANT EXECUTE ON FUNCTION public.usp_docMulti_dataMining(INT) TO PUBLIC;
+GRANT EXECUTE ON FUNCTION public.usp_docMulti_dataMining(INT) TO app_user;
+
