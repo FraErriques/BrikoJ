@@ -1,26 +1,39 @@
-
-#let's start with directories
+# --- Build Outputs & Binaries ---
 bin/
 obj/
 Debug/
 Release/
 build/
 dist/
-/Common/nbproject/private/
-/Entity/nbproject/private/
-/Jprime/nbproject/private/
-/NumericalAnalysis/nbproject/private/
-/ProcessOperatingInterface/nbproject/private/
-/TestConsole/nbproject/private/
-/TestGUI/nbproject/private/
-/zJprime/nbproject/private/
+/out/
+/target/
 
-
-
-#let's continue with file cathegories
+# System / Compiled Files
 *.o
 *.a
 *.exe
 *.dll
 *.class
 
+# --- IDE & Private User Settings ---
+# Automatically covers all submodules (Common, Entity, Jprime, etc.)
+**/nbproject/private/
+**/nbproject/project.xml
+private.properties.xml
+local.properties
+*.local.xml
+
+# Eclipse & IntelliJ (if used)
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# --- Backup Files ---
+*.bak
+
+# --- Operating System Files ---
+.DS_Store
+Thumbs.db
+desktop.ini
