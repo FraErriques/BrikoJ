@@ -55,6 +55,7 @@ public class ConnectionProviderPostgreSqlITFORS1011 {
     }
 
     // Explicit manual close method
+    
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

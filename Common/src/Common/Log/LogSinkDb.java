@@ -13,13 +13,9 @@ import java.time.format.DateTimeFormatter;
 
 /************************************************************
 A Logging class, on the Sink DataBase.
-*/
-public class LogSinkDb
-{
-
-
-
-/*  TODO
+* follow the db-scripts, to be executed prior to use the application layer:
+* 
+* 
 1) create database logging NB. lowercase
 2) FUNCTION public.create_log_table(text)
 3) :
@@ -37,9 +33,8 @@ ALTER FUNCTION public.trace(text, text, text, text, text, text)
 GRANT EXECUTE ON FUNCTION public.trace(text, text, text, text, text, text) TO PUBLIC;
 GRANT EXECUTE ON FUNCTION public.trace(text, text, text, text, text, text) TO app_user;
 GRANT EXECUTE ON FUNCTION public.trace(text, text, text, text, text, text) TO postgres;
-*/
-
-/*
+ 
+ 
 -- FUNCTION: public.create_log_table(text)
 
 -- DROP FUNCTION IF EXISTS public.create_log_table(text); NB. lowercase
@@ -78,9 +73,8 @@ BEGIN
     END IF;
 END;
 $BODY$;
-*/
+ 
 
-/*
 -- FUNCTION: public.trace(text, text, text, text, text, text)
 
 -- DROP FUNCTION IF EXISTS public.trace(text, text, text, text, text, text);
@@ -129,66 +123,61 @@ END;
 $BODY$;
 */
 
+public class LogSinkDb {
+    private Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
+    private PreparedStatement pstmt = null; // Stored as an instance field
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private String logTableName = null;
 
-
-
-    // entry point
-    public static void LogSinkDb_test(String[] args) {
-        // Update connection string, user, and password to match your PostgreSQL instance
-        String url = "jdbc:postgresql://localhost:5432/logging";
-        String user = "app_user";
-        String password = "application-user";
-        String logTableName = "app_activity_log";
-        // SQL statements calling the PostgreSQL functions we ported
-        String createTableSql = "SELECT create_log_table(?)";
-        String traceSql = "SELECT trace(?, ?, ?, ?, ?, ?)";
-        // -- logging tools:
-        // Define your pattern for date-time : // Output looks like: 2026-10-20 13:15:00        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = LocalDateTime.now().format(formatter);
-       
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            System.out.println("Connected to PostgreSQL database successfully.");
-
-            // 1. Call create_log_table() once
-            try (PreparedStatement pstmt = conn.prepareStatement(createTableSql)) {
-                pstmt.setString(1, logTableName);
-                pstmt.execute();
-                System.out.println("-> Checked/Created log table: " + logTableName);
+    public LogSinkDb(String table_name) {
+        try {
+            this._ITFORS1011 = new Common.DBservice.ConnectionProviderPostgreSqlITFORS1011();
+            this.logTableName = table_name;
+            
+            // 1. Create table check
+            String createTableSql = "SELECT create_log_table(?)";
+            try (PreparedStatement initStmt = _ITFORS1011.getConnection().prepareStatement(createTableSql)) {
+                initStmt.setString(1, logTableName);
+                initStmt.execute();
             }
 
-            for (int c=1; c<= 100; c++)
-            {
-            // 2. First call to trace()
-            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
-                pstmt.setString(1, logTableName);
-                pstmt.setString(2, LocalDateTime.now().format(formatter) );
-                pstmt.setString(3, "INF");
-                pstmt.setString(4, "1");
-                pstmt.setString(5, "Main");
-                pstmt.setString(6, "Application initialized successfully.");
-                pstmt.execute();
-                System.out.println("-> Inserted first trace log.");
-            }
+            // 2. PREPARE THE TRACE STATEMENT ONCE AND KEEP IT STICKY
+            String traceSql = "SELECT trace(?, ?, ?, ?, ?, ?)";
+            this.pstmt = _ITFORS1011.getConnection().prepareStatement(traceSql);
 
-            // 3. Second call to trace()
-            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
-                pstmt.setString(1, logTableName);
-                pstmt.setString(2, LocalDateTime.now().format(formatter) );
-                pstmt.setString(3, "DBG");
-                pstmt.setString(4, "2");
-                pstmt.setString(5, "ConnectModule");
-                pstmt.setString(6, "Sub-system modules loaded and verified.");
-                pstmt.execute();
-                System.out.println("-> Inserted second trace log.");
-            }
-           
-            }// for
-
-        } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Error initializing LogSinkDb: " + ex.getMessage());
         }
-    }//main
-   
-}// class
+    }
+
+    public void trace(String row_nature, String stack_depth, String function_name, String log_content) {
+        try {
+            // Re-using the pre-compiled statement (Zero preparation overhead inside the loop!)
+            pstmt.setString(1, this.logTableName);
+            pstmt.setString(2, LocalDateTime.now().format(formatter));
+            pstmt.setString(3, row_nature);
+            pstmt.setString(4, stack_depth);
+            pstmt.setString(5, function_name);
+            pstmt.setString(6, log_content);
+            
+            pstmt.execute();
+        } catch (Exception ex) {
+            System.out.println("Failed to write trace log: " + ex.getMessage());
+        }
+    }
+
+    public void dispose() {
+        try {
+            // Close the reusable statement first
+            if (this.pstmt != null) {
+                this.pstmt.close();
+            }
+            // Then close the underlying connection
+            if (this._ITFORS1011 != null) {
+                _ITFORS1011.closeConnection();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error during dispose: " + ex.getMessage());
+        }
+    }
+}

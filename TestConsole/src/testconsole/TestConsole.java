@@ -2,6 +2,7 @@
 package testconsole;
 
 
+import Common.Log.LogSinkDb;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,7 +44,7 @@ public class TestConsole
            catch (Throwable t) {
                 // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
                 System.out.println("Something catastrophic happened: " + t.getMessage());
-            }            
+            }
 
             for (int c=1; c<= 100; c++)
             {
@@ -77,7 +78,7 @@ public class TestConsole
            catch (Throwable t) {
                 // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
                 System.out.println("Something catastrophic happened: " + t.getMessage());
-            }            
+            }// catch
            
             }// for        
             
@@ -87,27 +88,34 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
+        //Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
 
-        boolean isValid_conn = false;
+        Common.Log.LogSinkDb sdb = null;
         try 
         {
-            _ITFORS1011 = new Common.DBservice.ConnectionProviderPostgreSqlITFORS1011();
-            isValid_conn = _ITFORS1011.getConnection().isValid(0);// infinite timeout.
-            int i = 2+3;//dbg step here
-            loopSinkDb( _ITFORS1011.getConnection());
-        } 
-//        catch (ClassNotFoundException cnfex)
-//        {
-//            System.out.println(cnfex.getMessage());
-//        }
+//            _ITFORS1011 = new Common.DBservice.ConnectionProviderPostgreSqlITFORS1011();
+//            isValid_conn = _ITFORS1011.getConnection().isValid(0);// infinite timeout.
+//            int i = 2+3;//dbg step here
+//            loopSinkDb( _ITFORS1011.getConnection());
+            sdb = new LogSinkDb("giunone");
+            for(int c=0; c<100; c++)
+            {
+                sdb.trace(
+                        "t", // row nature
+                        "1",// stack_depth
+                        "main", // caller
+                        "log-message-body: step nr. "+c // body
+                );
+            }
+        }// try
         catch (Exception ex) 
         {
             System.out.println(ex.getMessage());
         }
-        if(isValid_conn)
+        finally
         {
-            _ITFORS1011.closeConnection();  
+            sdb.dispose();
+
         }// else already closed.
 
     }// main
