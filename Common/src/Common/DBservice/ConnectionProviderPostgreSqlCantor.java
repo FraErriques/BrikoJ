@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Common.DBservice;
 
 import java.io.IOException;
@@ -38,9 +35,14 @@ public class ConnectionProviderPostgreSqlCantor {
         }
 
         try {
-            String url = props.getProperty("db.url");
-            String user = props.getProperty("db.user");
-            String password = props.getProperty("db.password");
+            // ==========================================
+            // Selecting a specific host dynamically
+            // ==========================================
+            String targetHost = "Cantor"; // Could be passed as an argument: "host1" or "host2"
+
+            String url = props.getProperty("db." + targetHost + ".url");
+            String user = props.getProperty("db." + targetHost + ".user");
+            String password = props.getProperty("db." + targetHost + ".password");            
             
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connection to database Cantor::logging opened successfully");

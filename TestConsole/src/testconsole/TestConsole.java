@@ -2,9 +2,10 @@
 package testconsole;
 
 
+import Common.Log.LogSinkDb;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
+// import java.sql.DriverManager; job done in Common::
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,93 +22,39 @@ public class TestConsole
         
     }
     
-    public static void loopSinkDb(Connection conn)
-    {
-       // SQL statements calling the PostgreSQL functions we ported
-        String createTableSql = "SELECT create_log_table(?)";
-        String traceSql = "SELECT trace(?, ?, ?, ?, ?, ?)";
-        // -- logging tools:
-        // Define your pattern for date-time : // Output looks like: 2026-10-20 13:15:00        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = LocalDateTime.now().format(formatter);
-        String logTableName = "giove";
-       
- 
-
-            // 1. Call create_log_table() once
-            try (PreparedStatement pstmt = conn.prepareStatement(createTableSql)) {
-                pstmt.setString(1, logTableName);
-                pstmt.execute();
-                System.out.println("-> Checked/Created log table: " + logTableName);
-            }
-           catch (Throwable t) {
-                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
-                System.out.println("Something catastrophic happened: " + t.getMessage());
-            }            
-
-            for (int c=1; c<= 100; c++)
-            {
-            // 2. First call to trace()
-            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
-                pstmt.setString(1, logTableName);
-                pstmt.setString(2, LocalDateTime.now().format(formatter) );
-                pstmt.setString(3, "INF");
-                pstmt.setString(4, "1");
-                pstmt.setString(5, "Main");
-                pstmt.setString(6, "Application initialized successfully.");
-                pstmt.execute();
-                System.out.println("-> Inserted first trace log.");
-            }
-           catch (Throwable t) {
-                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
-                System.out.println("Something catastrophic happened: " + t.getMessage());
-            }            
-
-            // 3. Second call to trace()
-            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
-                pstmt.setString(1, logTableName);
-                pstmt.setString(2, LocalDateTime.now().format(formatter) );
-                pstmt.setString(3, "DBG");
-                pstmt.setString(4, "2");
-                pstmt.setString(5, "ConnectModule");
-                pstmt.setString(6, "Sub-system modules loaded and verified.");
-                pstmt.execute();
-                System.out.println("-> Inserted second trace log.");
-            }
-           catch (Throwable t) {
-                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
-                System.out.println("Something catastrophic happened: " + t.getMessage());
-            }            
-           
-            }// for        
-            
-
-    }// loopSinkDb
+//            _ITFORS1011 = new Common.DBservice.ConnectionProviderPostgreSqlITFORS1011();
+//            isValid_conn = _ITFORS1011.getConnection().isValid(3);// infinite timeout.
+//            int i = 2+3;//dbg step here
+//            loopSinkDb( _ITFORS1011.getConnection());    
+//
 
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
-        Common.DBservice.ConnectionProviderPostgreSqlCantor cantor = null;
+        //Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
 
-        boolean isValid_conn = false;
+        Common.Log.LogSinkDb sdb = null;
         try 
         {
-            cantor = new Common.DBservice.ConnectionProviderPostgreSqlCantor();
-            isValid_conn = cantor.getConnection().isValid(0);// infinite timeout.
-            int i = 2+3;//dbg step here
-            loopSinkDb( cantor.getConnection());
-        } 
-//        catch (ClassNotFoundException cnfex)
-//        {
-//            System.out.println(cnfex.getMessage());
-//        }
+            sdb = new LogSinkDb("giunone");
+            for(int c=0; c<100; c++)
+            {
+                sdb.trace(
+                        "t", // row nature
+                        "1",// stack_depth
+                        "main", // caller
+                        "log-message-body: step nr. "+c // body
+                );
+            }
+        }// try
         catch (Exception ex) 
         {
             System.out.println(ex.getMessage());
         }
-        if(isValid_conn)
+        finally
         {
-            cantor.closeConnection();  
+            sdb.dispose();
+
         }// else already closed.
 
     }// main
@@ -120,8 +67,71 @@ public class TestConsole
         
 
 
-//
+
 ///*  ------------------------------- cantina ------------------------------------------
+///
+///    public static void loopSinkDb(Connection conn)
+//    {
+//       // SQL statements calling the PostgreSQL functions we ported
+//        String createTableSql = "SELECT create_log_table(?)";
+//        String traceSql = "SELECT trace(?, ?, ?, ?, ?, ?)";
+//        // -- logging tools:
+//        // Define your pattern for date-time : // Output looks like: 2026-10-20 13:15:00        
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        String formattedDate = LocalDateTime.now().format(formatter);
+//        String logTableName = "mercurio";
+//       
+// 
+//
+//            // 1. Call create_log_table() once
+//            try (PreparedStatement pstmt = conn.prepareStatement(createTableSql)) {
+//                pstmt.setString(1, logTableName);
+//                pstmt.execute();
+//                System.out.println("-> Checked/Created log table: " + logTableName);
+//            }
+//           catch (Throwable t) {
+//                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
+//                System.out.println("Something catastrophic happened: " + t.getMessage());
+//            }
+//
+//            for (int c=1; c<= 100; c++)
+//            {
+//            // 2. First call to trace()
+//            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
+//                pstmt.setString(1, logTableName);
+//                pstmt.setString(2, LocalDateTime.now().format(formatter) );
+//                pstmt.setString(3, "INF");
+//                pstmt.setString(4, "1");
+//                pstmt.setString(5, "Main");
+//                pstmt.setString(6, "Application initialized successfully.");
+//                pstmt.execute();
+//                System.out.println("-> Inserted first trace log.");
+//            }
+//           catch (Throwable t) {
+//                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
+//                System.out.println("Something catastrophic happened: " + t.getMessage());
+//            }            
+//
+//            // 3. Second call to trace()
+//            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
+//                pstmt.setString(1, logTableName);
+//                pstmt.setString(2, LocalDateTime.now().format(formatter) );
+//                pstmt.setString(3, "DBG");
+//                pstmt.setString(4, "2");
+//                pstmt.setString(5, "ConnectModule");
+//                pstmt.setString(6, "Sub-system modules loaded and verified.");
+//                pstmt.execute();
+//                System.out.println("-> Inserted second trace log.");
+//            }
+//           catch (Throwable t) {
+//                // Catches Exception AND severe system Errors (like OutOfMemoryError or StackOverflowError)
+//                System.out.println("Something catastrophic happened: " + t.getMessage());
+//            }// catch
+//           
+//            }// for        
+//            
+//
+//    }// loopSinkDb
 ///
 ///        // test from the Riemann new on 2026-October-10
 //        // X x = new X();

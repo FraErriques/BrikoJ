@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
 <project name="Common" default="default" basedir=".">
     <description>Builds, tests, and runs the project Common.</description>
     <import file="nbproject/build-impl.xml"/>
 
-    <!-- 
-      -post-compile runs automatically right after NetBeans compiles your .java files.
-      We use this hook to copy your config files into the build output directory.
-    -->
-    <target name="-post-compile">
-        <copy todir="${build.classes.dir}">
-            <fileset dir="config"/>
-        </copy>
+    <!-- ================================================= -->
+    <!-- Custom Initialization: Load Database Properties   -->
+    <!-- ================================================= -->
+    <target name="-post-init">
+        <!-- Load database configuration properties with host prefixes -->
+        <property file="config/database.properties"/>
+        
+        <!-- Optional verification message during build initialization -->
+        <echo message="Database properties successfully loaded into Ant."/>
     </target>
+    <target name="-post-compile">
+        <!-- Copy database.properties into the build output directory so the classpath can find it -->
+        <copy file="config/database.properties" todir="${build.classes.dir}" failonerror="true"/>
+    </target>    
 
+    <!--
+    [Existing template comments remain untouched below...]
+    -->
 </project>

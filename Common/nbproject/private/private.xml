@@ -11,6 +11,9 @@
         <group name="BrikoJ">
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/Log/LogSinkDb.java</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/ConnectionProviderPostgreSqlCantor.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/build.xml</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/ConnectionProviderPostgreSqlITFORS1011.java</file>
+            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/config/database.properties</file>
         </group>
     </open-files>
 </project-private>

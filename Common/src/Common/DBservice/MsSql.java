@@ -36,11 +36,15 @@ public class MsSql
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(connUrl);
         }
+        catch( ClassNotFoundException cnf)
+        {
+            cnf.printStackTrace();
+            System.err.println(cnf.getClass().getName()+": "+cnf.getMessage());        
+        }
         catch( Exception e)
         {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
         }
         System.out.println(" Connection to database opened successfully");        
     }// Ctor

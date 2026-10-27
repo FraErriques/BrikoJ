@@ -14,16 +14,17 @@ dist/
 *.exe
 *.dll
 *.class
+*.bak
 
 # --- IDE & Private User Settings ---
-# Automatically covers all submodules (Common, Entity, Jprime, etc.)
+# Ignores NetBeans private folders across ALL subprojects
 **/nbproject/private/
 **/nbproject/project.xml
 private.properties.xml
 local.properties
 *.local.xml
 
-# Eclipse & IntelliJ (if used)
+# Eclipse & IntelliJ (if used by any contributor)
 .idea/
 *.iml
 .project
