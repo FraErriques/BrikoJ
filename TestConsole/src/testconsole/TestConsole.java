@@ -3,12 +3,18 @@ package testconsole;
 
 
 import Common.Log.LogSinkDb;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+//import test.ConfigFileHowto.ConfigLoader;   ??
+
 
 
 
@@ -16,6 +22,34 @@ import java.time.format.DateTimeFormatter;
 
 public class TestConsole
 {
+    
+
+private static class ConfigLoader {
+    
+    public void read_AppConfig() {
+        try {
+            File xmlFile = new File("AppConfig.xml");
+            
+            // 1. Create a factory and builder
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            
+            // 2. Parse the entire file into memory as a DOM tree
+            Document doc = dBuilder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+            
+            // 3. Extract configuration values safely
+            String serverIp = doc.getElementsByTagName("Path").item(0).getTextContent();
+            //int port = Integer.parseInt(doc.getElementsByTagName("port").item(0).getTextContent());
+            
+            System.out.println("Server IP: " + serverIp);
+            //System.out.println("Server Port: " + port);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}// class    
 
     private static class X
     {// static class is allowed in Java, only on nested classes.
@@ -88,8 +122,11 @@ public class TestConsole
     /******************* EntryPoint ****************************/
     public static void main(String[] args) throws IOException 
     {
+        ConfigLoader domAcquirer = new ConfigLoader();
+        domAcquirer.read_AppConfig();
+        
+        /*
         //Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
-
         Common.Log.LogSinkDb sdb = null;
         try 
         {
@@ -117,6 +154,7 @@ public class TestConsole
             sdb.dispose();
 
         }// else already closed.
+        */
 
     }// main
 

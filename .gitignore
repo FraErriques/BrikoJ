@@ -23,6 +23,13 @@ dist/
 private.properties.xml
 local.properties
 *.local.xml
+# NetBeans specific
+/nbproject/private/
+/nbproject/genfiles.properties
+/build/
+/dist/
+/nbbuild/
+/.nb-configuration/
 
 # Eclipse & IntelliJ (if used by any contributor)
 .idea/

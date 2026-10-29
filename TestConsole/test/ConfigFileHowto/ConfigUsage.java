@@ -1,5 +1,5 @@
 
-package ConfigFileHowto;
+package test.ConfigFileHowto;
 
 
 /**
