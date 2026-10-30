@@ -22,7 +22,13 @@ import org.w3c.dom.Document;
 
 public class TestConsole
 {
-    
+/*  TODO
+ use the AppConfig.xml for heterogeneous record-layouts:
+load the DOM and ask the parser for desired nodes.
+The ConnectionProvider will receive the fields : server,db.
+The LogSinkDb will receive: server, table_name.
+The db-creation and user grant script has to be reviewed and commited to Git.
+ */    
 
 private static class ConfigLoader {
     
