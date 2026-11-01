@@ -36,7 +36,11 @@ public class TestConsole
         Common.Log.LogSinkDb sdb = null;
         try 
         {
-            sdb = new LogSinkDb("giunone");
+            Common.DBservice.ConnectionProviderPostgreSqlCantor _c = new Common.DBservice.ConnectionProviderPostgreSqlCantor();
+            //(String tableName, String serverName, String dbUrl, String user, String password)
+            sdb = new LogSinkDb("venere","Cantor",
+                    "jdbc:postgresql://app_user:application-user@Cantor:5432/postgres?search_path=logging",
+                    "app_user","application-user");
             for(int c=0; c<100; c++)
             {
                 sdb.trace(
