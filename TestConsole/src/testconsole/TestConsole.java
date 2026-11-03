@@ -36,15 +36,18 @@ public class TestConsole
         Common.Log.LogSinkDb sdb = null;
         try 
         {
-            Common.DBservice.ConnectionProviderPostgreSqlCantor _c = new Common.DBservice.ConnectionProviderPostgreSqlCantor();
-            //(String tableName, String serverName, String dbUrl, String user, String password)
-            sdb = new LogSinkDb("venere","Cantor",
-                    "jdbc:postgresql://app_user:application-user@Cantor:5432/postgres?search_path=logging",
+//            Common.DBservice.ConnectionProviderPostgres _c = new Common.DBservice.ConnectionProviderPostgres("Cantor",
+//                    "jdbc:postgresql://Cantor:5432/logging?currentSchema=logging", //dbUrl
+//                    "app_user",
+//                    "application-user" //  password
+//            );            //(String tableName, String serverName, String dbUrl, String user, String password)
+            sdb = new LogSinkDb("mercurio","Cantor",
+                    "jdbc:postgresql://Cantor:5432/logging?currentSchema=logging", //dbUrl
                     "app_user","application-user");
-            for(int c=0; c<100; c++)
+            for(int c=0; c<5; c++)
             {
                 sdb.trace(
-                        "t", // row nature
+                        "Java", // row nature
                         "1",// stack_depth
                         "main", // caller
                         "log-message-body: step nr. "+c // body

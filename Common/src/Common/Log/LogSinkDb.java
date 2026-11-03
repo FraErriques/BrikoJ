@@ -10,12 +10,11 @@ import Common.DBservice.ConnectionProviderPostgres;
 
 
 
-
-/************************************************************
-A Logging class, on the Sink DataBase.
-* follow the db-scripts, to be executed prior to use the application layer:
-* 
-* -- Connect to 'postgres' or 'template1' first, then:
+// ==========================================
+// 2. LogSinkDb Class: prior usage, let PostgreSql administrator(i.e. postgres) run this script:
+// ==========================================
+/*
+-- Connect to database 'postgres' as superuser 'postgres' first, then:
 --DROP DATABASE IF EXISTS logging WITH (FORCE);
 
 -- =========================================================================
@@ -23,11 +22,17 @@ A Logging class, on the Sink DataBase.
 -- Run this script as a superuser (e.g., postgres) prior to application startup.
 -- =========================================================================
 
--- 1. Create the dedicated schema (and optional database if creating from scratch)
--- CREATE DATABASE logging; -- Uncomment if a brand-new database is desired
-CREATE SCHEMA IF NOT EXISTS logging;
-
--- 2. Create the dedicated least-privilege user
+-- 1. Create the dedicated database, if creating from scratch:
+CREATE DATABASE logging; 
+then open a connection as  superuser 'postgres' to database 'logging'
+then check to be connected to db=logging with user=postgres:
+select current_user;
+select current_user,session_user;
+select current_database();
+select current_schema();
+CREATE SCHEMA IF NOT EXISTS logging;//-----NB.------
+set search_path to logging;
+-- Create your least-privilege user
 DO $$
 BEGIN
    IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'app_user') THEN
@@ -35,14 +40,7 @@ BEGIN
    END IF;
 END
 $$;
-
--- 3. Revoke default public schema access and grant strict isolation to logging schema
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
 GRANT USAGE, CREATE ON SCHEMA logging TO app_user;
-
--- Ensure app_user cannot traverse or access other schemas (like public)
-REVOKE ALL ON SCHEMA public FROM app_user;
-
 
 -- =========================================================================
 -- 4. FUNCTION: logging.create_log_table(text)
@@ -66,7 +64,7 @@ BEGIN
             'CREATE TABLE logging.%I ('
             '    id SERIAL PRIMARY KEY, '
             '    when_time TIMESTAMPTZ NOT NULL, '
-            '    row_nature CHAR(3) NOT NULL, '
+            '    row_nature VARCHAR(5) NOT NULL, '
             '    stack_depth VARCHAR(5) NOT NULL, '
             '    function_name VARCHAR(50) NOT NULL, '
             '    log_content VARCHAR(7919) NOT NULL'
@@ -81,7 +79,7 @@ END;
 $BODY$;
 
 ALTER FUNCTION logging.create_log_table(text) OWNER TO postgres;
-
+--
 
 -- =========================================================================
 -- 5. FUNCTION: logging.trace(text, text, text, text, text, text)
@@ -127,10 +125,10 @@ BEGIN
     END IF;
 END;
 $BODY$;
-
+--
 ALTER FUNCTION logging.trace(text, text, text, text, text, text) OWNER TO postgres;
 GRANT EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) TO app_user;
-
+--
 
 -- =========================================================================
 -- 6. PERMISSIONS ASSIGNMENT
@@ -142,7 +140,7 @@ GRANT EXECUTE ON FUNCTION logging.create_log_table(text) TO postgres;
 REVOKE EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) TO app_user;
 GRANT EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) TO postgres;
-
+--
 */
 
 import java.sql.Connection;
