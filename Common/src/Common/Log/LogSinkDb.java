@@ -6,61 +6,65 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import Common.DBservice.ConnectionProviderPostgres;
 
 
 
+// ==========================================
+// 2. LogSinkDb Class: prior usage, let PostgreSql administrator(i.e. postgres) run this script:
+// ==========================================
+/*
+-- Connect to database 'postgres' as superuser 'postgres' first, then:
+--DROP DATABASE IF EXISTS logging WITH (FORCE);
 
+-- =========================================================================
+-- DBA SETUP SCRIPT FOR LOGGING INFRASTRUCTURE
+-- Run this script as a superuser (e.g., postgres) prior to application startup.
+-- =========================================================================
 
-/************************************************************
-A Logging class, on the Sink DataBase.
-* follow the db-scripts, to be executed prior to use the application layer:
-* 
-* 
-1) create database logging NB. lowercase
-2) FUNCTION public.create_log_table(text)
-3) :
-ALTER FUNCTION public.create_log_table(text)
-    OWNER TO postgres;
---  NB. Grant USAGE and CREATE permissions on the public schema
-GRANT USAGE, CREATE ON SCHEMA public TO app_user;
-GRANT ALL ON SCHEMA public TO app_user;
-GRANT EXECUTE ON FUNCTION public.create_log_table(text) TO PUBLIC;
-GRANT EXECUTE ON FUNCTION public.create_log_table(text) TO app_user;
-GRANT EXECUTE ON FUNCTION public.create_log_table(text) TO postgres;
-4) :
-ALTER FUNCTION public.trace(text, text, text, text, text, text)
-    OWNER TO postgres;
-GRANT EXECUTE ON FUNCTION public.trace(text, text, text, text, text, text) TO PUBLIC;
-GRANT EXECUTE ON FUNCTION public.trace(text, text, text, text, text, text) TO app_user;
-GRANT EXECUTE ON FUNCTION public.trace(text, text, text, text, text, text) TO postgres;
- 
- 
--- FUNCTION: public.create_log_table(text)
+-- 1. Create the dedicated database, if creating from scratch:
+CREATE DATABASE logging; 
+then open a connection as  superuser 'postgres' to database 'logging'
+then check to be connected to db=logging with user=postgres:
+select current_user;
+select current_user,session_user;
+select current_database();
+select current_schema();
+CREATE SCHEMA IF NOT EXISTS logging;//-----NB.------
+set search_path to logging;
+-- Create your least-privilege user
+DO $$
+BEGIN
+   IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'app_user') THEN
+      CREATE ROLE app_user LOGIN PASSWORD 'application-user';
+   END IF;
+END
+$$;
+GRANT USAGE, CREATE ON SCHEMA logging TO app_user;
 
--- DROP FUNCTION IF EXISTS public.create_log_table(text); NB. lowercase
-
-CREATE OR REPLACE FUNCTION public.create_log_table(
-logname text)
+-- =========================================================================
+-- 4. FUNCTION: logging.create_log_table(text)
+-- =========================================================================
+CREATE OR REPLACE FUNCTION logging.create_log_table(logname text)
     RETURNS void
     LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
+    SECURITY DEFINER -- Ensures DDL executes with owner privileges safely
+    SET search_path = logging, pg_temp
 AS $BODY$
 DECLARE
-    cmd text;
     table_exists text;
+    cmd text;
 BEGIN
-    -- Check if the table already exists in the current schema
-    -- (equivalent to checking OBJECT_ID(@logname) IS NULL)
-    SELECT TO_REGCLASS(logname) INTO table_exists;
+    -- Strong check using format('%I', ...) to prevent SQL injection
+    SELECT TO_REGCLASS(format('%I', logname)) INTO table_exists;
 
     IF table_exists IS NULL THEN
-        -- Construct the dynamic SQL statement to create the table
+        -- Construct the dynamic SQL statement to create the table in 'logging' schema
         cmd := format(
-            'CREATE TABLE %I ('
+            'CREATE TABLE logging.%I ('
             '    id SERIAL PRIMARY KEY, '
-            '    when_time VARCHAR(50) NOT NULL, '
-            '    row_nature CHAR(3) NOT NULL, '
+            '    when_time TIMESTAMPTZ NOT NULL, '
+            '    row_nature VARCHAR(5) NOT NULL, '
             '    stack_depth VARCHAR(5) NOT NULL, '
             '    function_name VARCHAR(50) NOT NULL, '
             '    log_content VARCHAR(7919) NOT NULL'
@@ -73,38 +77,38 @@ BEGIN
     END IF;
 END;
 $BODY$;
- 
 
--- FUNCTION: public.trace(text, text, text, text, text, text)
+ALTER FUNCTION logging.create_log_table(text) OWNER TO postgres;
+--
 
--- DROP FUNCTION IF EXISTS public.trace(text, text, text, text, text, text);
-
-CREATE OR REPLACE FUNCTION public.trace(
-logname text,
-when_time text,
-row_nature text,
-stack_depth text,
-function_name text,
-log_content text)
+-- =========================================================================
+-- 5. FUNCTION: logging.trace(text, text, text, text, text, text)
+-- =========================================================================
+CREATE OR REPLACE FUNCTION logging.trace(
+    logname text,
+    when_time text,
+    row_nature text,
+    stack_depth text,
+    function_name text,
+    log_content text)
     RETURNS void
     LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
+    SECURITY DEFINER
+    SET search_path = logging, pg_temp
 AS $BODY$
 DECLARE
     table_exists text;
     cmd text;
 BEGIN
-    -- Check if the table exists in the database
-    -- (equivalent to checking OBJECT_ID('Logging..' + @logname) IS NOT NULL)
-    SELECT TO_REGCLASS(logname) INTO table_exists;
+    -- Strong check using format('%I', ...) to verify table existence safely
+    SELECT TO_REGCLASS(format('%I', logname)) INTO table_exists;
 
     IF table_exists IS NOT NULL THEN
-        -- Construct the dynamic INSERT statement safely using %I for table name
-        -- and %L for string literals (escaping quotes automatically)
+        -- Construct the dynamic INSERT statement safely using %I for table name 
+        -- and %L for string literals / timestamp formatting
         cmd := format(
-            'INSERT INTO %I (when_time, row_nature, stack_depth, function_name, log_content) '
-            'VALUES (%L, %L, %L, %L, %L)',
+            'INSERT INTO logging.%I (when_time, row_nature, stack_depth, function_name, log_content) '
+            'VALUES (%L::TIMESTAMPTZ, %L, %L, %L, %L)',
             logname,
             when_time,
             row_nature,
@@ -116,68 +120,91 @@ BEGIN
         -- Execute the dynamic insert command
         EXECUTE cmd;
     ELSE
-        -- Required table not found -> do nothing (matches your T-SQL logic)
+        -- Required table not found -> do nothing
         NULL;
     END IF;
 END;
 $BODY$;
+--
+ALTER FUNCTION logging.trace(text, text, text, text, text, text) OWNER TO postgres;
+GRANT EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) TO app_user;
+--
+
+-- =========================================================================
+-- 6. PERMISSIONS ASSIGNMENT
+-- =========================================================================
+REVOKE EXECUTE ON FUNCTION logging.create_log_table(text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION logging.create_log_table(text) TO app_user;
+GRANT EXECUTE ON FUNCTION logging.create_log_table(text) TO postgres;
+
+REVOKE EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) TO app_user;
+GRANT EXECUTE ON FUNCTION logging.trace(text, text, text, text, text, text) TO postgres;
+--
 */
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class LogSinkDb {
-    private Common.DBservice.ConnectionProviderPostgreSqlITFORS1011 _ITFORS1011 = null;
-    private PreparedStatement pstmt = null; // Stored as an instance field
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private String logTableName = null;
+    private final ConnectionProviderPostgres provider;
+    private final String logTableName;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public LogSinkDb(String table_name) {
-        try {
-            this._ITFORS1011 = new Common.DBservice.ConnectionProviderPostgreSqlITFORS1011();
-            this.logTableName = table_name;
-            
-            // 1. Create table check
-            String createTableSql = "SELECT create_log_table(?)";
-            try (PreparedStatement initStmt = _ITFORS1011.getConnection().prepareStatement(createTableSql)) {
-                initStmt.setString(1, logTableName);
-                initStmt.execute();
-            }
+    public LogSinkDb(String tableName, String serverName, String dbUrl, String user, String password) {
+        this.provider = new ConnectionProviderPostgres(serverName, dbUrl, user, password);
+        this.logTableName = tableName;
 
-            // 2. PREPARE THE TRACE STATEMENT ONCE AND KEEP IT STICKY
-            String traceSql = "SELECT trace(?, ?, ?, ?, ?, ?)";
-            this.pstmt = _ITFORS1011.getConnection().prepareStatement(traceSql);
+        System.out.println("Database connection initialized for table: " + logTableName);
 
-        } catch (Exception ex) {
-            System.out.println("Error initializing LogSinkDb: " + ex.getMessage());
+        // Call logging.create_log_table(?) once upon initialization
+        String createTableSql = "SELECT logging.create_log_table(?)";
+        Connection conn = provider.getConnection();
+        
+        if (conn == null) {
+            throw new RuntimeException("Failed to obtain active connection for table creation.");
         }
-    }
 
-    public void trace(String row_nature, String stack_depth, String function_name, String log_content) {
-        try {
-            // Re-using the pre-compiled statement (Zero preparation overhead inside the loop!)
-            pstmt.setString(1, this.logTableName);
-            pstmt.setString(2, LocalDateTime.now().format(formatter));
-            pstmt.setString(3, row_nature);
-            pstmt.setString(4, stack_depth);
-            pstmt.setString(5, function_name);
-            pstmt.setString(6, log_content);
-            
+        try (PreparedStatement pstmt = conn.prepareStatement(createTableSql)) {
+            pstmt.setString(1, logTableName);
             pstmt.execute();
-        } catch (Exception ex) {
-            System.out.println("Failed to write trace log: " + ex.getMessage());
+            System.out.println("-> Checked/Created log table: " + logTableName);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to create log table: " + e.getMessage(), e);
         }
     }
 
-    public void dispose() {
+    // Trace method optimized for numerical analysis loops
+    public void trace(String rowNature, String stackDepth, String functionName, String logContent) {
+        String traceSql = "SELECT logging.trace(?, ?, ?, ?, ?, ?)";
+        String currentFormattedDate = LocalDateTime.now().format(DATE_FORMATTER);
+
+        Connection conn = provider.getConnection();
         try {
-            // Close the reusable statement first
-            if (this.pstmt != null) {
-                this.pstmt.close();
+            if (conn == null || conn.isClosed()) {
+                System.out.println("Failed to write trace log: Connection is closed or unavailable.");
+                return;
             }
-            // Then close the underlying connection
-            if (this._ITFORS1011 != null) {
-                _ITFORS1011.closeConnection();
+
+            try (PreparedStatement pstmt = conn.prepareStatement(traceSql)) {
+                pstmt.setString(1, logTableName);
+                pstmt.setString(2, currentFormattedDate);
+                pstmt.setString(3, rowNature);
+                pstmt.setString(4, stackDepth);
+                pstmt.setString(5, functionName);
+                pstmt.setString(6, logContent);
+                pstmt.execute();
             }
-        } catch (Exception ex) {
-            System.out.println("Error during dispose: " + ex.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error writing trace: " + e.getMessage());
         }
+    }
+
+    // Explicit dispose method
+    public void dispose() {
+        provider.closeConnection();
     }
 }
