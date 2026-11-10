@@ -8,20 +8,6 @@
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/scalarConfig.java</file>
             <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/ConfigurationService/vectorialConfig.java</file>
         </group>
-        <group name="BrikoJ">
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/Log/LogSinkDb.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/ConnectionProviderPostgreSqlCantor.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/build.xml</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/ConnectionProviderPostgreSqlITFORS1011.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/config/database.properties</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/ConnectionProviderPostgres/java.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/connectionProvider_postgreSql_Kronecker.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/connectionProvider_postgreSql_ITFORS1011.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/connectionProvider_postgreSql_Frechet.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/PostgreSql_ITFORS1011_.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/MsSql.java</file>
-            <file>file:/home/fra/src/GitHubSandBox/BrikoJ/Common/src/Common/DBservice/ConnectionProviderPostgres.java</file>
-        </group>
+        <group name="BrikoJ"/>
     </open-files>
 </project-private>
