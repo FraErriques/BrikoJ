@@ -55,7 +55,15 @@ public class TestConsole
                         "main", // caller
                         "log-message-body: step nr. "+c // body
                 );
-            }
+                // sleeper
+                try {
+                    Thread.sleep(3000);// milliseconds);
+                } catch (InterruptedException e) {
+                    // Restore the interrupted status
+                    Thread.currentThread().interrupt();
+                    System.err.println("Worker thread was interrupted during sleep.");
+                }
+            }// for
         }// try
         catch (Exception ex) 
         {
