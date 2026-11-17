@@ -44,7 +44,10 @@ public class TestConsole
             sdb = new LogSinkDb("mercurio","Cantor",
                     "jdbc:postgresql://Cantor:5432/logging?currentSchema=logging", //dbUrl
                     "app_user","application-user");
-            for(int c=0; c<5; c++)
+//            sdb = new LogSinkDb("mercurio","ITFORS1011",
+//                    "jdbc:postgresql://ITFORS1011:5432/logging?currentSchema=logging", //dbUrl
+//                    "app_user","application-user");
+            for(int c=0; c<50; c++)
             {
                 sdb.trace(
                         "Java", // row nature
@@ -52,7 +55,17 @@ public class TestConsole
                         "main", // caller
                         "log-message-body: step nr. "+c // body
                 );
-            }
+                // sleeper
+                try
+                {
+                    Thread.sleep(3000);// milliseconds);
+                } 
+                catch (InterruptedException e) {
+                    // Restore the interrupted status
+                    Thread.currentThread().interrupt();
+                    System.err.println("Worker thread was interrupted during sleep.");
+                }
+            }// for
         }// try
         catch (Exception ex) 
         {
